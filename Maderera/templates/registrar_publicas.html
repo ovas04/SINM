@@ -1,0 +1,95 @@
+{% extends "header_admin.html" %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1><i class="fas fa-building"></i> {{ datos.1 }}</h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="<?php echo base_url() ?>/dashboard">Home</a></li>
+							<li class="breadcrumb-item active">{{ datos.1 }}</li>
+						</ol>
+					</div>
+				</div>
+			</div><!-- /.container-fluid -->
+		</section>
+
+		<!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title mt-1">Registrar Construcción Pública</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form id="form-construc_d">
+                                        <input type="hidden" id="id_construc_d" name="id_construc_d">
+                                        <div class="mb-3">
+                                            <label for="nom_construc_d" class="form-label">Nombre:</label>
+                                            <input type="text" id="nom_construc_d" class="form-control" name="nom_construc_d" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="ubi_construc_d" class="form-label">Ubicación:</label>
+                                            <input type="text" id="ubi_construc_d" class="form-control" name="ubi_construc_d" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="dir_construc_d" class="form-label">Dirección:</label>
+                                            <input type="text" id="dir_construc_d" class="form-control" name="dir_construc_d" required>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="tipo_d" class="form-label">Tipo:</label>
+                                                <input type="text" id="tipo_d" class="form-control" name="tipo_d" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="fech_entrega_d" class="form-label">Fecha de entrega:</label>
+                                                <input type="text" id="fech_entrega_d" class="form-control" name="fech_entrega_d" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="constructora_d" class="form-label">Constructora:</label>
+                                                <input type="text" id="constructora_d" class="form-control" name="constructora_d" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="etapa_d" class="form-label">Etapa:</label>
+                                                <input type="test" id="etapa_d" class="form-control" name="etapa_d" required>
+                                          </div>
+                                        </div>
+                                        <div class="mb-3">
+                                                <label for="descri_d" class="form-label">Descripción:</label>
+                                                <textarea id="descri_d" class="form-control" name="descri_d" rows=5 required></textarea>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="financ_d" class="form-label">Financiamiento:</label>
+                                                <input type="text" id="financ_d" class="form-control" name="financ_d" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="estado_d" class="form-label">Estado:</label>
+                                                <input type="text" id="estado_d" class="form-control" name="estado_d" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                          <div class="form-group col-md-6">
+                                                <label for="contacto_d" class="form-label">Contacto:</label>
+                                                <input type="text" id="contacto_d" class="form-control" name="contacto_d" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="telef_d" class="form-label">Teléfono:</label>
+                                                <input type="text" id="telef_d" class="form-control" name="telef_d" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                          <button class="btn btn-warning">Registrar</button>
+                                        </div>
+                                      </form>
+                </div>
+            </section>
+</div>
+{% endblock %}

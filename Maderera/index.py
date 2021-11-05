@@ -32,6 +32,28 @@ def perfil():
 def usuarios():
 	return render_template("usuarios.html")
 
+@app.route("/elim_usuario")
+def eliminar_usuario():
+	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario")
+	return render_template("usuario_delete.html", datos = data)
+
+@app.route("/elim_usuario/<id_usuario>", methods=["POST"])
+def elim_usuario(id_usuario):
+	cur = mysql.connection.cursor()
+	cur.execute("delete from usuario where id_usuario=%s", [id_usuario])
+	mysql.connection.commit()
+	response = {"status":"True", "msj":"Registro de empleado elminado!"}
+	return jsonify(response)
+
+@app.route("/roles")
+def roles():
+	data = ("Roles | Nueva Era","Roles")
+	return render_template("roles.html", datos = data)
+
+@app.route("/permisos")
+def permisos():
+	data = ("Permisos | Nueva Era","Permisos")
+	return render_template("permisos.html", datos = data)
 
 #Construcciones privadas
 @app.route("/construcciones_privadas")
@@ -64,6 +86,11 @@ def list_construc_priv():
 				'<button class="btn btn-danger btn-sm btn-eli-construc" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
 				'</div>')
 	return jsonify(data)
+
+@app.route("/registrar_construcciones_privadas")
+def registrar_construcciones_privadas():
+	data = ("Registrar Construcciones Privadas | Nueva Era","Registrar Construcciones Privadas")
+	return render_template("registrar_privadas.html", datos = data)
 
 @app.route("/regis_contruc_priv")
 def regis_construc_priv():
@@ -122,6 +149,11 @@ def list_construc_pub():
 				'</div>')
 	return jsonify(data)
 	cur.connection.close();
+
+@app.route("/registrar_construcciones_publicas")
+def registrar_construcciones_publicas():
+	data = ("Registrar Construcciones Públicas | Nueva Era","Registrar Construcciones Públicas")
+	return render_template("registrar_publicas.html", datos = data)
 
 @app.route("/regis_contruc_pub")
 def regis_construc_pub():
