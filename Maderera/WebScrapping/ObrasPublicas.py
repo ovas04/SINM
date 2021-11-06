@@ -27,8 +27,8 @@ Departamentos = [
     ]
 
 
-def obtener_conexion():
-    return pymysql.connect(host="localhost",user="root",password="",db=obtener_nombre_base_datos())
+#def obtener_conexion():
+ #   return pymysql.connect(host="localhost",user="root",password="",db=obtener_nombre_base_datos())
 
 
 class ObraPublica:
@@ -116,7 +116,7 @@ for row in dataset.iterrows():
     Lista_ObrasPublicas.append(FormarObrar(row[1]['C¢digo'],row[1]['Entidad'],row[1]['Descripci¢n de la obra'],
                                            row[1]['Modalidad de ejecuci¢n'],row[1]['Estado de la obra'],row[1]['Monto de inversi¢n']))
 
-
+'''
 conexion = obtener_conexion()    
 with conexion.cursor() as cur:
     for i in range(len(Lista_ObrasPublicas)):
@@ -130,6 +130,8 @@ with conexion.cursor() as cur:
         conexion.commit()
 conexion.close()
 print("Construcciones publicas registradas correctamente!")
+'''
+
 
 """for i in range(465,467):
     print(Lista_ObrasPublicas[i].codigo_InfoObras)

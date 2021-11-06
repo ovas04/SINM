@@ -5,6 +5,7 @@ from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
 from datetime import date
 from datetime import datetime
+import urllib3
 import pymysql
 from config import obtener_nombre_base_datos
 
@@ -165,49 +166,55 @@ class construccion:
 
 
 
-def DataProperati(Link):
-    _url = 'https://www.properati.com.pe'+Link
-    html = urlopen(_url)
-    ObBs = BeautifulSoup(html,"lxml")
+#!https://stackoverflow.com/questions/36516183/what-should-i-use-to-open-a-url-instead-of-urlopen-in-urllib3
+def DataProperati(_link):
+    http = urllib3.PoolManager()
+    _url = 'https://www.properati.com.pe'+str(_link)
+    #html = urlopen(_url)
+    response = http.request('GET', _url)
+    ObBs = BeautifulSoup(response.data,'lxml') #html,"lxml"
     ConstruccionProperati = construccion()
-    #-------------------------------------------------
-    Oracion = ObBs.find('h1',{'class':"StyledTitle-mffpuc-0 efbvbW"}).get_text()
-    Oracion = Oracion.split('·')
-    v_nombre = Oracion[0].upper()
     try:
-        v_direccion = Oracion[1].upper()
-    except IndexError as e:
-        v_direccion = "NO ENCONTRADO"
-    #-------------------------------------------------------
-    Encabezado = ObBs.find_all('span',{'class':'StyledTag-c1w234-0 hCiNK'})
-    v_ubicacion = Encabezado[2].get_text().upper()
-    v_etapa =  Encabezado[1].get_text().upper()
-    #--------------------------------------------------------
-    try:
-        Encabezado = ObBs.find('div',{'class':'StyledContentSeller-sc-1yzimq1-2 fDqWgA'})
-        v_constructora= Encabezado.select('div > h2')[0].get_text(strip=True).upper()
-    except AttributeError as e:
-        v_constructora = "NO ENCONTRADA"
-    #-------------------------------------------------------------------------------
-    Encabezado = ObBs.find('div',{'class':'child-wrapper'})
-    v_descripcion = Encabezado.get_text().upper()
-
-    ConstruccionProperati.set_BaseInfo("PROPERATI",_url,v_nombre,v_direccion,
-                                v_ubicacion,"PRIVADA",v_constructora,
-                                 v_descripcion)
-    ConstruccionProperati.set_etapa(v_etapa)
-    #--------------------------------------------------------------
-    Encabezado = ObBs.find('div',{'class':'child-wrapper'})
-    Encabezado = Encabezado.select('div > p')[0].get_text().split(" ")
-    year=""
-    month = ""
-    for i in Encabezado:
-        if(i in Meses):
-            month = i
-        if(i.isdigit() and int(i)>2000):
-            year = i
-    ConstruccionProperati.fecha_culminacionProperati(year,month)
-    print("Exito")
+        #-------------------------------------------------
+        Oracion = ObBs.find('h1',{'class':"sc-fujyAs bTSNFO"}).get_text()
+        Oracion = Oracion.split('·')
+        v_nombre = Oracion[0].upper()
+        try:
+            v_direccion = Oracion[1].upper()
+        except IndexError as e:
+            v_direccion = "NO ENCONTRADO"
+        #-------------------------------------------------------
+        Encabezado = ObBs.find_all('span',{'class':'sc-bqGGPW eeFzyh'})
+        v_ubicacion = Encabezado[2].get_text().upper()
+        v_etapa =  Encabezado[1].get_text().upper()
+        #--------------------------------------------------------
+        try:
+            Encabezado = ObBs.find('div',{'class':'StyledContentSeller-sc-1yzimq1-2 fDqWgA'})
+            v_constructora= Encabezado.select('div > h2')[0].get_text(strip=True).upper()
+        except AttributeError as e:
+            v_constructora = "NO ENCONTRADA"
+        #-------------------------------------------------------------------------------
+        Encabezado = ObBs.find('div',{'class':'child-wrapper'})
+        v_descripcion = Encabezado.get_text().upper()
+    
+        ConstruccionProperati.set_BaseInfo("PROPERATI",_url,v_nombre,v_direccion,
+                                    v_ubicacion,"PRIVADA",v_constructora,
+                                     v_descripcion)
+        ConstruccionProperati.set_etapa(v_etapa)
+        #--------------------------------------------------------------
+        Encabezado = ObBs.find('div',{'class':'child-wrapper'})
+        Encabezado = Encabezado.select('div > p')[0].get_text().split(" ")
+        year=""
+        month = ""
+        for i in Encabezado:
+            if(i in Meses):
+                month = i
+            if(i.isdigit() and int(i)>2000):
+                year = i
+        ConstruccionProperati.fecha_culminacionProperati(year,month)
+        print("Exito")
+    except:
+        print("ERROR INTERNO")
     return ConstruccionProperati
 
 
@@ -216,13 +223,13 @@ ConstruccionProperati = []
 
 url= 'https://www.properati.com.pe/proyectos-inmobiliarios/q/?page=1'
 for i in range(1,7):
-    _url = 'https://www.properati.com.pe/proyectos-inmobiliarios/q/?page='+str(i)
+    _url = 'https://www.properati.com.pe/proyectos-inmobiliarios/q?page='+str(i)
     html = urlopen(_url)
     ObBs = BeautifulSoup(html,"lxml")
-    Obj = ObBs.findAll("div",{"class":"StyledCardInfo-n9541a-2 ctwAhK"})
+    Obj = ObBs.findAll("div",{"class":"StyledCard-n9541a-1 czKiDg"})
     for j in Obj:
-        j=(j.select ('div > a ')[0])
-        ConstruccionProperati.append(DataProperati(str(j.attrs['href'])))
+       j=(j.select ('div > a ')[0])
+       ConstruccionProperati.append(DataProperati(str(j.attrs['href'])))
 
 
 conexion = obtener_conexion()
