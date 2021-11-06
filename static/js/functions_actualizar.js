@@ -31,7 +31,7 @@ function actualizar_priv(){
 			if(result.isConfirmed){
 
 			}else{
-				Swal.fire("Cancelado","Tu registro está seguro :)","error");
+				Swal.fire("Cancelado","Tus registros estás seguros :)","error");
 			}
 		});
 	});
