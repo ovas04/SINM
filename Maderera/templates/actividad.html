@@ -1,6 +1,6 @@
 {% extends "header_admin.html" %}
 {% block content %}
-    <!-- Content Wrapper. Contains page content -->
+	<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -12,6 +12,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url_for('empleados') }}">Empleados</a></li>
                             <li class="breadcrumb-item active">{{ datos.1 }}</li>
                         </ol>
                     </div>
@@ -25,25 +26,67 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title mt-2">Lista de Empleados</h3>
-                        <button class="btn btn-success ml-4" data-bs-toggle="modal" data-bs-target="#modal-empleado" onclick="open_modal()"><i class="fas fa-plus-circle"></i> Nuevo</button>
+                        <h3 class="card-title">Datos del empleado</h3>
+                        <div class="card-tools">
+		                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+		                        <i class="fas fa-minus"></i>
+		                    </button>
+		                </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table id="tab_empleados" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                                    <table id="tab_info-empleado" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                                        <tbody>
+	                                        <input type="hidden" id="id_alum" name="id_alum" value="<?php echo $data['alumno']['id_persona'] ?>">
+	                                        <tr>
+	                                            <th><span class="fas fa-user-cog"></span> Empleado</th>
+	                                            <td><?php echo $data['alumno']['nom_persona']." ".$data['alumno']['ape_persona'] ?></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th><span class="fas fa-bookmark"></span> Rol</th>
+	                                            <td><?php echo $data['alumno']['nom_servicio'] ?></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th><span class="fas fa-id-card"></span> DNI</th>
+	                                            <td><?php echo $data['alumno']['especialidad'] ?></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th><span class="fas fa-envelope"></span> Correo Electrónico</th>
+	                                            <td><?php echo $data['alumno']['num_ident'] ?></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th><span class="fas fa-mobile-alt"></span> Celular</th>
+	                                            <td><?php echo $data['alumno']['telef_persona'] ?></td>
+	                                        </tr>
+                                    	</tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Actividades del empleado</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="tab_actividades" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
                                         <thead>
                                             <tr role="row">
                                                 <th>Código</th>
-                                                <th>Nombres</th>
-                                                <th>Apellidos</th>
-                                                <th>DNI</th>
-                                                <th>Fecha Nac.</th>
-                                                <th>Email</th>
-                                                <th>Teléfono</th>
-                                                <th>Rol</th>
+                                                <th>Nombre</th>
+                                                <th>Ubicación</th>
+                                                <th>Dirección</th>
+                                                <th>Fecha</th>
                                                 <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -55,6 +98,70 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="mt-3">
+                        	<div class="row">
+	                    		<div class="col-md-6 mb-2">
+		                   			<div class="progress-group">
+                                        <span>Calculos</span>
+                                        <span class="float-right">
+                                            <b id="prct">47%</b></span>
+                                        </span>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-warning progress-bar-striped" style="width: 47%;"></div>
+                                        </div>
+                                    </div>
+	                    		</div>
+	                    		<div class="col-md-6 mb-2">
+	                    			<div class="row">
+	                    				<div class="col-md-4">
+		                    				<span>Llamar atención:</span>
+		                    			</div>
+		                    			<div class="col-md-4">
+		                    				<select class="form-select form-control-sm" name="" id="">
+		                    					<option selected>Seleccione</option>
+		                    					<option value="0">Postiva</option>
+		                    					<option value="1">Negativa</option>
+		                    				</select>
+		                    			</div>
+		                    			<div class="col-md-4">
+		                    				<button class="btn btn-sm btn-outline-success"><span class="fas fa-envelope"></span> Enviar</button>
+		                    			</div>
+	                    			</div>
+	                    		</div>
+	                    	</div>
+	                    	<div class="row">
+	                    		<div class="col-md-4 mb-2">
+	                    			<div class="row">
+	                    				<div class="col-md-8">
+		                    				<span>Total construcciones:</span>
+		                    			</div>
+		                    			<div class="col-md-4">
+		                    				<span id="tot_a" class="badge badge-success">15</span>
+		                    			</div>
+	                    			</div>
+	                    		</div>
+	                    		<div class="col-md-4 mb-2">
+	                    			<div class="row">
+	                    				<div class="col-md-8">
+		                    				<span>Total públicas:</span>
+		                    			</div>
+		                    			<div class="col-md-4">
+		                    				<span id="tot_t" class="badge badge-warning">7</span>
+		                    			</div>
+	                    			</div>
+	                    		</div>
+	                    		<div class="col-md-4 mb-2">
+	                    			<div class="row">
+	                    				<div class="col-md-8">
+		                    				<span>Total privadas:</span>
+		                    			</div>
+		                    			<div class="col-md-4">
+		                    				<span id="tot_fj" class="badge badge-info">8</span>
+	                    				</div>
+	                    			</div>
+	                    		</div>
+	                    	</div>
+                    	</div>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -207,7 +314,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
+	<footer class="main-footer">
         <div class="float-right d-none d-sm-block">
             <b>Version</b> 2.0.1
         </div>
@@ -231,7 +338,7 @@
 <script src="{{url_for('static', filename='js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/dataTables.responsive.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{url_for('static', filename='js/functions_empleado.js')}}"></script>
+<script src="{{url_for('static', filename='js/functions_actividad.js')}}"></script>
 <script src="{{url_for('static', filename='js/sweetalert2.min.js')}}"></script>
 </html>
 {% endblock %}
