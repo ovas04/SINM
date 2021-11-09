@@ -2,13 +2,15 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for, f
 from flask_mysqldb import MySQL
 from datetime import datetime
 
+from config import obtener_nombre_base_datos
+
 app = Flask(__name__)
 
 #Conexion a base de datos NYSQL
-app.config["MYSQL_HOST"] = "localhost"
-app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = ""
-app.config["MYSQL_DB"] = "base_datos_constructoras2"
+app.config["MYSQL_HOST"] = "208.91.198.197"
+app.config["MYSQL_USER"] = "nueva_era"
+app.config["MYSQL_PASSWORD"] = "NuevaEra843*"
+app.config["MYSQL_DB"] = obtener_nombre_base_datos()
 mysql = MySQL(app)
 print("Conexión establecida exitosamente!")
 
@@ -36,7 +38,8 @@ def usuarios():
 
 @app.route("/roles")
 def roles():
-	return render_template("roles.html")
+	data = ("Roles | Nueva Era","Roles")
+	return render_template("roles.html", datos = data)
 
 @app.route("/actualizar")
 def actualizar():
@@ -177,10 +180,10 @@ def list_emple():
 	data = [list(i) for i in data]
 	for i in range(len(data)):
 		data[i][4] = datetime.strftime(data[i][4],"%d-%m-%Y")
-		if data[i][7] == "ACTIVO":
-			data[i][7] = '<span class="badge bg-info">Activo</span>'
+		if data[i][5] == "ACTIVO":
+			data[i][5] = '<span class="badge bg-info">Activo</span>'
 		else:
-			data[i][7] = '<span class="badge bg-danger">Culminado</span>'
+			data[i][5] = '<span class="badge bg-danger">Culminado</span>'
 
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-success btn-sm btn-usu-emple" rl="'+data[i][0]+'" title="Crear Usuario"><i class="fas fa-user-plus"></i></button> '+
@@ -245,5 +248,13 @@ def actividad(id_emple):
 def reportes():
 	return render_template("reportes.html")
 
+
+@app.route("/permisos")
+def permisos():
+	data = ("Permisos | Nueva Era","Permisos")
+	return render_template("permisos.html", datos = data)
+
 if __name__ == "__main__":
 	app.run(debug=True)
+
+
