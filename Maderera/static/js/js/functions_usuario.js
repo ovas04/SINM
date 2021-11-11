@@ -1,1 +1,0 @@
-$(".s-usuarios").css("display","block");

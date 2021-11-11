@@ -68,7 +68,7 @@ def list_construc_priv():
 			data[i][8] = '<span class="badge bg-secondary">Duda</span>'
 
 		data[i].append('<div class="text-center">'+
-				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-search"></i></button> '+
+				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
 				'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
 				'<button class="btn btn-danger btn-sm btn-eli-construc" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
 				'</div>')
@@ -125,7 +125,7 @@ def list_construc_pub():
 			data[i][6] = '<span class="badge bg-danger">Inactiva</span>'
 
 		data[i].append('<div class="text-center">'+
-				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-search"></i></button> '+
+				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
 				'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
 				'<button class="btn btn-danger btn-sm btn-eli-construc" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
 				'</div>')
