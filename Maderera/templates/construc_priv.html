@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
               <li class="breadcrumb-item active">{{ datos.1 }}</li>
             </ol>
           </div>
@@ -72,63 +72,80 @@
                               <form id="form-construc_d">
                                 <input type="hidden" id="id_construc_d" name="id_construc_d">
                                 <div class="mb-3">
-                                    <label for="nom_construc_d" class="form-label">Nombre:</label>
-                                    <input type="text" id="nom_construc_d" class="form-control" name="nom_construc_d" readonly>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ubi_construc_d" class="form-label">Ubicación:</label>
-                                    <input type="text" id="ubi_construc_d" class="form-control" name="ubi_construc_d" readonly>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="dir_construc_d" class="form-label">Dirección:</label>
-                                    <input type="text" id="dir_construc_d" class="form-control" name="dir_construc_d" readonly>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="tipo_d" class="form-label">Tipo:</label>
-                                        <input type="text" id="tipo_d" class="form-control" name="tipo_d" readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="fech_entrega_d" class="form-label">Fecha de entrega:</label>
-                                        <input type="text" id="fech_entrega_d" class="form-control" name="fech_entrega_d" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="constructora_d" class="form-label">Constructora:</label>
-                                        <input type="text" id="constructora_d" class="form-control" name="constructora_d" readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="etapa_d" class="form-label">Etapa:</label>
-                                        <input type="test" id="etapa_d" class="form-control" name="etapa_d" readonly>
+                                  <label for="nom_construc_d" class="form-label">Nombre:</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-file"></i></span>
+                                    <input type="text" id="nom_construc_d" class="form-control form-control-sm" name="nom_construc_d" readonly>
                                   </div>
                                 </div>
                                 <div class="mb-3">
-                                        <label for="descri_d" class="form-label">Descripción:</label>
-                                        <textarea id="descri_d" class="form-control" name="descri_d" rows=5 readonly></textarea>
+                                  <label for="ubi_construc_d" class="form-label">Ubicación:</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                    <input type="text" id="ubi_construc_d" class="form-control form-control-sm" name="ubi_construc_d" readonly>
+                                  </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="financ_d" class="form-label">Financiamiento:</label>
-                                        <input type="text" id="financ_d" class="form-control" name="financ_d" readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="estado_d" class="form-label">Estado:</label>
-                                        <input type="text" id="estado_d" class="form-control" name="estado_d" readonly>
-                                    </div>
+                                <div class="mb-3">
+                                  <label for="dir_construc_d" class="form-label">Dirección:</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" id="dir_construc_d" class="form-control form-control-sm" name="dir_construc_d" readonly>
+                                  </div>
                                 </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-6">
-                                        <label for="contacto_d" class="form-label">Contacto:</label>
-                                        <input type="text" id="contacto_d" class="form-control" name="contacto_d" required>
+                                    <label for="tipo_d" class="form-label">Tipo:</label>
+                                    <div class="input-group">
+                                      <span class="input-group-text"><i class="fas fa-bookmark"></i></span>
+                                      <input type="text" id="tipo_d" class="form-control form-control-sm" name="tipo_d" readonly>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="telef_d" class="form-label">Teléfono:</label>
-                                        <input type="text" id="telef_d" class="form-control" name="telef_d" required>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="fech_entrega_d" class="form-label">Fecha de entrega:</label>
+                                    <div class="input-group">
+                                      <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                      <input type="text" id="fech_entrega_d" class="form-control form-control-sm" name="fech_entrega_d" readonly>
                                     </div>
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="constructora_d" class="form-label">Constructora:</label>
+                                    <div class="input-group">
+                                      <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                      <input type="text" id="constructora_d" class="form-control form-control-sm" name="constructora_d" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="etapa_d" class="form-label">Etapa:</label>
+                                    <div class="input-group">
+                                      <span class="input-group-text"><i class="fas fa-level-up-alt"></i></span>
+                                      <input type="test" id="etapa_d" class="form-control form-control-sm" name="etapa_d" readonly>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="mb-3">
-                                  <button class="btn btn-warning">Registrar</button>
+                                  <label for="descri_d" class="form-label">Descripción:</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-file"></i></span>
+                                    <textarea id="descri_d" class="form-control form-control-sm" name="descri_d" rows=5 readonly></textarea>
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="financ_d" class="form-label">Financiamiento:</label>
+                                    <div class="input-group">
+                                      <span class="input-group-text"><i class="fas fa-coins"></i></span>
+                                      <input type="text" id="financ_d" class="form-control form-control-sm" name="financ_d" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="estado_d" class="form-label">Estado:</label>
+                                    <div class="input-group">
+                                      <span class="input-group-text"><i class="fas fa-chart-bar"></i></span>
+                                      <input type="text" id="estado_d" class="form-control form-control-sm" name="estado_d" readonly>
+                                    </div>
+                                  </div>
                                 </div>
                               </form>
                             </div>
@@ -136,34 +153,9 @@
                               <div class="mb-3">
                                 <h3>Mapa:</h3>
                                 <iframe class="mb-2" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.2953924453627!2d-77.04981878507121!3d-12.023173444735834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cf230af7b5e7%3A0x43ae74b7b59a27a0!2sUniversidad%20Nacional%20de%20Ingenier%C3%ADa!5e0!3m2!1ses!2spe!4v1623171503834!5m2!1ses!2spe" width="540" height="440" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                                <button class="btn btn-success">Marcar Construcción</button>
-                                <button class="btn btn-primary">Exportar</button>
-                                <button class="btn btn-warning">Actividad</button>
-                              </div>
-                              <div>
-                                <h3>Comentarios:</h3>
-                                <div class="post clearfix">
-                                  <div class="user-block">
-                                    <img class="img-circle img-bordered-sm" src="{{url_for('static', filename='images/user1-128x128.jpg')}}" alt="User Image">
-                                    <span class="username">
-                                      <a href="#">Anderson Nilupu Ramirez</a>
-                                      <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                                    </span>
-                                    <span class="description">Comentario enviado - 06/06/2021</span>
-                                  </div>
-                                  <!-- /.user-block -->
-                                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi dicta nesciunt error ullam reprehenderit molestiae delectus dolorum adipisci quo tempora velit, ipsum natus modi voluptatum? Dolorem, ratione, doloribus. Reprehenderit, ex?</p>
-                                  <hr>
-                                  <form class="form-horizontal">
-                                    <div class="input-group input-group-sm mb-0">
-                                      <input class="form-control form-control-sm" placeholder="Escribe un comentario">
-                                      <div class="input-group-append">
-                                        <button type="button" class="btn btn-success">Comentar</button>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
-                                <!-- /.post -->
+                                <button class="btn btn-success"><span class="fas fa-check"></span> Marcar Construcción</button>
+                                <button class="btn btn-primary"><span class="fas fa-file-export"></span> Exportar</button>
+                                <button class="btn btn-warning"><span class="fas fa-chart-line"></span> Actividad</button>
                               </div>
                             </div>
                           </div>
@@ -190,52 +182,82 @@
                           <input type="hidden" id="id_construc" name="id_construc">
                           <div class="mb-3">
                             <label for="nom_construc" class="form-label">Nombre:</label>
-                            <input type="text" id="nom_construc" class="form-control" name="nom_construc" required>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="fas fa-file"></i></span>
+                              <input type="text" id="nom_construc" class="form-control" name="nom_construc" required>
+                            </div> 
                           </div>
                           <div class="mb-3">
                             <label for="ubi_construc" class="form-label">Ubicación:</label>
-                            <input type="text" id="ubi_construc" class="form-control" name="ubi_construc" required>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                              <input type="text" id="ubi_construc" class="form-control" name="ubi_construc" required>
+                            </div>
                           </div>
                           <div class="mb-3">
                             <label for="dir_construc" class="form-label">Dirección:</label>
-                            <input type="text" id="dir_construc" class="form-control" name="dir_construc" required>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                              <input type="text" id="dir_construc" class="form-control" name="dir_construc" required>
+                            </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
                               <label for="tipo" class="form-label">Tipo:</label>
-                              <input type="text" id="tipo" class="form-control" name="tipo" required>
+                              <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-bookmark"></i></span>
+                                <input type="text" id="tipo" class="form-control" name="tipo" required>
+                              </div>
                             </div>
                             <div class="form-group col-md-6">
                               <label for="fech_entrega" class="form-label">Fecha de entrega:</label>
-                              <input type="date" id="fech_entrega" class="form-control" name="fech_entrega" required>
+                              <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                <input type="date" id="fech_entrega" class="form-control" name="fech_entrega" required>
+                              </div>
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
                               <label for="constructora" class="form-label">Constructora:</label>
-                              <input type="text" id="constructora" class="form-control" name="constructora" required>
+                              <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                <input type="text" id="constructora" class="form-control" name="constructora" required>
+                              </div>
                             </div>
                             <div class="form-group col-md-6">
                               <label for="etapa" class="form-label">Etapa:</label>
-                              <input type="test" id="etapa" class="form-control" name="etapa" required>
+                              <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-level-up-alt"></i></span>
+                                <input type="test" id="etapa" class="form-control" name="etapa" required>
+                              </div>
                             </div>
                           </div>
                           <div class="mb-3">
                             <label for="descri" class="form-label">Descripción:</label>
-                            <textarea id="descri" class="form-control" name="descri" rows=3 required></textarea>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="fas fa-file"></i></span>
+                              <textarea id="descri" class="form-control" name="descri" rows=3 required></textarea>
+                            </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
                               <label for="financ" class="form-label">Financiamiento:</label>
-                              <input type="text" id="financ" class="form-control" name="financ" required>
+                              <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-coins"></i></span>
+                                <input type="text" id="financ" class="form-control" name="financ" required>
+                              </div>
                             </div>
                             <div class="form-group col-md-6">
                               <label for="estado" class="form-label">Estado:</label>
-                              <select name="estado" id="estado" class="form-select">
-                                <option value="ACTIVA">Activa</option>
-                                <option value="DUDA">Duda</option>
-                                <option value="VENCIDA">Vencida</option>
-                              </select>
+                              <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-chart-bar"></i></span>
+                                  <select name="estado" id="estado" class="form-select">
+                                  <option value="ACTIVA">Activa</option>
+                                  <option value="DUDA">Duda</option>
+                                  <option value="VENCIDA">Vencida</option>
+                                </select>
+                              </div>
                             </div>
                           </div>
                         </form>

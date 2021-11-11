@@ -175,10 +175,10 @@ def list_emple():
 	data = [list(i) for i in data]
 	for i in range(len(data)):
 		data[i][4] = datetime.strftime(data[i][4],"%d-%m-%Y")
-		if data[i][7] == "ACTIVO":
-			data[i][7] = '<span class="badge bg-info">Activo</span>'
+		if data[i][5] == "ACTIVO":
+			data[i][5] = '<span class="badge bg-info">Activo</span>'
 		else:
-			data[i][7] = '<span class="badge bg-danger">Culminado</span>'
+			data[i][5] = '<span class="badge bg-danger">Culminado</span>'
 
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-success btn-sm btn-usu-emple" rl="'+data[i][0]+'" title="Crear Usuario"><i class="fas fa-user-plus"></i></button> '+

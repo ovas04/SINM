@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?php echo base_url() ?>/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
               <li class="breadcrumb-item active">{{ datos.1 }}</li>
             </ol>
           </div>
@@ -28,9 +28,7 @@
             <div class="card card-warning card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src=""
-                       alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="{{url_for('static', filename='images/user1-128x128.jpg')}}" alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center"></h3>
                 <p class="text-muted text-center"></p>

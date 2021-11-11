@@ -5,7 +5,7 @@ $(document).ready(function(){
 	list_construc();
 	regis_construc();
 	ver_construc();
-	coment_construc();
+	edit_construc();
 	eli_construc();
 });
 
@@ -93,7 +93,7 @@ function ver_construc(){
 	});
 }
 
-function coment_construc(){
+function edit_construc(){
 	$("#tab_constructoras").on("click",".btn-edit-construc",function(){
 		$("#modal-construc .btn-form").removeClass("btn-success").addClass("btn-primary");
 		$("#modal-construc .modal-title").text("Actualizar Construcción")
@@ -108,16 +108,16 @@ function coment_construc(){
 			if(request.status == 200){
 				var objData = JSON.parse(request.responseText);
 				$("#id_construc").val(id_construc);
-				$("#nom_construc").val(objData[3]);
-				$("#ubi_construc").val(objData[5]);
-				$("#dir_construc").val(objData[6]);
-				$("#tipo").val(objData[7]);
-				$("#fech_entrega").val(objData[9]);
-				$("#constructora").val(objData[11]);
-				$("#etapa").val(objData[4]);
-				$("#descri").val(objData[13]);
+				$("#nom_construc").val(objData[1]);
+				$("#ubi_construc").val(objData[2]);
+				$("#dir_construc").val(objData[3]);
+				$("#tipo").val(objData[4]);
+				$("#fech_entrega").val(objData[6]);
+				$("#constructora").val(objData[7]);
+				$("#etapa").val(objData[5]);
+				$("#descri").val(objData[9]);
 				$("#financ").val(objData[10]);
-				$("#estado").val(objData[14]);
+				$("#estado").val(objData[8]);
 			}
 		}
 	});
