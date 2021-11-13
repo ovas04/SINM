@@ -6,9 +6,8 @@ Created on Sat May 15 07:12:07 2021
 """
 from datetime import date
 from datetime import datetime
-import pymysql
 import math
-from config import obtener_nombre_base_datos
+
 
 Departamentos = [
     'LIMA','TUMBES',
