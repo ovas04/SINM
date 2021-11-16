@@ -230,7 +230,7 @@ def regis_emple():
 		return jsonify(response)
 		cur.connection.close();
 
-#! AQUI !
+#! AQUI  SE DEBE AGREGAR SEXO  
 
 @app.route("/buscar_empleado/<id_emple>", methods=["GET"])
 def buscar_emple(id_emple):
