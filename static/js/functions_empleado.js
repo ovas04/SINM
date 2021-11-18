@@ -95,7 +95,7 @@ function ver_empleado(){
 }
 
 
-
+//! NUEVO EDITAR EMPLEADO
 function edit_empleado(){
 	$("#tab_empleados").on("click",".btn-edit-emple",function(){
 		$("#modal-empleado .btn-form").removeClass("btn-success").addClass("btn-primary");
@@ -104,7 +104,7 @@ function edit_empleado(){
 		$("#modal-empleado").modal("show");
 		var id_emple = this.getAttribute("rl");
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-		var ajaxUrl = "/buscar_emple/"+id_emple;
+		var ajaxUrl = "/edi_emple/"+id_emple;
 		request.open("GET",ajaxUrl,true);
 		request.send();
 		request.onload = function(){
@@ -115,9 +115,9 @@ function edit_empleado(){
 				$("#ape_emple").val(objData[2]);
 				$("#dni_emple").val(objData[3]);
 				$("#fech_emple").val(objData[4]);
-				$("#mail_emple").val(objData[6]);
-				$("#telef_emple").val(objData[7]);
-				$("#distr_emple").val(objData[8]);
+				$("#mail_emple").val(objData[7]);
+				$("#telef_emple").val(objData[8]);
+				$("#distr_emple").val(objData[9]);
 				$("#estado").val(objData[9]);
 			}
 		}
