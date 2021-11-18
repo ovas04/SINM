@@ -225,7 +225,6 @@ def list_emple():
 				data[i][j] = "No Registrado"
 		
 		data[i].append('<div class="text-center">'+
-				'<button class="btn btn-success btn-sm btn-usu-emple" rl="'+data[i][0]+'" title="Crear Usuario"><i class="fas fa-user-plus"></i></button> '+
 				'<button class="btn btn-warning btn-sm btn-ver-emple" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
 				'<button class="btn btn-primary btn-sm btn-edit-emple" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button> '+
 				'<button class="btn btn-danger btn-sm btn-eli-emple" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
