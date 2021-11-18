@@ -175,6 +175,33 @@ def actividad_construc_pub():
 	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",)
 	return render_template("registrar_actividad_publica.html", datos = data)
 
+# ! REGISTRAR COMENTARIO ------------------------------------!!!
+@app.route("/regis_comen", methods=["POST"])
+def regis_comen():
+	if request.method == "POST":
+		cur = mysql.connection.cursor()
+		'''id = request.form["id_emple"]
+		if id != "0":
+			codigo = id
+		else:
+			cur.execute("select max(id_usuario)+1 from usuario")
+			codigo = cur.fetchall()'''
+		#TODO id_usuario =
+		id_usuario = "null"
+		#TODO id_construccion = 
+		id_construccion = "null"
+		comentario = request.form["comentario"]
+		nombre = request.form["name_c"]
+		telefono = request.form["num_c"]
+		#TODO tipo = request.form["tipo"]
+		tipo = "1"
+		cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_construccion,nombre,telefono,tipo,comentario))
+		mysql.connection.commit()
+		response = {"status":True, "msj":"Comentario registrado correctamente!"}
+		return jsonify(response)
+		cur.connection.close();
+
+
 #Empleados
 @app.route("/empleados")
 def empleados():
@@ -230,7 +257,7 @@ def regis_emple():
 		return jsonify(response)
 		cur.connection.close();
 
-#! AQUI  SE DEBE AGREGAR SEXO  
+#! AQUI SE DEBE AGREGAR SEXO  
 
 @app.route("/buscar_empleado/<id_emple>", methods=["GET"])
 def buscar_emple(id_emple):
@@ -242,10 +269,24 @@ def buscar_emple(id_emple):
 	data[0][6] = datetime.strftime(data[0][6],"%Y-%m-%d")
 	for i in range(7,10):
 		if data[0][i] == None:
-			data[0][i] = "No existe"
+			data[0][i] = "No Registrado"
 	return jsonify(data[0])
-	cur.connection.close();
+	
+	
+#! ACTUALIZAR EMPLEADO
 
+@app.route("/edi_emple/<id_emple>", methods=["GET"])
+def edi_emple(id_emple):
+	cur = mysql.connection.cursor()
+	cur.execute("call sp_buscar_empleado(%s)",[id_emple])
+	data = cur.fetchall()
+	data = [list(i) for i in data]
+	data[0][4] = datetime.strftime(data[0][4],"%Y-%m-%d")
+	data[0][6] = datetime.strftime(data[0][6],"%Y-%m-%d")
+	for i in range(7,10):
+		if data[0][i] == None:
+			data[0][i] = "No Registrado"
+	return jsonify(data[0])
 
 
 @app.route("/elim_emple/<id_emple>", methods=["POST"])
