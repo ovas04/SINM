@@ -21,28 +21,49 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Default box -->
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Bienvenido de Vuelta</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fas fa-minus"></i></button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                <i class="fas fa-times"></i></button>
+        <div class="row">
+          <div class="col-md-8">
+            <!-- Default box -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Bienvenido de vuelta!</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <img class="" src="{{url_for('static', filename='images/fondo2.jpg')}}" alt="" style="width: 100%;">
+                <div class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <h5>Misión Maderera Nueva Era</h5>
+                    <p>Somos una empresa privada que busca satisfacer la demanda integral de productos para la construcción, dotados con maquinaria de última generación, con colaboradores altamente identificados, garantizando la entrega oportuna y de calidad con precios muy competitivos.</p>
+                  </li>
+                  <li class="list-group-item">
+                    <h5>Visión Maderera Nueva Era</h5>
+                    <p>Ser líderes diferenciados en la comercialización de todo tipo de productos para la industria de la construcción, que brinde atención profesional y personalizada buscando la satisfacción total de nuestros clientes, acorde con nuestra política de responsabilidad Social.</p>
+                  </li>
+                  <li class="list-group-item">
+                    <h5>Lema</h5>
+                    <p>El trabajo duro hace que desaparezcan las arrugas de la mente y el espíritu.</p>
+                  </li>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer" >
+                
+              </div>
+              <!-- /.card-footer-->
             </div>
+            <!-- /.card -->
           </div>
-          <div class="card-body">
-            El trabajo duro hace que desaparezcan las arrugas de la mente y el espíritu
+          <div class="col-md-4 text-center">
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v12.0" nonce="yrMxZpz3"></script>
+
+            <div class="fb-page" data-href="https://www.facebook.com/Maderera-Nueva-Era-2444788605748079" data-tabs="timeline" data-width="" data-height="700" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Maderera-Nueva-Era-2444788605748079" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Maderera-Nueva-Era-2444788605748079">Maderera Nueva Era</a></blockquote></div>
           </div>
-          <!-- /.card-body -->
-          <div class="card-footer" >
-            
-          </div>
-          <!-- /.card-footer-->
         </div>
-        <!-- /.card -->
       </div>
     </section>
     <!-- /.content -->
@@ -52,8 +73,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 2.0.1
     </div>
-    <strong>Copyright &copy; 2021 <a href="#">WebMaster-ANR</a>.</strong> All rights
-    reserved.
+    <strong>&copy; 2021 <a href="https://www.madereranuevaera.com/" target="_blank">Maderera Nueva Era</a></strong>
   </footer>
 
 
@@ -72,5 +92,4 @@
 <script src="{{url_for('static', filename='js/functions_dashboard.js')}}"></script>
 <script src="{{url_for('static', filename='js/main.js')}}"></script>
 </html>
->>>>>>> e37bbb232b6290a5a7f2a3b958ea5fac1cab8d28
 {% endblock %}
