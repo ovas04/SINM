@@ -4,15 +4,12 @@ from bs4 import BeautifulSoup
 from datetime import date
 from datetime import datetime
 import pymysql
+from Conexion import Conexion
 #from Maderera.ProperatiScrap import construccion
 from config import obtener_nombre_base_datos
 
 Meses = {'ENERO' : 1, 'FEBRERO' : 2,'MARZO' : 3,'ABRIL' : 4,'MAYO' : 5,'JUNIO' : 6,
           'JULIO' : 7,'AGOSTO' : 8,'SEPTIEMBRE' : 9,'OCTUBRE' : 10,'NOVIEMBRE' : 11,'DICIEMBRE' : 12  }
-
-
-def obtener_conexion():
-    return pymysql.connect(host="localhost",user="root",password="",db=obtener_nombre_base_datos())
 
 
 class construccion:
@@ -224,7 +221,7 @@ print("/"*120)
 print(len(ConstruccionesNexo))
 '''
 
-conexion = obtener_conexion()
+conexion = Conexion.obtener_conexion()
 with conexion.cursor() as cur:
     for i in range(len(ConstruccionesNexo)):
         cur.execute("call sp_autogenerar_id_const")

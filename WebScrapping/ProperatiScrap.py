@@ -1,3 +1,4 @@
+#!https://stackoverflow.com/questions/36516183/what-should-i-use-to-open-a-url-instead-of-urlopen-in-urllib3
 
 from os import link
 from sys import flags
@@ -7,15 +8,12 @@ from datetime import date
 from datetime import datetime
 import urllib3
 import pymysql
+from Conexion import Conexion
 from config import obtener_nombre_base_datos
 
 
 Meses = {'ENERO' : 1, 'FEBRERO' : 2,'MARZO' : 3,'ABRIL' : 4,'MAYO' : 5,'JUNIO' : 6,
           'JULIO' : 7,'AGOSTO' : 8,'SETIEMBRE' : 9,'OCTUBRE' : 10,'NOVIEMBRE' : 11,'DICIEMBRE' : 12  }
-
-
-def obtener_conexion():
-    return pymysql.connect(host="localhost",user="root",password="",db=obtener_nombre_base_datos())
 
 
 class construccion:
@@ -165,7 +163,6 @@ class construccion:
 
 
 
-
 #!https://stackoverflow.com/questions/36516183/what-should-i-use-to-open-a-url-instead-of-urlopen-in-urllib3
 def DataProperati(_link):
     http = urllib3.PoolManager()
@@ -231,8 +228,7 @@ for i in range(1,7):
        j=(j.select ('div > a ')[0])
        ConstruccionProperati.append(DataProperati(str(j.attrs['href'])))
 
-
-conexion = obtener_conexion()
+conexion = Conexion.obtener_conexion()
 with conexion.cursor() as cur:
     for i in range(len(ConstruccionProperati)):
         cur.execute("call sp_autogenerar_id_const")

@@ -258,8 +258,9 @@ def regis_emple():
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
 		party_id = request.form["id_emple"]
-		if party_id == " ":
+		if party_id == "0":
 			 party_id = "flag"
+		print(party_id)
 		nombre = request.form["nom_emple"]
 		apellidos = request.form["ape_emple"]
 		dni = request.form["dni_emple"]
@@ -270,11 +271,24 @@ def regis_emple():
 		telefono = request.form["telef_emple"]
 		distrito = request.form["distr_emple"]
 		estado = request.form["estado"]
-		print("hola")
+		
 		if estado == "Activo":
 			estado = "1"
-		else: estado = "0"
+		else: estado = "0"	
 		id_usuario = "USU-100000"
+
+		print(nombre)
+		print(apellidos)
+		print(dni)
+		print(fecha)
+		print(mail)
+		print(sexo)
+		print(telefono)
+		print(distrito)
+		print(estado)
+		print(id_usuario)
+
+
 		cur.execute("call sp_crear_actualizar_usuario(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(party_id,nombre,apellidos,dni,sexo,fecha,mail,telefono,distrito,estado,id_usuario))
 		mysql.connection.commit()
 		response = {"status":True, "msj":"Empleado registrado correctamente!"}
