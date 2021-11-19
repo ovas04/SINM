@@ -232,6 +232,26 @@ def list_emple():
 	return jsonify(data)
 	cur.connection.close();
 
+@app.route("/list_usuarios")
+def list_usuarios():
+	cur = mysql.connection.cursor()
+	cur.execute("call sp_listar_usuarios")
+	data = cur.fetchall()
+	print("Capto datos")
+	data = [list(i) for i in data]
+	for i in range(len(data)):
+		if data[i][5] == "1":
+			data[i][5] = '<span class="badge bg-info">Activo</span>'
+		else:
+			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
+		data[i].append('<div class="text-center">'+
+				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button>'+
+				'<a class="btn btn-danger btn-sm" href="elim_usuario('+'data[i][0]'+','+'data[i][1]'+','+'data[i][2]'+','+'data[i][3]'+','+'data[i][4]'+')" role="button" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
+				'</div>')
+		data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
+	return jsonify(data)
+	cur.connection.close();
+
 @app.route("/regis_emple", methods=["POST"])
 def regis_emple():
 	if request.method == "POST":
@@ -302,16 +322,16 @@ def elim_usuario():
 	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario")
 	return render_template("usuario_delete.html", datos = data)
 
-@app.route("/elim_usuario1/<id_usuario>", methods=["POST"])
+@app.route("/elim_usuario_perma/<id_usuario>", methods=["POST"])
 def elim_usuario_perma(id_usuario):
 	cur = mysql.connection.cursor()
-	cur.execute("delete from usuario where id_usuario=%s",[id_usuario])
+	cur.execute("call sp_eliminar_usuario_perma(%s)",[id_usuario])
 	mysql.connection.commit()
 	response = {"status":"True", "msj":"Usuario eliminado permanentemente!"}
 	return jsonify(response)
 	cur.connection.close();
 
-@app.route("/elim_usuario2/<id_usuario>", methods=["POST"])
+@app.route("/elim_usuario_tempo/<id_usuario>", methods=["POST"])
 def elim_usuario_tempo(id_usuario):
 	cur=mysql.connection.cursor()
 	cur.execute("update usuario set id_privilegio='PRI-100001' where id_usuario=%s",[id_usuario])

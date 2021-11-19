@@ -1,11 +1,13 @@
 $(document).ready(function(){
     $(".s-usuarios").css("display","block");
     $(".usuarios").addClass("active");
+	list_usuarios();
     edit_usuario();
     eli_usuario();
+	console.log("Hola mundo")
 });
 
-function list_usuario(){
+function list_usuarios(){
 	$("#tab_usuarios").DataTable({
 		"aprocessing": true,
 		"aServerSide": true,
@@ -31,6 +33,7 @@ function list_usuario(){
 		"iDisplayLength": 10,
 		"autoWidth": false
 	});
+	console.log("Realizado")
 }
 
 function regis_usuario(){
@@ -88,31 +91,31 @@ function edit_usuario(){
 	});
 }
 
-function eli_usuario(){
+function eli_usuario_tempo(){
 	$("#tab_usuarios").on("click",".btn-eli-usu",function(){
 		var id_usu = this.getAttribute("rl");
 		Swal.fire({
-			title: "Eliminar Usuario",
-			text: "¿Desea eliminar este usuario?",
+			title: "Eliminar Usuario Temporalmente",
+			text: "¿Desea eliminar este usuario de forma temporal?",
 			icon: "question",
 			showCancelButton: true,
 			confirmButtonText: "Si, eliminar!",
 			cancelButtonText: "No, cancelar!"
 		}).then((result)=>{
 			if(result.isConfirmed){
-				/*var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 				var ajaxUrl = "/elim_usuario/"+id_usu;
 				request.open("POST",ajaxUrl,true);
 				request.send();
 				request.onload = function(){
 					if(request.status == 200){
 						var objData = JSON.parse(request.responseText);
-						Swal.fire("¡Eliminado!",objData.msj,"success");
+						Swal.fire("¡Eliminado temporalmente!",objData.msj,"success");
 						$("#tab_usuarios").DataTable().ajax.reload();
 					}else{
 						Swal.fire("Usuarios","El registro no pudo ser eliminado","error");
 					}
-				}*/
+				}
 			}else{
 				Swal.fire("Cancelado","Tu registro está seguro :)","error");
 			}
