@@ -118,7 +118,8 @@ function edit_empleado(){
 				$("#mail_emple").val(objData[7]);
 				$("#telef_emple").val(objData[8]);
 				$("#distr_emple").val(objData[9]);
-				$("#estado").val(objData[9]);
+				$("#sexo").val(objData[5]);
+				$("#estado").val(objData[10]);
 			}
 		}
 	});
