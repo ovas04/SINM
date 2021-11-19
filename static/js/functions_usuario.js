@@ -4,7 +4,6 @@ $(document).ready(function(){
 	list_usuarios();
     edit_usuario();
     eli_usuario();
-	console.log("Hola mundo")
 });
 
 function list_usuarios(){
@@ -88,6 +87,10 @@ function edit_usuario(){
 			}
 		}*/
 	});
+}
+
+function eli_usuario(){
+	
 }
 
 function eli_usuario_tempo(){

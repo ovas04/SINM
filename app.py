@@ -247,7 +247,7 @@ def list_usuarios():
 			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button>'+
-				'<a class="btn btn-danger btn-sm" href="elim_usuario('+'data[i][0]'+','+'data[i][1]'+','+'data[i][2]'+','+'data[i][3]'+','+'data[i][4]'+')" role="button" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
+				'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" role="button" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
 				'</div>')
 		data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
 	return jsonify(data)
@@ -338,8 +338,17 @@ def elim_emple(id_emple):
 
 @app.route("/elim_usuario/")
 def elim_usuario():
-	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario")
+	a = request.args.get('a', None) 
+	b = request.args.get('b', None)
+	c = request.args.get('c', None)
+	d = request.args.get('d', None)
+	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario",a,b,c,d)
 	return render_template("usuario_delete.html", datos = data)
+
+@app.route("/get_permiso/<id_usuario>",methods=["GET"])
+def get_permiso(id_usuario):
+	cur=mysql.connection.cursor()
+	cur.execute("call sp_buscar_permiso(%s)",[id_usuario])
 
 @app.route("/elim_usuario_perma/<id_usuario>", methods=["POST"])
 def elim_usuario_perma(id_usuario):
