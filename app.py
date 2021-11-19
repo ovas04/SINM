@@ -1,3 +1,4 @@
+from re import I
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 from datetime import datetime
@@ -236,21 +237,25 @@ def list_emple():
 def regis_emple():
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
-		id = request.form["id_emple"]
-		if id != "0":
-			codigo = id
-		else:
-			cur.execute("select max(id_usuario)+1 from usuario")
-			codigo = cur.fetchall()
+		party_id = request.form["id_emple"]
+		if party_id == " ":
+			 party_id = "flag"
 		nombre = request.form["nom_emple"]
 		apellidos = request.form["ape_emple"]
 		dni = request.form["dni_emple"]
-		fecha = request.form["fech_emple"]
-		mail = request.form["mail_emple"]
+		fecha = request.form["fech_emple"] 
+
+		mail = request.form["mail_emple"] 
+		sexo = request.form["sexo"]
 		telefono = request.form["telef_emple"]
 		distrito = request.form["distr_emple"]
 		estado = request.form["estado"]
-		cur.execute("call sp_regis_empleado(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(codigo,nombre,apellidos,dni,fecha,mail,telefono,distrito,estado))
+		print("hola")
+		if estado == "Activo":
+			estado = "1"
+		else: estado = "0"
+		id_usuario = "USU-100000"
+		cur.execute("call sp_crear_actualizar_usuario(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(party_id,nombre,apellidos,dni,sexo,fecha,mail,telefono,distrito,estado,id_usuario))
 		mysql.connection.commit()
 		response = {"status":True, "msj":"Empleado registrado correctamente!"}
 		return jsonify(response)
@@ -302,7 +307,7 @@ def elim_usuario():
 	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario")
 	return render_template("usuario_delete.html", datos = data)
 
-@app.route("/elim_usuario1/<id_usuario>", methods=["POST"])
+@app.route("/elim_usuario_perma/<id_usuario>", methods=["POST"])
 def elim_usuario_perma(id_usuario):
 	cur = mysql.connection.cursor()
 	cur.execute("delete from usuario where id_usuario=%s",[id_usuario])
@@ -311,7 +316,7 @@ def elim_usuario_perma(id_usuario):
 	return jsonify(response)
 	cur.connection.close();
 
-@app.route("/elim_usuario2/<id_usuario>", methods=["POST"])
+@app.route("/elim_usuario_tempo/<id_usuario>", methods=["POST"])
 def elim_usuario_tempo(id_usuario):
 	cur=mysql.connection.cursor()
 	cur.execute("update usuario set id_privilegio='PRI-100001' where id_usuario=%s",[id_usuario])
@@ -319,8 +324,6 @@ def elim_usuario_tempo(id_usuario):
 	response = {"status":"True", "msj":"Usuario eliminado temporalmente!"}
 	return jsonify(response)
 	cur.connection.close();
-
-
 
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):
