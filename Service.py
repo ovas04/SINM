@@ -1,10 +1,6 @@
 from Dao import *
 from flask_mysqldb import MySQL
 
-
-
-
-
 class Service:
 
 	def get_usuarios():

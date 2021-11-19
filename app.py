@@ -302,6 +302,26 @@ def elim_usuario():
 	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario")
 	return render_template("usuario_delete.html", datos = data)
 
+@app.route("/elim_usuario1/<id_usuario>", methods=["POST"])
+def elim_usuario_perma(id_usuario):
+	cur = mysql.connection.cursor()
+	cur.execute("delete from usuario where id_usuario=%s",[id_usuario])
+	mysql.connection.commit()
+	response = {"status":"True", "msj":"Usuario eliminado permanentemente!"}
+	return jsonify(response)
+	cur.connection.close();
+
+@app.route("/elim_usuario2/<id_usuario>", methods=["POST"])
+def elim_usuario_tempo(id_usuario):
+	cur=mysql.connection.cursor()
+	cur.execute("update usuario set id_privilegio='PRI-100001' where id_usuario=%s",[id_usuario])
+	mysql.connection.commit()
+	response = {"status":"True", "msj":"Usuario eliminado temporalmente!"}
+	return jsonify(response)
+	cur.connection.close();
+
+
+
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):
 	data = ("Actividad | Nueva Era","Actividad de vendedor","functions_empleado.js")
