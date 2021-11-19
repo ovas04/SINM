@@ -331,6 +331,11 @@ def elim_usuario():
 	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario",a,b,c,d)
 	return render_template("usuario_delete.html", datos = data)
 
+@app.route("/get_permiso/<id_usuario>",methods=["GET"])
+def get_permiso(id_usuario):
+	cur=mysql.connection.cursor()
+	cur.execute("call sp_buscar_permiso(%s)",[id_usuario])
+
 @app.route("/elim_usuario_perma/<id_usuario>", methods=["POST"])
 def elim_usuario_perma(id_usuario):
 	cur = mysql.connection.cursor()

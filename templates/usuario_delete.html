@@ -24,16 +24,17 @@
 		<div class="container-fluid">
 			<div class="card">
 							<div class="card-header">
-								<h3 class="card-title mt-1"><strong>Eliminar a Luis Mayta</strong></h3>
+								<h3 class="card-title mt-1"><strong>Eliminar a {{ datos.3 }} {{ datos.4 }}</strong></h3>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
 								<div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-									<div class="row" id="tab_usuarios">
+									<div class="row" id="tab_elim_usuario">
 										<div class="col-sm-12">
-										<p>Al eliminar al usuario este no podrá usar la plataforma. Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis at consequatur molestias ipsam nesciunt voluptas! Debitis ducimus cumque veniam rerum tenetur quisquam quod. Eveniet suscipit vitae dicta officiis praesentium dolore.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit minus nulla quisquam dignissimos laudantium molestias labore, illo minima magni quia nobis. Magni dolor, cupiditate deleniti placeat velit sint voluptates fugiat?</p>
-                                        <table id="tab_roles" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+										<p>Al eliminar al usuario este no podrá usar la plataforma. Sin embargo, puede elegir entre eliminarlo de forma permanente o de forma temporal.</p>
+                                        <p><strong>Eliminación permanente:</strong> Elimina todo registro asociado al usuario en cuestión.</p>
+										<p><strong>Eliminación temporal:</strong> Se cambia el estado del usuario en el sistema, limitando su accionar.</p>
+                                        <table id="tab_datos" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
                                             <thead>
                                                 <tr role="row">
                                                     <th>Código</th>
