@@ -89,6 +89,10 @@ function edit_usuario(){
 	});
 }
 
+function eli_usuario(){
+	
+}
+
 function eli_usuario_tempo(){
 	$("#tab_usuarios").on("click",".btn-eli-usu",function(){
 		var id_usu = this.getAttribute("rl");
