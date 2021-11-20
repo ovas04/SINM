@@ -258,8 +258,15 @@ def regis_emple():
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
 		party_id = request.form["id_emple"]
+		id_party_generado = ""
+		id_mec_cont_generado = ""
 		if party_id == "0":
 			 party_id = "flag"
+			 cur.execute("select f_autogenerar_id_party()")
+			 id_party_generado = cur.fetchall()
+			 cur.execute("select f_generar_id_m_contc()")
+			 id_mec_cont_generado = cur.fetchall()
+
 		print(party_id)
 		nombre = request.form["nom_emple"]
 		apellidos = request.form["ape_emple"]
@@ -287,9 +294,12 @@ def regis_emple():
 		print(distrito)
 		print(estado)
 		print(id_usuario)
+		print(id_party_generado)
+		print(id_mec_cont_generado)
 
 
-		cur.execute("call sp_crear_actualizar_usuario(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(party_id,nombre,apellidos,dni,sexo,fecha,mail,telefono,distrito,estado,id_usuario))
+		cur.execute("call sp_crear_actualizar_usuario(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+		 	(party_id,nombre,apellidos,dni,sexo,fecha,mail,telefono,distrito,estado,id_usuario,id_party_generado,id_mec_cont_generado))
 		mysql.connection.commit()
 		response = {"status":True, "msj":"Empleado registrado correctamente!"}
 		return jsonify(response)
