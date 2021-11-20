@@ -133,7 +133,9 @@ function elim_usuario_tempo(){
 					if(request.status == 200){
 						var objData = JSON.parse(request.responseText);
 						Swal.fire("¡Eliminado temporalmente!",objData.msj,"success");
-						window.location.href = "/usuarios";
+						setTimeout(function(){
+							window.location.href = "/usuarios";
+						}, 2000);
 					}else{
 						Swal.fire("Usuarios","El registro no pudo ser eliminado","error");
 					}
@@ -166,7 +168,9 @@ function elim_usuario_perma(){
 					if(request.status == 200){
 						var objData = JSON.parse(request.responseText);
 						Swal.fire("¡Eliminado permanentemente!",objData.msj,"success");
-						window.location.href = "/usuarios";
+						setTimeout(function(){
+							window.location.href = "/usuarios";
+						}, 2000);
 					}else{
 						Swal.fire("Usuarios","El registro no pudo ser eliminado","error");
 					}
