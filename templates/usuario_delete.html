@@ -50,21 +50,13 @@
                                                     <td>{{ datos.3 }}</td>
 													<td>{{ datos.4 }}</td>
                                                     <td>{{ datos.5 }}</td>
-                                                    <td>
-                                                        <ul class="list-group list-group-flush">
-                                                            <li class="list-group-item bg-transparent">PermisoA</li>
-                                                            <li class="list-group-item bg-transparent">PermisoB</li>
-                                                            <li class="list-group-item bg-transparent">PermisoC</li>
-                                                            <li class="list-group-item bg-transparent">PermisoD</li>
-                                                            <li class="list-group-item bg-transparent">PermisoE</li>
-                                                        </ul>
-                                                    </td>
+                                                    <td id="permiso" rl="{{ datos.2 }}"></td>
                                                   </tr>
                                             </tbody>
                                         </table>
 										<p>Seleccione el tipo de eliminación</p>
-										<button type="button" class="btn btn-outline-danger btn-sm btn-eli-usu" rl="" onclick="eli_usuario_tempo()">Temporal del Sistema</button>
-                                        <button type="button" class="btn btn-danger btn-sm btn-eli-usu" rl="">Definitiva del Sistema</button>
+										<button type="button" class="btn btn-outline-danger btn-sm btn-eli-usu-tempo" rl="{{ datos.2 }}">Temporal del Sistema</button>
+                                        <button type="button" class="btn btn-danger btn-sm btn-eli-usu-perma" rl="{{ datos.2 }}">Definitiva del Sistema</button>
 										</div>
 							</div>
 						</div>

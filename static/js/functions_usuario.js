@@ -2,8 +2,11 @@ $(document).ready(function(){
     $(".s-usuarios").css("display","block");
     $(".usuarios").addClass("active");
 	list_usuarios();
+	get_permiso();
     edit_usuario();
     eli_usuario();
+	elim_usuario_tempo();
+	elim_usuario_perma();
 });
 
 function list_usuarios(){
@@ -93,9 +96,26 @@ function eli_usuario(){
 	
 }
 
-function eli_usuario_tempo(){
-	$("#tab_usuarios").on("click",".btn-eli-usu",function(){
-		var id_usu = this.getAttribute("rl");
+function get_permiso(){
+	var id_usuario = $("#permiso").attr("rl");
+	var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+	var ajaxUrl = "/get_permiso/"+id_usuario;
+	request.open("GET",ajaxUrl,true);
+	request.send();
+	request.onload = function(){
+		if(request.status == 200){
+			var objData = JSON.parse(request.responseText);
+			$("#permiso").text(objData);
+		}else{
+			$("#permiso").text("Permisos no recuperado");
+		}
+	}
+}
+
+function elim_usuario_tempo(){
+	$("#tab_elim_usuario").on("click",".btn-eli-usu-tempo",function(){
+		console.log("Ingresa la funcion");
+		var id_usuario = this.getAttribute("rl");
 		Swal.fire({
 			title: "Eliminar Usuario Temporalmente",
 			text: "¿Desea eliminar este usuario de forma temporal?",
@@ -106,14 +126,47 @@ function eli_usuario_tempo(){
 		}).then((result)=>{
 			if(result.isConfirmed){
 				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-				var ajaxUrl = "/elim_usuario/"+id_usu;
+				var ajaxUrl = "/elim_usuario_tempo/"+id_usuario;
 				request.open("POST",ajaxUrl,true);
 				request.send();
 				request.onload = function(){
 					if(request.status == 200){
 						var objData = JSON.parse(request.responseText);
 						Swal.fire("¡Eliminado temporalmente!",objData.msj,"success");
-						$("#tab_usuarios").DataTable().ajax.reload();
+						window.location.href = "/usuarios";
+					}else{
+						Swal.fire("Usuarios","El registro no pudo ser eliminado","error");
+					}
+				}
+			}else{
+				Swal.fire("Cancelado","Tu registro está seguro :)","error");
+			}
+		});
+	});
+}
+
+function elim_usuario_perma(){
+	$("#tab_elim_usuario").on("click",".btn-eli-usu-perma",function(){
+		console.log("Ingresa la funcion");
+		var id_usuario = this.getAttribute("rl");
+		Swal.fire({
+			title: "Eliminar Usuario Permanentemente",
+			text: "¿Desea eliminar este usuario de forma permanente?",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "Si, eliminar!",
+			cancelButtonText: "No, cancelar!"
+		}).then((result)=>{
+			if(result.isConfirmed){
+				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+				var ajaxUrl = "/elim_usuario_perma/"+id_usuario;
+				request.open("POST",ajaxUrl,true);
+				request.send();
+				request.onload = function(){
+					if(request.status == 200){
+						var objData = JSON.parse(request.responseText);
+						Swal.fire("¡Eliminado permanentemente!",objData.msj,"success");
+						window.location.href = "/usuarios";
 					}else{
 						Swal.fire("Usuarios","El registro no pudo ser eliminado","error");
 					}

@@ -358,7 +358,12 @@ def elim_usuario():
 @app.route("/get_permiso/<id_usuario>",methods=["GET"])
 def get_permiso(id_usuario):
 	cur=mysql.connection.cursor()
+	print("Funca la funcion")
 	cur.execute("call sp_buscar_permiso(%s)",[id_usuario])
+	permiso=cur.fetchall()
+	print(permiso)
+	return jsonify(permiso)
+	cur.connection.close();
 
 @app.route("/elim_usuario_perma/<id_usuario>", methods=["POST"])
 def elim_usuario_perma(id_usuario):
