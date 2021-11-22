@@ -1,5 +1,5 @@
 from re import I
-from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
+from flask import Flask, json, jsonify, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 from datetime import datetime
 from Service import *
@@ -385,7 +385,19 @@ def elim_usuario_tempo(id_usuario):
 
 @app.route("/regis_usuario/", methods=["POST"])
 def regis_usuario():
-	
+	if request.method=="POST":
+		cur=mysql.connection.cursor()
+		dni_usuario=request.form["dni_usu"]
+		usuario=request.form["nom_usu"]
+		password=request.form["pass_usu"]
+		rol_usuario=request.form["rol_usu"]
+		estado_usuario=request.form["estado_usu"]
+		cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
+		rol_usuario,estado_usuario])
+		mysql.connection.commit()
+		response = {"status":"True", "msj":"Usuario registrado correctamente!"}
+		return jsonify(response)
+		cur.connection.close();
 
 @app.route("/editar_usuario/", methods=["POST"])
 

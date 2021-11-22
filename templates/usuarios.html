@@ -64,8 +64,15 @@
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
-							<form id="form-alumno">
+							<form id="form-usuario">
 								<div class="modal-body">
+									<div class="mb-3">
+										<label for="dni_usu" class="form-label">DNI de Validación</label>
+										<div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+											<input type="text" id="dni_usu" class="form-control" name="dni_usu" required>
+										</div>
+									</div>
 									<div class="mb-3">
 										<label for="nom_usu" class="form-label">Usuario</label>
 										<div class="input-group">
@@ -81,21 +88,22 @@
 										</div>
 									</div>
 									<div class="mb-3">
-                                        <label for="rol" class="form-label">Rol:</label>
+                                        <label for="rol" class="form-label">Rol</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-                                            <select name="rol" id="rol" class="form-select">
-                                                <option value="1">Administrador</option>
-                                                <option value="2">Asistente Ventas</option>
-												<option value="3">Vendedor</option>
+                                            <select name="rol" id="rol_usu" class="form-select">
+                                                <option value="TUSU-10000">Administrador</option>
+                                                <option value="TUSU-10001">Vendedor</option>
+												<option value="TUSU-10002">Asistente de Ventas</option>
+												<option value="TUSU-10003">Asistente de Gerencia</option>
                                             </select>
                                         </div>
                                     </div>
 									<div class="mb-3">
-                                        <label for="estado" class="form-label">Estado:</label>
+                                        <label for="estado" class="form-label">Estado</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-chart-bar"></i></span>
-                                            <select name="estado" id="estado" class="form-select">
+                                            <select name="estado" id="estado_usu" class="form-select">
                                                 <option value="1">Activado</option>
                                                 <option value="0">Desactivado</option>
                                             </select>
