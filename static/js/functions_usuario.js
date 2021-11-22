@@ -43,7 +43,7 @@ function regis_usuario(){
 	$(".btn-form").click(function(e){
 		e.preventDefault();
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-		var ajaxUrl = "/regis_usuario";
+		var ajaxUrl = "/regis_usuario/";
 		var formData = new FormData(form);
 		request.open("POST",ajaxUrl,true);
 		request.send(formData);
@@ -53,7 +53,7 @@ function regis_usuario(){
 				if(objData.status){
 					$("#modal-usuario").modal("hide");
 					form.reset();
-					Swal.fire("¡Registrado!",objData.msg,"success");
+					Swal.fire("¡Registrado correctamente!",objData.msg,"success");
 					$("#tab_usuarios").DataTable().ajax.reload();
 				}else{
 					Swal.fire("¡Error!",objData.msg,"error");
@@ -71,25 +71,22 @@ function edit_usuario(){
 		$("#modal-usuario .modal-title").text("Actualizar Usuario")
 		$("#modal-usuario .btn-text").text("Actualizar");
 		$("#modal-usuario").modal("show");
-		/*var id_emple = this.getAttribute("rl");
+		$("#nom_usu").attr("readonly","readonly");
+		$("#id_dni_validacion").hide();
+		var id_usuario = this.getAttribute("rl");
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-		var ajaxUrl = "/buscar_emple/"+id_emple;
+		var ajaxUrl = "/buscar_usuario/"+id_usuario;
 		request.open("GET",ajaxUrl,true);
 		request.send();
 		request.onload = function(){
 			if(request.status == 200){
 				var objData = JSON.parse(request.responseText);
-				$("#id_emple").val(id_emple);
-				$("#nom_emple").val(objData[1]);
-				$("#ape_emple").val(objData[2]);
-				$("#dni_emple").val(objData[3]);
-				$("#fech_emple").val(objData[4]);
-				$("#mail_emple").val(objData[6]);
-				$("#telef_emple").val(objData[7]);
-				$("#distr_emple").val(objData[8]);
-				$("#estado").val(objData[9]);
+				$("#id_usuario").val(id_usuario);
+				$("#nom_usu").val(objData[1]);
+				$("#rol_usu").val(objData[2]);
+				$("#estado_usu").val(objData[3]);
 			}
-		}*/
+		}
 	});
 }
 
@@ -186,4 +183,6 @@ function open_modal(){
 	$("#modal-usuario").modal("show");
 	$("#id_usu").val("0");
 	$("#form-usuario")[0].reset();
+	$("#id_dni_validacion").show();
+	$("#nom_usu").attr("readonly",false);
 }
