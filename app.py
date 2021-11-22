@@ -263,9 +263,11 @@ def regis_emple():
 		if party_id == "0":
 			 party_id = "flag"
 			 cur.execute("select f_autogenerar_id_party()")
-			 id_party_generado = cur.fetchall()
+			 data = cur.fetchall()
+			 id_party_generado  = data[0][0]
 			 cur.execute("select f_generar_id_m_contc()")
-			 id_mec_cont_generado = cur.fetchall()
+			 data = cur.fetchall()
+			 id_mec_cont_generado = data[0][0]
 
 		print(party_id)
 		nombre = request.form["nom_emple"]
@@ -294,11 +296,9 @@ def regis_emple():
 		print(distrito)
 		print(estado)
 		print(id_usuario)
-		print(id_party_generado)
-		print(id_mec_cont_generado)
 
 
-		cur.execute("call sp_crear_actualizar_usuario(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+		cur.execute("call sp_crear_actualizar_empleado(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
 		 	(party_id,nombre,apellidos,dni,sexo,fecha,mail,telefono,distrito,estado,id_usuario,id_party_generado,id_mec_cont_generado))
 		mysql.connection.commit()
 		response = {"status":True, "msj":"Empleado registrado correctamente!"}
@@ -383,7 +383,7 @@ def elim_usuario_tempo(id_usuario):
 	return jsonify(response)
 	cur.connection.close();
 
-@app.route("/regis_usuario/", methods=["POST"])
+'''@app.route("/regis_usuario/", methods=["POST"])
 def regis_usuario():
 	if request.method=="POST":
 		cur=mysql.connection.cursor()
@@ -399,7 +399,7 @@ def regis_usuario():
 		return jsonify(response)
 		cur.connection.close();
 
-@app.route("/editar_usuario/", methods=["POST"])
+@app.route("/editar_usuario/", methods=["POST"])'''
 
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):
