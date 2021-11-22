@@ -384,6 +384,8 @@ def elim_usuario_tempo(id_usuario):
 	cur.connection.close();
 
 @app.route("/regis_usuario/", methods=["POST"])
+def regis_usuario():
+	
 
 @app.route("/editar_usuario/", methods=["POST"])
 

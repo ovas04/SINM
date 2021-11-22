@@ -3,6 +3,7 @@ $(document).ready(function(){
     $(".usuarios").addClass("active");
 	list_usuarios();
 	get_permiso();
+	regis_usuario();
     edit_usuario();
     eli_usuario();
 	elim_usuario_tempo();
@@ -34,7 +35,7 @@ function list_usuarios(){
 		"iDisplayLength": 10,
 		"autoWidth": false
 	});
-	console.log("Realizado")
+	//console.log("Realizado")
 }
 
 function regis_usuario(){
@@ -90,10 +91,6 @@ function edit_usuario(){
 			}
 		}*/
 	});
-}
-
-function eli_usuario(){
-	
 }
 
 function get_permiso(){
