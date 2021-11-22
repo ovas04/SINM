@@ -72,6 +72,7 @@ function edit_usuario(){
 		$("#modal-usuario .btn-text").text("Actualizar");
 		$("#modal-usuario").modal("show");
 		$("#nom_usu").attr("readonly","readonly");
+		$("#id_dni_validacion").hide();
 		var id_usuario = this.getAttribute("rl");
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 		var ajaxUrl = "/buscar_usuario/"+id_usuario;
@@ -83,7 +84,7 @@ function edit_usuario(){
 				$("#id_usuario").val(id_usuario);
 				$("#nom_usu").val(objData[1]);
 				$("#rol_usu").val(objData[2]);
-				$("#estado").val(objData[3]);
+				$("#estado_usu").val(objData[3]);
 			}
 		}
 	});
@@ -182,4 +183,6 @@ function open_modal(){
 	$("#modal-usuario").modal("show");
 	$("#id_usu").val("0");
 	$("#form-usuario")[0].reset();
+	$("#id_dni_validacion").show();
+	$("#nom_usu").attr("readonly",false);
 }

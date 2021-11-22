@@ -2,6 +2,8 @@ from re import I
 from flask import Flask, json, jsonify, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 from datetime import datetime
+
+from pymysql import NULL
 from Service import *
 app = Flask(__name__)
 
@@ -392,12 +394,19 @@ def regis_usuario():
 		password=request.form["pass_usu"]
 		rol_usuario=request.form["rol_usu"]
 		estado_usuario=request.form["estado_usu"]
-		cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
-		rol_usuario,estado_usuario])
-		mysql.connection.commit()
-		response = {"status":"True", "msj":"Usuario registrado correctamente!"}
-		return jsonify(response)
-		cur.connection.close();
+		id_party_validacion=""
+		cur.execute("select id_party from persona where dni = %s",[dni_usuario])
+		id_party_validacion=cur.fetchone()
+		print(id_party_validacion)
+		"""if (id_party_validacion != NULL):
+			cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
+			rol_usuario,estado_usuario])
+			mysql.connection.commit()
+			response = {"status":True, "msj":"Usuario registrado correctamente!"}
+		else:
+			response = {"status":False, "msj":"DNI no encontrado en el sistema"}
+		return jsonify(response)"""
+		cur.connection.close(); 
 
 """@app.route("/editar_usuario/", methods=["POST"])
 def edit_usuario():
