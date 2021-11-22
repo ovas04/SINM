@@ -43,7 +43,7 @@ function regis_usuario(){
 	$(".btn-form").click(function(e){
 		e.preventDefault();
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-		var ajaxUrl = "/regis_usuario";
+		var ajaxUrl = "/regis_usuario/";
 		var formData = new FormData(form);
 		request.open("POST",ajaxUrl,true);
 		request.send(formData);
@@ -53,7 +53,7 @@ function regis_usuario(){
 				if(objData.status){
 					$("#modal-usuario").modal("hide");
 					form.reset();
-					Swal.fire("¡Registrado!",objData.msg,"success");
+					Swal.fire("¡Registrado correctamente!",objData.msg,"success");
 					$("#tab_usuarios").DataTable().ajax.reload();
 				}else{
 					Swal.fire("¡Error!",objData.msg,"error");
@@ -82,7 +82,7 @@ function edit_usuario(){
 				var objData = JSON.parse(request.responseText);
 				$("#id_usuario").val(id_usuario);
 				$("#nom_usu").val(objData[1]);
-				$("#rol").val(objData[2]);
+				$("#rol_usu").val(objData[2]);
 				$("#estado").val(objData[3]);
 			}
 		}

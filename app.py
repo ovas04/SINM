@@ -1,5 +1,5 @@
 from re import I
-from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
+from flask import Flask, json, jsonify, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 from datetime import datetime
 from Service import *
@@ -263,9 +263,11 @@ def regis_emple():
 		if party_id == "0":
 			 party_id = "flag"
 			 cur.execute("select f_autogenerar_id_party()")
-			 id_party_generado = cur.fetchall()
+			 data = cur.fetchall()
+			 id_party_generado  = data[0][0]
 			 cur.execute("select f_generar_id_m_contc()")
-			 id_mec_cont_generado = cur.fetchall()
+			 data = cur.fetchall()
+			 id_mec_cont_generado = data[0][0]
 
 		print(party_id)
 		nombre = request.form["nom_emple"]
@@ -294,11 +296,9 @@ def regis_emple():
 		print(distrito)
 		print(estado)
 		print(id_usuario)
-		print(id_party_generado)
-		print(id_mec_cont_generado)
 
 
-		cur.execute("call sp_crear_actualizar_usuario(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+		cur.execute("call sp_crear_actualizar_empleado(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
 		 	(party_id,nombre,apellidos,dni,sexo,fecha,mail,telefono,distrito,estado,id_usuario,id_party_generado,id_mec_cont_generado))
 		mysql.connection.commit()
 		response = {"status":True, "msj":"Empleado registrado correctamente!"}
@@ -383,9 +383,23 @@ def elim_usuario_tempo(id_usuario):
 	return jsonify(response)
 	cur.connection.close();
 
-"""@app.route("/regis_usuario/", methods=["POST"])
+@app.route("/regis_usuario/", methods=["POST"])
+def regis_usuario():
+	if request.method=="POST":
+		cur=mysql.connection.cursor()
+		dni_usuario=request.form["dni_usu"]
+		usuario=request.form["nom_usu"]
+		password=request.form["pass_usu"]
+		rol_usuario=request.form["rol_usu"]
+		estado_usuario=request.form["estado_usu"]
+		cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
+		rol_usuario,estado_usuario])
+		mysql.connection.commit()
+		response = {"status":"True", "msj":"Usuario registrado correctamente!"}
+		return jsonify(response)
+		cur.connection.close();
 
-@app.route("/editar_usuario/", methods=["POST"])
+"""@app.route("/editar_usuario/", methods=["POST"])
 def edit_usuario():
 """
 @app.route("/buscar_usuario/<id_usuario>", methods=["GET"])
