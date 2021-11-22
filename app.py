@@ -340,7 +340,7 @@ def edi_emple(id_emple):
 @app.route("/elim_emple/<id_emple>", methods=["POST"])
 def elim_emple(id_emple):
 	cur = mysql.connection.cursor()
-	cur.execute("delete from usuario where id_usuario=%s", [id_emple])
+	cur.execute("call sp_eliminar_empleado(%s)", [id_emple])
 	mysql.connection.commit()
 	response = {"status":"True", "msj":"Registro de empleado elminado!"}
 	return jsonify(response)
