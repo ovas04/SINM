@@ -383,7 +383,7 @@ def elim_usuario_tempo(id_usuario):
 	return jsonify(response)
 	cur.connection.close();
 
-'''@app.route("/regis_usuario/", methods=["POST"])
+@app.route("/regis_usuario/", methods=["POST"])
 def regis_usuario():
 	if request.method=="POST":
 		cur=mysql.connection.cursor()
@@ -399,7 +399,7 @@ def regis_usuario():
 		return jsonify(response)
 		cur.connection.close();
 
-@app.route("/editar_usuario/", methods=["POST"])'''
+@app.route("/editar_usuario/", methods=["POST"])
 
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):
