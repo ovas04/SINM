@@ -398,14 +398,14 @@ def regis_usuario():
 		cur.execute("select id_party from persona where dni = %s",[dni_usuario])
 		id_party_validacion=cur.fetchone()
 		print(id_party_validacion)
-		"""if (id_party_validacion != NULL):
+		if (id_party_validacion != None):
 			cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
 			rol_usuario,estado_usuario])
 			mysql.connection.commit()
-			response = {"status":True, "msj":"Usuario registrado correctamente!"}
+			response = {"status":True, "msg":"Usuario registrado correctamente!"}
 		else:
-			response = {"status":False, "msj":"DNI no encontrado en el sistema"}
-		return jsonify(response)"""
+			response = {"status":False, "msg":"DNI no encontrado en el sistema"}
+		return jsonify(response)
 		cur.connection.close(); 
 
 """@app.route("/editar_usuario/", methods=["POST"])
