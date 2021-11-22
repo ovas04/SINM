@@ -71,25 +71,21 @@ function edit_usuario(){
 		$("#modal-usuario .modal-title").text("Actualizar Usuario")
 		$("#modal-usuario .btn-text").text("Actualizar");
 		$("#modal-usuario").modal("show");
-		/*var id_emple = this.getAttribute("rl");
+		$("#nom_usu").attr("readonly","readonly");
+		var id_usuario = this.getAttribute("rl");
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-		var ajaxUrl = "/buscar_emple/"+id_emple;
+		var ajaxUrl = "/buscar_usuario/"+id_usuario;
 		request.open("GET",ajaxUrl,true);
 		request.send();
 		request.onload = function(){
 			if(request.status == 200){
 				var objData = JSON.parse(request.responseText);
-				$("#id_emple").val(id_emple);
-				$("#nom_emple").val(objData[1]);
-				$("#ape_emple").val(objData[2]);
-				$("#dni_emple").val(objData[3]);
-				$("#fech_emple").val(objData[4]);
-				$("#mail_emple").val(objData[6]);
-				$("#telef_emple").val(objData[7]);
-				$("#distr_emple").val(objData[8]);
-				$("#estado").val(objData[9]);
+				$("#id_usuario").val(id_usuario);
+				$("#nom_usu").val(objData[1]);
+				$("#rol").val(objData[2]);
+				$("#estado").val(objData[3]);
 			}
-		}*/
+		}
 	});
 }
 

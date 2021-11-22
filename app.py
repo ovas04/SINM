@@ -383,11 +383,18 @@ def elim_usuario_tempo(id_usuario):
 	return jsonify(response)
 	cur.connection.close();
 
-@app.route("/regis_usuario/", methods=["POST"])
-def regis_usuario():
-	
+"""@app.route("/regis_usuario/", methods=["POST"])
 
 @app.route("/editar_usuario/", methods=["POST"])
+def edit_usuario():
+"""
+@app.route("/buscar_usuario/<id_usuario>", methods=["GET"])
+def buscar_usuario(id_usuario):
+	cur = mysql.connection.cursor()
+	cur.execute("call sp_buscar_usuario(%s)", [id_usuario])
+	data = cur.fetchone()
+	return jsonify(data)
+
 
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):

@@ -64,8 +64,9 @@
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
-							<form id="form-alumno">
+							<form id="form-usuario">
 								<div class="modal-body">
+									<input type="hidden" id="id_usuario" name="id_usuario">
 									<div class="mb-3">
 										<label for="nom_usu" class="form-label">Usuario</label>
 										<div class="input-group">
@@ -85,9 +86,10 @@
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                             <select name="rol" id="rol" class="form-select">
-                                                <option value="1">Administrador</option>
-                                                <option value="2">Asistente Ventas</option>
-												<option value="3">Vendedor</option>
+                                                <option value="TUSU-10000">Administrador</option>
+                                                <option value="TUSU-10001">Vendedor</option>
+												<option value="TUSU-10002">Asistente de Ventas</option>
+												<option value="TUSU-10003">Asistente Gerencia</option>
                                             </select>
                                         </div>
                                     </div>
