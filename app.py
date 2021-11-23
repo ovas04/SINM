@@ -287,7 +287,7 @@ def regis_emple():
 		distrito = request.form["distr_emple"]
 		estado = request.form["estado"]
 		
-		if estado == "Activo":
+		if estado == "ACTIVO":
 			estado = "1"
 		else: estado = "0"	
 		id_usuario = "USU-100000"
