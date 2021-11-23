@@ -29,9 +29,11 @@ Departamentos = [
 #def obtener_conexion():
  #   return pymysql.connect(host="localhost",user="root",password="",db=obtener_nombre_base_datos())
 
+def infobrasUpdate():
+    return True
 
 class ObraPublica:
-    def __init__(self):
+    def update(self):
         self.codigo_InfoObras = ""
         self.entidad = ""
         self.etapa = ""
@@ -96,7 +98,7 @@ class ObraPublica:
         print('Estado : ......',self.estado)
         print('Comentario : ......',self.comentario)
         print('='*60)
-
+'''
 import pandas as pd
 
 dataset = pd.read_excel('ObrasPublicas.xlsx')
@@ -114,7 +116,7 @@ for row in dataset.iterrows():
 
     Lista_ObrasPublicas.append(FormarObrar(row[1]['C¢digo'],row[1]['Entidad'],row[1]['Descripci¢n de la obra'],
                                            row[1]['Modalidad de ejecuci¢n'],row[1]['Estado de la obra'],row[1]['Monto de inversi¢n']))
-
+'''
 '''
 conexion = obtener_conexion()    
 with conexion.cursor() as cur:
@@ -146,3 +148,5 @@ print("Construcciones publicas registradas correctamente!")
     print(Lista_ObrasPublicas[i].comentario)
     print("="*60)"""
 
+if __name__ == '__main__': 
+	print("infoobras")

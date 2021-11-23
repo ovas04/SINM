@@ -1,6 +1,9 @@
 from re import I
 import re
 from flask import Flask, json, jsonify, render_template, request, redirect, url_for, flash
+from WebScrapping.NexoScrap import nexoUpdate
+from WebScrapping.ObrasPublicas import infobrasUpdate
+from WebScrapping.ProperatiScrap import properatiUpdate
 from flask_mysqldb import MySQL
 from datetime import datetime
 
@@ -453,6 +456,34 @@ def vista_pbi():
 def reportes():
 	data = ("Reportes | Nueva Era","Reportes","function_reporte.js")
 	return render_template("reportes.html", datos = data)
+
+@app.route("/upt_priv", methods=["POST"])
+def upt_priv():
+	if request.method=="POST":
+		if (nexoUpdate() and properatiUpdate()):
+			'''
+			cur = mysql.connection.cursor()
+			cur.execute("call sp_registrar_actualización_priv")
+			mysql.connection.commit()
+			'''
+			response = {"status":True, "msg":"Construcciones privadas actualizadas correctamente"}
+		else:
+			response = {"status":False, "msg":"Error al actualizar las construcciones"}
+		return jsonify(response)
+
+@app.route("/upt_pub", methods=["POST"])
+def upt_pub():
+	if request.method=="POST":
+		if (infobrasUpdate()):
+			'''
+			cur = mysql.connection.cursor()
+			cur.execute("call sp_registrar_actualización_pub")
+			mysql.connection.commit()
+			'''
+			response = {"status":True, "msg":"Construcciones públicas actualizadas correctamente"}
+		else:
+			response = {"status":False, "msg":"Error al actualizar las construcciones"}
+		return jsonify(response)
 
 if __name__ == "__main__":
 	app.run(debug=True)

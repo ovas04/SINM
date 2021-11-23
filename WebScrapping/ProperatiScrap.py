@@ -15,9 +15,11 @@ from config import obtener_nombre_base_datos
 Meses = {'ENERO' : 1, 'FEBRERO' : 2,'MARZO' : 3,'ABRIL' : 4,'MAYO' : 5,'JUNIO' : 6,
           'JULIO' : 7,'AGOSTO' : 8,'SETIEMBRE' : 9,'OCTUBRE' : 10,'NOVIEMBRE' : 11,'DICIEMBRE' : 12  }
 
+def properatiUpdate():
+    return True
 
 class construccion:
-    def __init__(self):
+    def update(self):
         self.pagina=""
         self.url = ""
         self.nombre = ""
@@ -217,34 +219,38 @@ def DataProperati(_link):
 
 
 ConstruccionProperati = []
+def asd():
+    url= 'https://www.properati.com.pe/proyectos-inmobiliarios/q/?page=1'
+    for i in range(1,7):
+        _url = 'https://www.properati.com.pe/proyectos-inmobiliarios/q?page='+str(i)
+        html = urlopen(_url)
+        ObBs = BeautifulSoup(html,"lxml")
+        Obj = ObBs.findAll("div",{"class":"StyledCard-n9541a-1 czKiDg"})
+        for j in Obj:
+            j=(j.select ('div > a ')[0])
+        ConstruccionProperati.append(DataProperati(str(j.attrs['href'])))
 
-url= 'https://www.properati.com.pe/proyectos-inmobiliarios/q/?page=1'
-for i in range(1,7):
-    _url = 'https://www.properati.com.pe/proyectos-inmobiliarios/q?page='+str(i)
-    html = urlopen(_url)
-    ObBs = BeautifulSoup(html,"lxml")
-    Obj = ObBs.findAll("div",{"class":"StyledCard-n9541a-1 czKiDg"})
-    for j in Obj:
-       j=(j.select ('div > a ')[0])
-       ConstruccionProperati.append(DataProperati(str(j.attrs['href'])))
 
-conexion = Conexion.obtener_conexion()
-with conexion.cursor() as cur:
-    for i in range(len(ConstruccionProperati)):
-        cur.execute("call sp_autogenerar_id_const")
-        id_const = cur.fetchall()
-        cur.execute("call sp_registrar_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (id_const,ConstruccionProperati[i].estado,'1',ConstruccionProperati[i].nombre,ConstruccionProperati[i].descripcion,
-            ConstruccionProperati[i].fecha_culminacion,"USU-100000",ConstruccionProperati[i].pagina,ConstruccionProperati[i].url,
-            ConstruccionProperati[i].tipo_edificacion,ConstruccionProperati[i].Area_total,ConstruccionProperati[i].Area_Techada,
-            ConstruccionProperati[i].constructora,ConstruccionProperati[i].financiamiento,ConstruccionProperati[i].ubicacion,
-            ConstruccionProperati[i].direccion,ConstruccionProperati[i].etapa))
-        conexion.commit()
-conexion.close()
-print("Construcciones privadas registradas correctamente!")
+def aaa():
+    conexion = Conexion.obtener_conexion()
+    with conexion.cursor() as cur:
+        for i in range(len(ConstruccionProperati)):
+            cur.execute("call sp_autogenerar_id_const")
+            id_const = cur.fetchall()
+            cur.execute("call sp_registrar_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (id_const,ConstruccionProperati[i].estado,'1',ConstruccionProperati[i].nombre,ConstruccionProperati[i].descripcion,
+                ConstruccionProperati[i].fecha_culminacion,"USU-100000",ConstruccionProperati[i].pagina,ConstruccionProperati[i].url,
+                ConstruccionProperati[i].tipo_edificacion,ConstruccionProperati[i].Area_total,ConstruccionProperati[i].Area_Techada,
+                ConstruccionProperati[i].constructora,ConstruccionProperati[i].financiamiento,ConstruccionProperati[i].ubicacion,
+                ConstruccionProperati[i].direccion,ConstruccionProperati[i].etapa))
+            conexion.commit()
+    conexion.close()
+    print("Construcciones privadas registradas correctamente!")
 
 
 """for i in range(0,len(ConstruccionProperati)):
     print('='*50)
     ConstruccionProperati[i].mostrar()"""
 
+if __name__ == '__main__': 
+	print("properati")

@@ -11,9 +11,11 @@ from config import obtener_nombre_base_datos
 Meses = {'ENERO' : 1, 'FEBRERO' : 2,'MARZO' : 3,'ABRIL' : 4,'MAYO' : 5,'JUNIO' : 6,
           'JULIO' : 7,'AGOSTO' : 8,'SEPTIEMBRE' : 9,'OCTUBRE' : 10,'NOVIEMBRE' : 11,'DICIEMBRE' : 12  }
 
+def nexoUpdate():
+    return True
 
 class construccion:
-    def __init__(self):
+    def update(self):
         self.pagina=""
         self.url = ""
         self.nombre = ""
@@ -204,16 +206,18 @@ def Data_Nexo(p_url,ObBs):
 
 
 ConstruccionesNexo = []
-for i in range(1823,1850):
-    _url=("https://nexoinmobiliario.pe/proyecto/venta-de-dasdepartamento-"+str(i))
-    req = Request(_url, headers={'User-Agent': '  Mozilla/5.0'})
-    html = urlopen(req).read()
-    ObBs =  BeautifulSoup(html,"lxml")
-    title = ObBs.find("title")
-    if(not (title.get_text() == "Nexo Inmobiliario - Departamentos, lotes, casas y oficinas en venta")):
-        ConstruccionesNexo.append(Data_Nexo(_url,ObBs))
-        print(i)
-    #html = urlopen("https://nexoinmobiliario.pe/proyecto/venta-de-dasdepartamento-"+str(i))
+
+def asd():
+    for i in range(1823,1850):
+        _url=("https://nexoinmobiliario.pe/proyecto/venta-de-dasdepartamento-"+str(i))
+        req = Request(_url, headers={'User-Agent': '  Mozilla/5.0'})
+        html = urlopen(req).read()
+        ObBs =  BeautifulSoup(html,"lxml")
+        title = ObBs.find("title")
+        if(not (title.get_text() == "Nexo Inmobiliario - Departamentos, lotes, casas y oficinas en venta")):
+            ConstruccionesNexo.append(Data_Nexo(_url,ObBs))
+            print(i)
+        #html = urlopen("https://nexoinmobiliario.pe/proyecto/venta-de-dasdepartamento-"+str(i))
 
 
 '''
@@ -221,20 +225,21 @@ print("/"*120)
 print(len(ConstruccionesNexo))
 '''
 
-conexion = Conexion.obtener_conexion()
-with conexion.cursor() as cur:
-    for i in range(len(ConstruccionesNexo)):
-        cur.execute("call sp_autogenerar_id_const")
-        id_const = cur.fetchall()
-        cur.execute("call sp_registrar_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (id_const,ConstruccionesNexo[i].estado,"1",ConstruccionesNexo[i].nombre,ConstruccionesNexo[i].descripcion,
-            ConstruccionesNexo[i].fecha_culminacion,"USU-100000",ConstruccionesNexo[i].pagina,ConstruccionesNexo[i].url,
-            ConstruccionesNexo[i].tipo_edificacion,ConstruccionesNexo[i].area_total,ConstruccionesNexo[i].Area_Techada,
-            ConstruccionesNexo[i].constructora,ConstruccionesNexo[i].financiamiento,ConstruccionesNexo[i].ubicacion,
-            ConstruccionesNexo[i].direccion,ConstruccionesNexo[i].etapa))
-        conexion.commit()
-conexion.close()
-print("Construcciones privadas registradas correctamente!")
+def aaa():
+    conexion = Conexion.obtener_conexion()
+    with conexion.cursor() as cur:
+        for i in range(len(ConstruccionesNexo)):
+            cur.execute("call sp_autogenerar_id_const")
+            id_const = cur.fetchall()
+            cur.execute("call sp_registrar_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (id_const,ConstruccionesNexo[i].estado,"1",ConstruccionesNexo[i].nombre,ConstruccionesNexo[i].descripcion,
+                ConstruccionesNexo[i].fecha_culminacion,"USU-100000",ConstruccionesNexo[i].pagina,ConstruccionesNexo[i].url,
+                ConstruccionesNexo[i].tipo_edificacion,ConstruccionesNexo[i].area_total,ConstruccionesNexo[i].Area_Techada,
+                ConstruccionesNexo[i].constructora,ConstruccionesNexo[i].financiamiento,ConstruccionesNexo[i].ubicacion,
+                ConstruccionesNexo[i].direccion,ConstruccionesNexo[i].etapa))
+            conexion.commit()
+    conexion.close()
+    print("Construcciones privadas registradas correctamente!")
 
 
 """for i in range(len(ConstruccionesNexo)):
@@ -252,3 +257,6 @@ print("Construcciones privadas registradas correctamente!")
 """for i in range(0,len(ConstruccionesNexo)):
     print('='*50)
     ConstruccionesNexo[i].mostrar()"""
+
+if __name__ == '__main__': 
+	print("nexo")
