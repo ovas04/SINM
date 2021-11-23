@@ -1,4 +1,5 @@
 from re import I
+import re
 from flask import Flask, json, jsonify, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 from datetime import datetime
@@ -389,28 +390,46 @@ def elim_usuario_tempo(id_usuario):
 def regis_usuario():
 	if request.method=="POST":
 		cur=mysql.connection.cursor()
+		id_usu = request.form["id_usuario"]
 		dni_usuario=request.form["dni_usu"]
 		usuario=request.form["nom_usu"]
 		password=request.form["pass_usu"]
 		rol_usuario=request.form["rol_usu"]
 		estado_usuario=request.form["estado_usu"]
-		id_party_validacion=""
-		cur.execute("select id_party from persona where dni = %s",[dni_usuario])
-		id_party_validacion=cur.fetchone()
-		print(id_party_validacion)
-		if (id_party_validacion != None):
-			cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
-			rol_usuario,estado_usuario])
+		print(dni_usuario+"Hola")
+		if (dni_usuario == "") :
+			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
 			mysql.connection.commit()
-			response = {"status":True, "msg":"Usuario registrado correctamente!"}
+			response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
 		else:
-			response = {"status":False, "msg":"DNI no encontrado en el sistema"}
+			id_party_validacion=""
+			cur.execute("select id_party from persona where dni = %s",[dni_usuario])
+			id_party_validacion=cur.fetchone()
+			print(id_party_validacion)
+			if (id_party_validacion != None):
+				cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
+				rol_usuario,estado_usuario])
+				mysql.connection.commit()
+				response = {"status":True, "msg":"Usuario registrado correctamente!"}
+			else:
+				response = {"status":False, "msg":"DNI no encontrado en el sistema"}
 		return jsonify(response)
 		cur.connection.close(); 
-
-"""@app.route("/editar_usuario/", methods=["POST"])
-def edit_usuario():
 """
+@app.route("/editar_usuario/", methods=["POST"])
+def edit_usuario():
+	if request.method=="POST":
+		cur = mysql.connection.cursor()
+		id_usu = request.form["id_usuario"]
+		password = request.form["pass_usu"]
+		rol_usuario=request.form["rol_usu"]
+		estado_usuario=request.form["estado_usu"]
+		cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
+		mysql.connection.commit()
+	response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
+	cur.connection.close();
+"""
+
 @app.route("/buscar_usuario/<id_usuario>", methods=["GET"])
 def buscar_usuario(id_usuario):
 	cur = mysql.connection.cursor()
