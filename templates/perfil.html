@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url() ?>/dashboard">Home</a></li>
               <li class="breadcrumb-item active">{{ datos.1 }}</li>
             </ol>
           </div>
@@ -28,10 +28,12 @@
             <div class="card card-warning card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="{{url_for('static', filename='images/user1-128x128.jpg')}}" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="static/images/{{session['userData'][9]}}"
+                       alt="User profile picture">
                 </div>
-                <h3 class="profile-username text-center"></h3>
-                <p class="text-muted text-center"></p>
+                <h3 class="profile-username text-center">{{session["userData"][1] + " " + session["userData"][2]}}</h3>
+                <p class="text-muted text-center">{{session["userData"][11]}}</p>
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
                     <b>Situación</b> <a class="float-right"></a>
@@ -64,16 +66,16 @@
                   <!-- /.tab-pane -->
                   <div class="tab-pane fade active show" id="datos">
                     <strong><i class="fas fa-id-card mr-1"></i> DNI</strong>
-                    <p class="text-muted"></p>
+                    <p class="text-muted">{{session["userData"][3]}}</p>
                     <hr>
                     <strong><i class="fas fa-mobile-alt mr-1"></i> Teléfono</strong>
-                    <p class="text-muted"></p>
+                    <p class="text-muted">{{session["userData"][6]}}</p>
                     <hr>
                     <strong><i class="fas fa-envelope mr-1"></i> Correo electrónico</strong>
-                    <p class="text-muted"></p>
+                    <p class="text-muted">{{session["userData"][5]}}</p>
                     <hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Distrito</strong>
-                    <p class="text-muted"></p>
+                    <p class="text-muted">{{session["userData"][7]}}</p>
                     <hr>
                     <strong><i class="far fa-file-alt mr-1"></i> Observaciones</strong>
                     <p class="text-muted"></p>
