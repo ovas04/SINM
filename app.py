@@ -221,25 +221,15 @@ def marc_const_pub(id_construc):
 
 
 # ! REGISTRAR COMENTARIO ------------------------------------!!!
-@app.route("/regis_comen", methods=["POST"])
-def regis_comen():
+@app.route("/regis_comen/<id_construc>", methods=["POST"])
+def regis_comen(id_construccion):
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
-		'''id = request.form["id_emple"]
-		if id != "0":
-			codigo = id
-		else:
-			cur.execute("select max(id_usuario)+1 from usuario")
-			codigo = cur.fetchall()'''
-		#TODO id_usuario =
-		id_usuario = "null"
-		#TODO id_construccion = 
-		id_construccion = "null"
+		id_usuario =  session["id_user"]
 		comentario = request.form["comentario"]
 		nombre = request.form["name_c"]
 		telefono = request.form["num_c"]
-		#TODO tipo = request.form["tipo"]
-		tipo = "1"
+		tipo = request.form["tipo"] #TODO TIPO NO ENTRATEN
 		cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_construccion,nombre,telefono,tipo,comentario))
 		mysql.connection.commit()
 		response = {"status":True, "msj":"Comentario registrado correctamente!"}
