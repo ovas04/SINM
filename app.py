@@ -396,7 +396,6 @@ def regis_usuario():
 		password=request.form["pass_usu"]
 		rol_usuario=request.form["rol_usu"]
 		estado_usuario=request.form["estado_usu"]
-		print(dni_usuario+"Hola")
 		if (dni_usuario == "") :
 			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
 			mysql.connection.commit()
