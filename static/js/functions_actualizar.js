@@ -51,7 +51,7 @@ function actualizar_pub(){
 		var link = $('#link').val();
 		if(file[0].files.length != 0 || link.length != 0){
 			Swal.fire({
-				title: "Actualizando las construcciones publicas",
+				title: "Actualizando las construcciones públicas",
 				allowEscapeKey: false,
 				allowOutsideClick: false,
 				didOpen: () => {
