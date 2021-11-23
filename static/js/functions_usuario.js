@@ -5,7 +5,6 @@ $(document).ready(function(){
 	get_permiso();
 	regis_usuario();
     edit_usuario();
-    eli_usuario();
 	elim_usuario_tempo();
 	elim_usuario_perma();
 });
