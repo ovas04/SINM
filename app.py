@@ -85,6 +85,7 @@ def actualizar():
 	data = ("Actualizar Info | Nueva Era","Actualizar información")
 	return render_template("actualizar.html", datos = data)
 
+#!------------------------------------------CONSTRUCCIONES------------------------------------------------------------ 
 
 #Construcciones privadas
 @app.route("/construcciones_privadas")
@@ -211,6 +212,14 @@ def actividad_construc_pub():
 	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",)
 	return render_template("registrar_actividad_publica.html", datos = data)
 
+
+@app.route("/marc_const/<id_construc>",methods=["POST"])
+def marc_const_pub(id_construc):
+	cur = mysql.connection.cursor()
+	id_usuario =  session["id_user"]
+	cur.execute("call sp_marcar_construccion(%s,%s)",(id_usuario,id_construc))
+
+
 # ! REGISTRAR COMENTARIO ------------------------------------!!!
 @app.route("/regis_comen", methods=["POST"])
 def regis_comen():
@@ -237,6 +246,8 @@ def regis_comen():
 		return jsonify(response)
 		cur.connection.close();
 
+
+#! ------------------------------------------EMPLEADO------------------------------------------------------------ 
 
 #Empleados
 @app.route("/empleados")
@@ -265,26 +276,6 @@ def list_emple():
 				'<button class="btn btn-primary btn-sm btn-edit-emple" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button> '+
 				'<button class="btn btn-danger btn-sm btn-eli-emple" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
 				'</div>')
-	return jsonify(data)
-	cur.connection.close();
-
-@app.route("/list_usuarios")
-def list_usuarios():
-	cur = mysql.connection.cursor()
-	cur.execute("call sp_listar_usuarios")
-	data = cur.fetchall()
-	print("Capto datos")
-	data = [list(i) for i in data]
-	for i in range(len(data)):
-		if data[i][5] == "1":
-			data[i][5] = '<span class="badge bg-info">Activo</span>'
-		else:
-			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
-		data[i].append('<div class="text-center">'+
-				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button>'+
-				'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" role="button" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
-				'</div>')
-		data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
 	return jsonify(data)
 	cur.connection.close();
 
@@ -327,8 +318,7 @@ def regis_emple():
 		response = {"status":True, "msj":"Empleado registrado correctamente!"}
 		return jsonify(response)
 		cur.connection.close();
-
-#! AQUI SE DEBE AGREGAR SEXO  
+ 
 
 @app.route("/buscar_empleado/<id_emple>", methods=["GET"])
 def buscar_emple(id_emple):
@@ -344,7 +334,6 @@ def buscar_emple(id_emple):
 	return jsonify(data[0])
 	
 	
-#! ACTUALIZAR EMPLEADO
 
 @app.route("/edi_emple/<id_emple>", methods=["GET"])
 def edi_emple(id_emple):
@@ -368,6 +357,30 @@ def elim_emple(id_emple):
 	response = {"status":"True", "msj":"Registro de empleado elminado!"}
 	return jsonify(response)
 	cur.connection.close();
+
+#! ------------------------------------------USUARIO------------------------------------------------------------ 
+
+
+@app.route("/list_usuarios")
+def list_usuarios():
+	cur = mysql.connection.cursor()
+	cur.execute("call sp_listar_usuarios")
+	data = cur.fetchall()
+	print("Capto datos")
+	data = [list(i) for i in data]
+	for i in range(len(data)):
+		if data[i][5] == "1":
+			data[i][5] = '<span class="badge bg-info">Activo</span>'
+		else:
+			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
+		data[i].append('<div class="text-center">'+
+				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button>'+
+				'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" role="button" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
+				'</div>')
+		data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
+	return jsonify(data)
+	cur.connection.close();
+
 
 @app.route("/elim_usuario/")
 def elim_usuario():
@@ -434,20 +447,7 @@ def regis_usuario():
 				response = {"status":False, "msg":"DNI no encontrado en el sistema"}
 		return jsonify(response)
 		cur.connection.close(); 
-"""
-@app.route("/editar_usuario/", methods=["POST"])
-def edit_usuario():
-	if request.method=="POST":
-		cur = mysql.connection.cursor()
-		id_usu = request.form["id_usuario"]
-		password = request.form["pass_usu"]
-		rol_usuario=request.form["rol_usu"]
-		estado_usuario=request.form["estado_usu"]
-		cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
-		mysql.connection.commit()
-	response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
-	cur.connection.close();
-"""
+
 
 @app.route("/buscar_usuario/<id_usuario>", methods=["GET"])
 def buscar_usuario(id_usuario):
