@@ -59,7 +59,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-bs-toggle="dropdown" href="#">
           <i class="fas fa-user-circle"></i>
-          <span>Usuario</span>
+          <span class="text-sm">{{session["userData"][1] + " " + session["userData"][2]}}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <span class="dropdown-header">Opciones de usuario</span>
@@ -68,11 +68,11 @@
             <i class="fas fa-cog mr-2"></i>Configuración
           </a>
           <div class="dropdown-divider"></div>
-          <a href="<?php echo base_url() ?>/usuarios/perfil" class="dropdown-item">
+          <a href="{{url_for('perfil')}}" class="dropdown-item">
             <i class="fas fa-user mr-2"></i>Mi Perfil
           </a>
           <div class="dropdown-divider"></div>
-          <a href="{{url_for('home')}}" class="dropdown-item">
+          <a href="{{url_for('logout')}}" class="dropdown-item">
             <i class="fas fa-sign-out-alt mr-2"></i>Cerrar Sesión
           </a>
         </div>
@@ -84,7 +84,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{url_for('dashboard')}}" class="brand-link">
-      <img src="{{url_for('static', filename='images/nuevaerafavicon.png')}}" alt="Logo Nueva Era" class="brand-image img-circle elevation-3">
+      <img src="static/images/{{session['userData'][9]}}" alt="Logo Nueva Era" class="brand-image img-circle elevation-3">
       <span class="brand-text font-weight-light">Nueva Era</span>
     </a>
 
@@ -96,7 +96,7 @@
           <img src="{{url_for('static', filename='images/user1-128x128.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="" class="d-block">Hola Yuri!</a>
+          <a href="" class="d-block">Hola {{session["userData"][1]}}!</a>
         </div>
       </div>
 

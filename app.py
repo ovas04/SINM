@@ -1,6 +1,4 @@
-from re import I
-import re
-from flask import Flask, json, jsonify, render_template, request, redirect, url_for, flash
+from flask import Flask, json, jsonify, render_template, request, redirect, url_for, session
 from WebScrapping.NexoScrap import nexoUpdate
 from WebScrapping.ObrasPublicas import infobrasUpdate
 from WebScrapping.ProperatiScrap import properatiUpdate
@@ -24,12 +22,43 @@ app.secret_key = "mysecretkey"
 
 @app.route("/")
 def home():
-	return render_template("login.html")
+	if "id_user" in session:
+		return redirect(url_for("dashboard"))
+	else:
+		return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def login():
+	if request.method == "POST":
+		usuario = request.form["usuario"]
+		password = request.form["password"]
+		cur = mysql.connection.cursor()
+		cur.execute("call sp_login(%s,%s)", (usuario,password))
+		data = cur.fetchone()
+		if data != None:
+			session["id_user"] = data[0]
+			cur2 = mysql.connection.cursor()
+			cur2.execute("call sp_datos_usuario(%s)", [session["id_user"]])
+			userData = cur2.fetchone()
+			session["userData"] = userData
+			response = {"status":True, "msg": "OK!"}
+		else:
+			response = {"status":False, "msg": "Usuario incorrecto"}
+		return jsonify(response)
+		cur.connection.close();
+
+@app.route("/logout")
+def logout():
+	session.clear()
+	return redirect(url_for("home"))
 
 @app.route("/dashboard")
 def dashboard():
-	data = ("Dashboard | Nueva Era","Dashboard")
-	return render_template("dashboard.html", datos = data)
+	if "id_user" in session:
+		data = ("Dashboard | Nueva Era","Dashboard")
+		return render_template("dashboard.html", datos = data)
+	else:
+		 return redirect(url_for("home"))
 
 @app.route("/perfil")
 def perfil():
