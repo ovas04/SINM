@@ -319,19 +319,7 @@ def regis_emple():
 		if estado == "Activo":
 			estado = "1"
 		else: estado = "0"	
-		id_usuario = "USU-100000"
-
-		print(nombre)
-		print(apellidos)
-		print(dni)
-		print(fecha)
-		print(mail)
-		print(sexo)
-		print(telefono)
-		print(distrito)
-		print(estado)
-		print(id_usuario)
-
+		id_usuario = session["id_user"]
 
 		cur.execute("call sp_crear_actualizar_empleado(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
 		 	(party_id,nombre,apellidos,dni,sexo,fecha,mail,telefono,distrito,estado,id_usuario,id_party_generado,id_mec_cont_generado))
