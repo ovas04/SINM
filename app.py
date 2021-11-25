@@ -218,6 +218,9 @@ def marc_const_pub(id_construc):
 	cur = mysql.connection.cursor()
 	id_usuario =  session["id_user"]
 	cur.execute("call sp_marcar_construccion(%s,%s)",(id_usuario,id_construc))
+	mysql.connection.commit()
+	response = {"status":True, "msj":"Construccion Marcada correctamente!"}
+	return jsonify(response)	
 
 
 # ! REGISTRAR COMENTARIO ------------------------------------!!!

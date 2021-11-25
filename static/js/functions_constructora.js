@@ -7,6 +7,7 @@ $(document).ready(function(){
 	ver_construc();
 	edit_construc();
 	eli_construc();
+	marcar_construccion();
 });
 
 function list_construc(){
@@ -158,18 +159,34 @@ function eli_construc(){
 
 
 function marcar_construccion(){
-	$("#tab_constructoras").on("click",".btn-marc-const-pri",function(){
+	$("#modal-det-construc").on("click",".btn-marc-const-pri",function(){
 		var id_construc = this.getAttribute("rl");
-		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-		var ajaxUrl = "/marc_const/"+id_construc;
-		request.open("GET",ajaxUrl,true);
-		request.send();
-		request.onload = function(){
-			if(request.status == 200){
-				var objData = JSON.parse(request.responseText);
-		
+		Swal.fire({
+			title: "Marcar Construccion",
+			text: "¿Desea Marcar esta construccion?",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "Si, Marcar!",
+			cancelButtonText: "No, cancelar!"
+		}).then((result)=>{
+			if(result.isConfirmed){
+				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+				var ajaxUrl = "/marc-const/"+id_construc;
+				request.open("POST",ajaxUrl,true);
+				request.send();
+				request.onload = function(){
+					if(request.status == 200){
+						var objData = JSON.parse(request.responseText);
+						Swal.fire("MARCADO!",objData.msj,"success");
+						$("#tab_constructoras").DataTable().ajax.reload();
+					}else{
+						Swal.fire("Construcciones","El Registro Construccion Ocupada","error");
+					}
+				}
+			}else{
+				Swal.fire("Cancelado","Tu registro está seguro :)","error");
 			}
-		}
+		});
 	});
 }
 
