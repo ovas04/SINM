@@ -155,6 +155,25 @@ function eli_construc(){
 	});
 }
 
+
+
+function marcar_construccion(){
+	$("#tab_constructoras").on("click",".btn-marc-const-pri",function(){
+		var id_construc = this.getAttribute("rl");
+		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+		var ajaxUrl = "/marc_const/"+id_construc;
+		request.open("GET",ajaxUrl,true);
+		request.send();
+		request.onload = function(){
+			if(request.status == 200){
+				var objData = JSON.parse(request.responseText);
+		
+			}
+		}
+	});
+}
+
+
 function open_modal(){
 	$("#modal-construc .btn-form").removeClass("btn-primary").addClass("btn-success");
 	$("#modal-construc .modal-title").text("Registrar Construcción")
