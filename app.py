@@ -468,6 +468,18 @@ def buscar_usuario(id_usuario):
 	data = cur.fetchone()
 	return jsonify(data)
 
+#!----------------------------PERMISOS Y ROLES--------------------------------------------
+
+@app.route("/list_permisos/")
+def list_permisos():
+	cur=mysql.connection.cursor()
+	cur.execute("select id_privilegio,descripcion from privilegios")
+	data = cur.fetchall()
+	data = [list(i) for i in data]
+	return jsonify(data)
+	cur.connection.close();
+
+#!----------------------------------------------------------------------------------------
 
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):
