@@ -97,11 +97,12 @@ function ver_construc(){
 					$(".btn-marc-const-pri").addClass("btn-danger");
 					$(".btn-marc-const-pri").attr("disabled",true)
 				}
-				else{
+				else if (objData[11] == 3) {
 					$(".btn-marc-const-pri").text("Construccion Visitada");
 					$(".btn-marc-const-pri").removeClass("btn-success");
 					$(".btn-marc-const-pri").addClass("btn-warning");
 				}
+				
 			}
 		}
 	});
@@ -173,7 +174,6 @@ function eli_construc(){
 
 function marcar_construccion(){
 	$("#modal-det-construc").on("click",".btn-marc-const-pri",function(){
-		//var id_construc = this.getAttribute("rl");
 		var id_construc = $("#id_construc_d").attr("rl"); 
 		Swal.fire({
 			title: "Marcar Construccion",
@@ -186,7 +186,7 @@ function marcar_construccion(){
 			if(result.isConfirmed){
 				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 				var ajaxUrl = "/marc_const/"+id_construc;
-				request.open("GET",ajaxUrl,true);
+				request.open("POST",ajaxUrl,true);
 				request.send();
 				request.onload = function(){
 					if(request.status == 200){

@@ -216,22 +216,26 @@ def actividad_construc_pub():
 
 
 
-@app.route("/marc_const/<id_construc>",methods=["GET"])
+@app.route("/marc_const/<id_construc>",methods=["POST"])
 def marc_const(id_construc):
-	print("Toy Aqui")
+
 	cur = mysql.connection.cursor()
 	id_usuario =  session["id_user"]
-	print("Toy Aqui")
-	cur.execute("call sp_marcar_construccion(%s,%s)",(id_usuario,id_construc))
-	mysql.connection.commit()
-	data = cur.fechall()
-	flag = data[0][0]
-	print(flag)
-	print(id_usuario)
-	print(id_construc)
-	if flag == "2":
+	cur.execute("SELECT ID_E_DISP from construccion Where ID_CONSTRUCCION = %s",[id_construc])
+	data = cur.fetchone()
+	disponibilidad = data[0][0]
+	print(id_usuario," ",id_construc," ",disponibilidad)
+	#cur.execute("call sp_marcar_construccion(%s,%s,%s)",(id_usuario,id_construc,disponibilidad))
+	#mysql.connection.commit()
+	data = cur.fetchall()
+	
+	if disponibilidad == "2":
 		response = {"status":True,"flag":0, "msj":"Construccion Ocupada!"}
 	else:
+		cur.execute("UPDATE construccion SET ID_E_DISP = '2' WHERE ID_CONSTRUCCION  = %s",[id_construc])
+		mysql.connection.commit()
+		cur.execute("INSERT INTO usuario_construccion VALUES(%s,%s,current_date(),null,null,null)",(id_usuario,id_construc))		
+		mysql.connection.commit()
 		response = {"status":True,"flag":1, "msj":"Construccion Marcada!"}
 	return jsonify(response)	
 
