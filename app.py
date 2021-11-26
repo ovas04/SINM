@@ -320,7 +320,7 @@ def regis_emple():
 		distrito = request.form["distr_emple"]
 		estado = request.form["estado"]
 		
-		if estado == "Activo":
+		if estado == "ACTIVO":
 			estado = "1"
 		else: estado = "0"	
 		id_usuario = session["id_user"]
@@ -382,8 +382,10 @@ def list_usuarios():
 	print("Capto datos")
 	data = [list(i) for i in data]
 	for i in range(len(data)):
-		if data[i][5] == "1":
+		if data[i][5] == "Activo":
 			data[i][5] = '<span class="badge bg-info">Activo</span>'
+		elif data[i][5] == "Eliminado temporalmente":
+			data[i][5] = '<span class="badge bg-danger">Eliminado temporalmente</span>'
 		else:
 			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
 		data[i].append('<div class="text-center">'+
@@ -426,7 +428,7 @@ def elim_usuario_perma(id_usuario):
 @app.route("/elim_usuario_tempo/<id_usuario>", methods=["POST"])
 def elim_usuario_tempo(id_usuario):
 	cur=mysql.connection.cursor()
-	cur.execute("update usuario set id_privilegio='PRI-100001' where id_usuario=%s",[id_usuario])
+	cur.execute("update usuario set id_estado_usuario='EUS-100002' where id_usuario=%s",[id_usuario])
 	mysql.connection.commit()
 	response = {"status":"True", "msj":"Usuario eliminado temporalmente!"}
 	return jsonify(response)
@@ -441,6 +443,7 @@ def regis_usuario():
 		usuario=request.form["nom_usu"]
 		password=request.form["pass_usu"]
 		rol_usuario=request.form["rol_usu"]
+		usuario_creacion=session["id_user"]
 		estado_usuario=request.form["estado_usu"]
 		if (dni_usuario == "") :
 			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
@@ -452,8 +455,8 @@ def regis_usuario():
 			id_party_validacion=cur.fetchone()
 			print(id_party_validacion)
 			if (id_party_validacion != None):
-				cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
-				rol_usuario,estado_usuario])
+				cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
+				rol_usuario,usuario_creacion,estado_usuario])
 				mysql.connection.commit()
 				response = {"status":True, "msg":"Usuario registrado correctamente!"}
 			else:
@@ -469,6 +472,51 @@ def buscar_usuario(id_usuario):
 	data = cur.fetchone()
 	return jsonify(data)
 
+#!----------------------------PERMISOS Y ROLES--------------------------------------------
+
+@app.route("/list_permisos/")
+def list_permisos():
+	cur=mysql.connection.cursor()
+	cur.execute("call sp_listar_privilegios")
+	data = cur.fetchall()
+	data = [list(i) for i in data]
+	for i in range(len(data)):
+		data[i].insert(0,i+1)
+	return jsonify(data)
+	cur.connection.close();
+
+@app.route("/list_roles/")
+def list_roles():
+	cur=mysql.connection.cursor()
+	cur.execute("call sp_listar_roles")
+	data = cur.fetchall()
+	data = [list(i) for i in data]
+	data_permiso = list()
+	data_nexada = list()
+	data_final = list()
+	for i in range(len(data)):
+		if (i+1) == len(data):
+			data_permiso.append(data[i][2])
+			data_nexada.append(data[i][0])
+			data_nexada.append(data[i][1])
+			data_nexada.append([data_permiso])
+			data_final.append(data_nexada)
+		elif data[i][0] == data[i+1][0]:
+			data_permiso.append(data[i][2])
+		else :
+			data_permiso.append(data[i][2])
+			data_nexada.append(data[i][0])
+			data_nexada.append(data[i][1])
+			data_nexada.append([data_permiso])
+			data_final.append(data_nexada)
+			data_permiso = list()
+			data_nexada = list()
+	for i in range(len(data_final)):
+		data_final[i].insert(0,i+1)
+	return jsonify(data_final)
+	cur.connection.close();
+
+#!----------------------------------------------------------------------------------------
 
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):

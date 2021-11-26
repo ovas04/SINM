@@ -38,13 +38,16 @@
 														<th>Nombre del rol</th>
 														<th>Descripción</th>
 														<th>Permisos</th>
+                                                    
+                    
 													</tr>
 												</thead>
 												<tbody>
+                                                    <!--A partir de acá debe volar todo y jalar de la BD
 													<tr>
                                                         <th scope="row">1</th>
-                                                        <td>Administrador</td>
-                                                        <td>Persona encargada de administrar los usuarios, roles y permisos.</td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td>
                                                             <ul class="list-group list-group-flush">
                                                                 <li class="list-group-item bg-transparent">PermisoA</li>
@@ -57,11 +60,8 @@
                                                       </tr>
                                                       <tr>
                                                         <th scope="row">2</th>
-                                                        <td>Asistente de Ventas</td>
-                                                        <td>Persona encargada de dar el seguimiento al desarrollo 
-                                                            de actividades de los vendedores, para ello realiza actividades sobre como listar 
-                                                            los vendedores, ver la actividad de los vendedores, hacer cálculos de 
-                                                            actividad y llamadas de atención si es necesario</td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td>
                                                             <ul class="list-group list-group-flush">
                                                                 <li class="list-group-item bg-transparent">PermisoA</li>
@@ -72,10 +72,8 @@
                                                       </tr>
                                                       <tr>
                                                         <th scope="row">3</th>
-                                                        <td>Asistente de Gerencia</td>
-                                                        <td>Persona que podrá generar vistas y reportes 
-                                                            gerenciales que apoyen en la toma de decisiones de la empresa.
-                                                            </td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td>
                                                             <ul class="list-group list-group-flush">
                                                                 <li class="list-group-item bg-transparent">PermisoA</li>
@@ -86,9 +84,8 @@
                                                       </tr>
                                                       <tr>
                                                         <th scope="row">4</th>
-                                                        <td>Vendedor</td>
-                                                        <td>Podrá listar sus construcciones, marcar actividad, registrar datos contacto y modificar 
-                                                            datos de construcción.</td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td>
                                                             <ul class="list-group list-group-flush">
                                                                 <li class="list-group-item bg-transparent">PermisoA</li>
@@ -97,6 +94,7 @@
                                                             </ul>
                                                         </td>
                                                       </tr>
+                                                    <!--Volar hasta acá-->
 												</tbody>
 											</table>
                                          <a class="btn btn-primary" href="{{url_for('permisos')}}" role="button">Ver Permisos</a>
@@ -119,5 +117,6 @@
 <script src="{{url_for('static', filename='js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/functions_actualizar.js')}}"></script>
 <script src="{{url_for('static', filename='js/sweetalert2.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/functions_roles.js')}}"></script>
 </html>
 {% endblock %}
