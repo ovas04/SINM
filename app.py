@@ -62,60 +62,81 @@ def dashboard():
 
 @app.route("/perfil")
 def perfil():
-	data = ("Mi Perfil | Nueva Era","Mi Perfil")
-	return render_template("perfil.html", datos = data)
+	if "id_user" in session:
+		data = ("Mi Perfil | Nueva Era","Mi Perfil")
+		return render_template("perfil.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/usuarios")
 def usuarios():
-	data = ("Usuarios | Nueva Era","Usuarios")
-	return render_template("usuarios.html", datos = data)
+	if "id_user" in session:
+		data = ("Usuarios | Nueva Era","Usuarios")
+		return render_template("usuarios.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/roles")
 def roles():
-	data = ("Roles | Nueva Era","Roles")
-	return render_template("roles.html", datos = data)
+	if "id_user" in session:
+		data = ("Roles | Nueva Era","Roles")
+		return render_template("roles.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/roles/permisos")
 def permisos():
-	data = ("Permisos | Nueva Era","Permisos")
-	return render_template("permisos.html", datos = data)
+	if "id_user" in session:
+		data = ("Permisos | Nueva Era","Permisos")
+		return render_template("permisos.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/actualizar")
 def actualizar():
-	data = ("Actualizar Info | Nueva Era","Actualizar información")
-	return render_template("actualizar.html", datos = data)
+	if "id_user" in session:
+		data = ("Actualizar Info | Nueva Era","Actualizar información")
+		return render_template("actualizar.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 #!------------------------------------------CONSTRUCCIONES------------------------------------------------------------ 
 
 #Construcciones privadas
 @app.route("/construcciones_privadas")
 def construc_priv():
-	data = ("Construcciones Privadas | Nueva Era","Construcciones Privadas","functions_constructora.js")
-	return render_template("construc_priv.html", datos = data)
+	if "id_user" in session:
+		data = ("Construcciones Privadas | Nueva Era","Construcciones Privadas","functions_constructora.js")
+		return render_template("construc_priv.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/list_construc_priv")
 def list_construc_priv():
-	data = Service.get_usuarios()
-	data = [list(i) for i in data]
-	for i in range(len(data)):
-		if data[i][6] != None:
-			data[i][6] = datetime.strftime(data[i][6],"%d-%m-%Y")
-		else:
-			data[i][6] = "No existe"
+	if "id_user" in session:
+		data = Service.get_usuarios()
+		data = [list(i) for i in data]
+		for i in range(len(data)):
+			if data[i][6] != None:
+				data[i][6] = datetime.strftime(data[i][6],"%d-%m-%Y")
+			else:
+				data[i][6] = "No existe"
 
-		if data[i][8] == "Activa":
-			data[i][8] = '<span class="badge bg-info">Activa</span>'
-		elif data[i][8] == "Vencida":
-			data[i][8] = '<span class="badge bg-danger">Vencida</span>'
-		else:
-			data[i][8] = '<span class="badge bg-secondary">Duda</span>'
+			if data[i][8] == "Activa":
+				data[i][8] = '<span class="badge bg-info">Activa</span>'
+			elif data[i][8] == "Vencida":
+				data[i][8] = '<span class="badge bg-danger">Vencida</span>'
+			else:
+				data[i][8] = '<span class="badge bg-secondary">Duda</span>'
 
-		data[i].append('<div class="text-center">'+
-				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
-				'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
-				'<button class="btn btn-danger btn-sm btn-eli-construc" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
-				'</div>')
-	return jsonify(data)
+			data[i].append('<div class="text-center">'+
+					'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
+					'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
+					'<button class="btn btn-danger btn-sm btn-eli-construc" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
+					'</div>')
+		return jsonify(data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/regis_contruc_priv")
 def regis_construc_priv():
@@ -263,8 +284,11 @@ def reg_comen(id_const):
 #Empleados
 @app.route("/empleados")
 def empleados():
-	data = ("Empleados | Nueva Era","Empleados","functions_empleado.js")
-	return render_template("empleados.html", datos = data)
+	if "id_user" in session:
+		data = ("Empleados | Nueva Era","Empleados","functions_empleado.js")
+		return render_template("empleados.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/list_emple")
 def list_emple():
@@ -374,32 +398,35 @@ def elim_emple(id_emple):
 
 @app.route("/list_usuarios")
 def list_usuarios():
-	cur = mysql.connection.cursor()
-	cur.execute("call sp_listar_usuarios")
-	data = cur.fetchall()
-	data = [list(i) for i in data]
-	for i in range(len(data)):
+	if "id_user" in session:
+		cur = mysql.connection.cursor()
+		cur.execute("call sp_listar_usuarios")
+		data = cur.fetchall()
+		data = [list(i) for i in data]
+		for i in range(len(data)):
 
-		if data[i][5] == "Activo":
-			data[i][5] = '<span class="badge bg-info">Activo</span>'
-		elif data[i][5] == "Eliminado temporalmente":
-			data[i][5] = '<span class="badge bg-danger">Eliminado temporalmente</span>'
-		else:
-			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
+			if data[i][5] == "Activo":
+				data[i][5] = '<span class="badge bg-info">Activo</span>'
+			elif data[i][5] == "Eliminado temporalmente":
+				data[i][5] = '<span class="badge bg-danger">Eliminado temporalmente</span>'
+			else:
+				data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
 
-		data[i].append('<div class="text-center">'+
-				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button> '+
-				'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
-				'</div>')
-		if data[i][4] == "Administrador":
-			data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
-		elif data[i][4] == "Asistente Ventas":
-			data[i][4] = '<span class="badge bg-warning">'+data[i][4]+'</span>'
-		else:
-			data[i][4] = '<span class="badge bg-dark">'+data[i][4]+'</span>'
-			
-	return jsonify(data)
-	cur.connection.close();
+			data[i].append('<div class="text-center">'+
+					'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button> '+
+					'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
+					'</div>')
+			if data[i][4] == "Administrador":
+				data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
+			elif data[i][4] == "Asistente Ventas":
+				data[i][4] = '<span class="badge bg-warning">'+data[i][4]+'</span>'
+			else:
+				data[i][4] = '<span class="badge bg-dark">'+data[i][4]+'</span>'
+				
+		return jsonify(data)
+		cur.connection.close()
+	else:
+		return redirect(url_for("home"))
 
 
 @app.route("/elim_usuario/")
@@ -525,20 +552,29 @@ def list_roles():
 
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):
-	data = ("Actividad | Nueva Era","Actividad de vendedor","functions_empleado.js")
-	return render_template("actividad.html", datos = data)
+	if "id_user" in session:
+		data = ("Actividad | Nueva Era","Actividad de vendedor","functions_empleado.js")
+		return render_template("actividad.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 #Vista PB
 @app.route("/vista_pbi")
 def vista_pbi():
-	data = ("Vista PBI | Nueva Era","Vista Power BI","function_reporte.js")
-	return render_template("vista_pbi.html", datos = data)
+	if "id_user" in session:
+		data = ("Vista PBI | Nueva Era","Vista Power BI","function_reporte.js")
+		return render_template("vista_pbi.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 #Reportes
 @app.route("/reportes")
 def reportes():
-	data = ("Reportes | Nueva Era","Reportes","function_reporte.js")
-	return render_template("reportes.html", datos = data)
+	if "id_user" in session:
+		data = ("Reportes | Nueva Era","Reportes","function_reporte.js")
+		return render_template("reportes.html", datos = data)
+	else:
+		return redirect(url_for("home"))
 
 @app.route("/upt_priv", methods=["POST"])
 def upt_priv():
