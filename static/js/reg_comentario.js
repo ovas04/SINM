@@ -13,7 +13,7 @@ function regis_comen(){
 		e.preventDefault();
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 		id_const = $("#id_construc").attr("rl");
-		var ajaxUrl = "/reg_comen/";
+		var ajaxUrl = "/reg_comen/"+id_const;
 		var formData = new FormData(form);
 		console.log($("#tipo_contac_emp").attr("checked"))
 
