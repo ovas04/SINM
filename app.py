@@ -377,20 +377,27 @@ def list_usuarios():
 	cur = mysql.connection.cursor()
 	cur.execute("call sp_listar_usuarios")
 	data = cur.fetchall()
-	print("Capto datos")
 	data = [list(i) for i in data]
 	for i in range(len(data)):
+
 		if data[i][5] == "Activo":
 			data[i][5] = '<span class="badge bg-info">Activo</span>'
 		elif data[i][5] == "Eliminado temporalmente":
 			data[i][5] = '<span class="badge bg-danger">Eliminado temporalmente</span>'
 		else:
 			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
+
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button>'+
 				'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" role="button" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
 				'</div>')
-		data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
+		if data[i][4] == "Administrador":
+			data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
+		elif data[i][4] == "Asistente Ventas":
+			data[i][4] = '<span class="badge bg-warning">'+data[i][4]+'</span>'
+		else:
+			data[i][4] = '<span class="badge bg-dark">'+data[i][4]+'</span>'
+			
 	return jsonify(data)
 	cur.connection.close();
 
