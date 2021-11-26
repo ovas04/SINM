@@ -378,8 +378,10 @@ def list_usuarios():
 	print("Capto datos")
 	data = [list(i) for i in data]
 	for i in range(len(data)):
-		if data[i][5] == "1":
+		if data[i][5] == "Activo":
 			data[i][5] = '<span class="badge bg-info">Activo</span>'
+		elif data[i][5] == "Eliminado temporalmente":
+			data[i][5] = '<span class="badge bg-danger">Eliminado temporalmente</span>'
 		else:
 			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
 		data[i].append('<div class="text-center">'+
@@ -422,7 +424,7 @@ def elim_usuario_perma(id_usuario):
 @app.route("/elim_usuario_tempo/<id_usuario>", methods=["POST"])
 def elim_usuario_tempo(id_usuario):
 	cur=mysql.connection.cursor()
-	cur.execute("update usuario set id_privilegio='PRI-100001' where id_usuario=%s",[id_usuario])
+	cur.execute("update usuario set id_estado_usuario='EUS-100002' where id_usuario=%s",[id_usuario])
 	mysql.connection.commit()
 	response = {"status":"True", "msj":"Usuario eliminado temporalmente!"}
 	return jsonify(response)
@@ -437,6 +439,7 @@ def regis_usuario():
 		usuario=request.form["nom_usu"]
 		password=request.form["pass_usu"]
 		rol_usuario=request.form["rol_usu"]
+		usuario_creacion=session["id_user"]
 		estado_usuario=request.form["estado_usu"]
 		if (dni_usuario == "") :
 			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
@@ -448,8 +451,8 @@ def regis_usuario():
 			id_party_validacion=cur.fetchone()
 			print(id_party_validacion)
 			if (id_party_validacion != None):
-				cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
-				rol_usuario,estado_usuario])
+				cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
+				rol_usuario,usuario_creacion,estado_usuario])
 				mysql.connection.commit()
 				response = {"status":True, "msg":"Usuario registrado correctamente!"}
 			else:
