@@ -43,7 +43,7 @@ function list_roles(){
 			{"data_final":"0"},
 			{"data_final":"1"},
 			{"data_final":"2"},
-			{"data_final":"3"}
+			{"data_final":"3"},
 		],
 		"responsive": true,
 		"bDestroy": true,
