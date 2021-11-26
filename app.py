@@ -388,8 +388,8 @@ def list_usuarios():
 			data[i][5] = '<span class="badge bg-danger">Inactivo</span>'
 
 		data[i].append('<div class="text-center">'+
-				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button>'+
-				'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" role="button" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
+				'<button class="btn btn-primary btn-sm btn-edit-usu" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button> '+
+				'<a class="btn btn-danger btn-sm " href="elim_usuario?a='+data[i][0]+'&b='+data[i][1]+'&c='+data[i][2]+'&d='+data[i][4]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></a>'+
 				'</div>')
 		if data[i][4] == "Administrador":
 			data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
