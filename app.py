@@ -489,26 +489,26 @@ def list_roles():
 	cur.execute("call sp_listar_roles")
 	data = cur.fetchall()
 	data = [list(i) for i in data]
-	data_permiso = list()
-	data_nexada = list()
-	data_final = list()
+	data_permiso = []
+	data_nexada = []
+	data_final = []
 	for i in range(len(data)):
 		if (i+1) == len(data):
-			data_permiso.append(data[i][2])
+			data_permiso.append('<p class="text-center">'+data[i][2])
 			data_nexada.append(data[i][0])
 			data_nexada.append(data[i][1])
-			data_nexada.append([data_permiso])
+			data_nexada.append(data_permiso)
 			data_final.append(data_nexada)
 		elif data[i][0] == data[i+1][0]:
-			data_permiso.append(data[i][2])
+			data_permiso.append('<p class="text-center">'+data[i][2])
 		else :
-			data_permiso.append(data[i][2])
+			data_permiso.append('<p class="text-center">'+data[i][2])
 			data_nexada.append(data[i][0])
 			data_nexada.append(data[i][1])
-			data_nexada.append([data_permiso])
+			data_nexada.append(data_permiso)
 			data_final.append(data_nexada)
-			data_permiso = list()
-			data_nexada = list()
+			data_permiso = []
+			data_nexada = []
 	for i in range(len(data_final)):
 		data_final[i].insert(0,i+1)
 	return jsonify(data_final)
