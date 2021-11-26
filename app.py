@@ -146,11 +146,13 @@ def buscar_construc_priv(id_construc):
 		data[0][6] = datetime.strftime(data[0][6],"%Y-%m-%d")
 	else:
 		data[0][6] = "No existe"
+	#data[0][11]='2'
+
 	return jsonify(data[0])
 
-@app.route("/actividad_construc_priv")
-def actividad_construc_priv():
-	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",)
+@app.route("/actividad_construc_priv/<id_construc>",)
+def actividad_construc_priv(id_construc):
+	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",id_construc)
 	return render_template("registrar_actividad_privada.html", datos = data)
 
 #Construcciones publicas
@@ -207,31 +209,48 @@ def buscar_construc_pub(id_construc):
 	return jsonify(data[0])
 	cur.connection.close();
 
-@app.route("/actividad_construc_pub")
+@app.route("/actividad_construc_pub/<id_construc>")
 def actividad_construc_pub():
 	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",)
 	return render_template("registrar_actividad_publica.html", datos = data)
 
 
-@app.route("/marc_const/<id_construc>",methods=["POST"])
-def marc_const_pub(id_construc):
+
+@app.route("/marc_const/<id_construc>",methods=["GET"])
+def marc_const(id_construc):
+	print("Toy Aqui")
 	cur = mysql.connection.cursor()
 	id_usuario =  session["id_user"]
+	print("Toy Aqui")
 	cur.execute("call sp_marcar_construccion(%s,%s)",(id_usuario,id_construc))
+	mysql.connection.commit()
+	data = cur.fechall()
+	flag = data[0][0]
+	print(flag)
+	print(id_usuario)
+	print(id_construc)
+	if flag == "2":
+		response = {"status":True,"flag":0, "msj":"Construccion Ocupada!"}
+	else:
+		response = {"status":True,"flag":1, "msj":"Construccion Marcada!"}
+	return jsonify(response)	
 
 
 # ! REGISTRAR COMENTARIO ------------------------------------!!!
-@app.route("/regis_comen/<id_construc>", methods=["POST"])
-def regis_comen(id_construccion):
+@app.route("/reg_comen/", methods=["POST"])
+def reg_comen():
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
 		id_usuario =  session["id_user"]
-		comentario = request.form["comentario"]
-		nombre = request.form["name_c"]
-		telefono = request.form["num_c"]
-		tipo = request.form["tipo"] #TODO TIPO NO ENTRATEN
-		cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_construccion,nombre,telefono,tipo,comentario))
-		mysql.connection.commit()
+		id_usuario = request.form["comentario"]
+		nombre = request.form["name_contac"]
+		telefono = request.form["num_contac"]
+		tipo = request.form.get("tipo")	
+		
+		print(id_usuario,id_usuario,nombre,telefono,tipo)
+
+		#cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_construccion,nombre,telefono,tipo,comentario))
+		#mysql.connection.commit()
 		response = {"status":True, "msj":"Comentario registrado correctamente!"}
 		return jsonify(response)
 		cur.connection.close();
