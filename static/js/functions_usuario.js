@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $(".s-usuarios").css("display","block");
-    $(".usuarios").addClass("active");
+	$(".usuarios").addClass("active");
+    $(".usuario").addClass("active");
 	list_usuarios();
 	get_permiso();
 	regis_usuario();

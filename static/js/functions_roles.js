@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    $(".s-roles").css("display","block");
+    $(".s-usuarios").css("display","block");
+	$(".usuarios").addClass("active");
     $(".roles").addClass("active");
 	list_permisos();
 	list_roles();
