@@ -241,20 +241,18 @@ def marc_const(id_construc):
 
 
 # ! REGISTRAR COMENTARIO ------------------------------------!!!
-@app.route("/reg_comen/", methods=["POST"])
-def reg_comen():
+@app.route("/reg_comen/<id_const>", methods=["POST"])
+def reg_comen(id_const):
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
 		id_usuario =  session["id_user"]
-		id_usuario = request.form["comentario"]
+		comentario = request.form["comentario"]
 		nombre = request.form["name_contac"]
 		telefono = request.form["num_contac"]
 		tipo = request.form.get("tipo")	
-		
 		print(id_usuario,id_usuario,nombre,telefono,tipo)
-
-		#cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_construccion,nombre,telefono,tipo,comentario))
-		#mysql.connection.commit()
+		cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_const,nombre,telefono,tipo,comentario))
+		mysql.connection.commit()
 		response = {"status":True, "msj":"Comentario registrado correctamente!"}
 		return jsonify(response)
 		cur.connection.close();
