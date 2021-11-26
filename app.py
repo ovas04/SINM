@@ -237,15 +237,15 @@ def marc_const(id_construc):
 
 
 # ! REGISTRAR COMENTARIO ------------------------------------!!!
-@app.route("/regis_comen/<id_construc>", methods=["GET"])
-def regis_comen(id_construccion):
+@app.route("/reg_comen/", methods=["POST"])
+def reg_comen():
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
 		id_usuario =  session["id_user"]
 		id_usuario = request.form["comentario"]
-		nombre = request.form["name_c"]
-		telefono = request.form["num_c"]
-		tipo = request.form["flexRadioDefault1"] #TODO TIPO NO ENTRATEN		
+		nombre = request.form["name_contac"]
+		telefono = request.form["num_contac"]
+		tipo = request.form.get("tipo")	
 		
 		print(id_usuario,id_usuario,nombre,telefono,tipo)
 

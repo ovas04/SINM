@@ -9,12 +9,29 @@ $(document).ready(function(){
 
 function regis_comen(){
 	var form = document.querySelector("#form-reg_comen");
-	$(".btn-form").click(function(e){
+	$(".btn-regis-comen").click(function(e){
 		e.preventDefault();
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 		id_const = $("#id_construc").attr("rl");
-		var ajaxUrl = "/reg_comen/"+id_const;
+		var ajaxUrl = "/reg_comen/";
 		var formData = new FormData(form);
+		console.log($("#tipo_contac_emp").attr("checked"))
+
+		$("#form-reg_comen").find(':radio:checked').each(function () {
+			if(this.id == 'tipo_contac_emp' ){
+				formData.append('tipo','0');
+			}
+			else if (this.id == 'tipo_contac_per' ){
+				formData.append('tipo','1');
+			}
+		});
+
+		/*if($("#tipo_contac_emp").attr("checked") == true){
+			formData.append('tipo','0');
+		}
+		else if($("#tipo_contac_per").attr("checked") == true) {
+			formData.append('tipo','1');
+		}*/
 		request.open("POST",ajaxUrl,true);
 		request.send(formData);
 		request.onload = function(){
