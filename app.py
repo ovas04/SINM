@@ -36,9 +36,10 @@ def login():
 		cur.execute("call sp_login(%s,%s)", (usuario,password))
 		data = cur.fetchone()
 		if data != None:
-			session["id_user"] = data[0]
+			session["id_party"] = data[0]
+			session["id_user"] = data[1]
 			cur2 = mysql.connection.cursor()
-			cur2.execute("call sp_datos_usuario(%s)", [session["id_user"]])
+			cur2.execute("call sp_datos_usuario(%s)", [session["id_party"]])
 			userData = cur2.fetchone()
 			session["userData"] = userData
 			response = {"status":True, "msg": "OK!"}
