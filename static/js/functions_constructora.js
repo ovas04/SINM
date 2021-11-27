@@ -94,13 +94,23 @@ function ver_construc(){
 				if(objData[11] == 2){
 					$(".btn-marc-const-pri").text("Construccion Ocupada");
 					$(".btn-marc-const-pri").removeClass("btn-success");
+					$(".btn-marc-const-pri").removeClass("btn-warning");
 					$(".btn-marc-const-pri").addClass("btn-danger");
 					$(".btn-marc-const-pri").attr("disabled",true)
 				}
 				else if (objData[11] == 3) {
 					$(".btn-marc-const-pri").text("Construccion Visitada");
 					$(".btn-marc-const-pri").removeClass("btn-success");
+					$(".btn-marc-const-pri").removeClass("btn-danger");
 					$(".btn-marc-const-pri").addClass("btn-warning");
+					$(".btn-marc-const-pri").attr("disabled",false)
+				}
+				else{
+					$(".btn-marc-const-pri").text("Marcar Construccion");
+					$(".btn-marc-const-pri").removeClass("btn-danger");
+					$(".btn-marc-const-pri").removeClass("btn-warning");
+					$(".btn-marc-const-pri").addClass("btn-success");
+					$(".btn-marc-const-pri").attr("disabled",false)
 				}
 				
 			}

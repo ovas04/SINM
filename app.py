@@ -153,6 +153,8 @@ def buscar_construc_priv(id_construc):
 @app.route("/actividad_construc_priv/<id_construc>",)
 def actividad_construc_priv(id_construc):
 	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",id_construc)
+	print(id_construc)
+	print(data)
 	return render_template("registrar_actividad_privada.html", datos = data)
 
 #Construcciones publicas
@@ -223,6 +225,7 @@ def marc_const(id_construc):
 	id_usuario =  session["id_user"]
 	cur.execute("SELECT ID_E_DISP from construccion Where ID_CONSTRUCCION = %s",[id_construc])
 	data = cur.fetchone()
+	print(data)
 	disponibilidad = data[0][0]
 	print(id_usuario," ",id_construc," ",disponibilidad)
 	#cur.execute("call sp_marcar_construccion(%s,%s,%s)",(id_usuario,id_construc,disponibilidad))
@@ -250,10 +253,55 @@ def reg_comen(id_const):
 		nombre = request.form["name_contac"]
 		telefono = request.form["num_contac"]
 		tipo = request.form.get("tipo")	
-		print(id_usuario,id_usuario,nombre,telefono,tipo)
-		cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_const,nombre,telefono,tipo,comentario))
-		mysql.connection.commit()
-		response = {"status":True, "msj":"Comentario registrado correctamente!"}
+		#print(id_usuario,id_const,nombre,telefono,tipo)
+		#cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_const,nombre,telefono,tipo,comentario))
+		#mysql.connection.commit()
+
+		cur.execute("select ID_USUARIO from usuario_construccion uc where ID_CONSTRUCCION = %s and fecha_actividad is null LIMIT 1",[id_const])
+		data = cur.fetchall()
+		print(id_const)
+		usuario_asociado = data[0][0]
+		cur.execute("select f_autogenerar_id_party()")
+		data = cur.fetchall()
+		v_id_party = data[0][0]
+		cur.execute("select construcciones_db.f_generar_id_m_contc()")
+		data = cur.fetchall()
+		v_id_mec_contacto = data[0][0]
+		print(usuario_asociado," ",v_id_party," ",v_id_mec_contacto," ",id_usuario," ")
+
+
+		if(usuario_asociado == id_usuario):
+			print("toy aqui")
+			if(tipo == '0'):
+				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"ORGANIZACION",id_usuario))
+				mysql.connection.commit()
+				cur.execute("insert into organizacion(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
+				mysql.connection.commit()
+				cur.execute("insert into party_rol values(%s,%s,%s,current_date(),null)",(v_id_party,"ROL-000007","ERO-000001"))
+				mysql.connection.commit()
+			else:
+				print("toy aca")
+				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"PERSONA",id_usuario))
+				mysql.connection.commit()
+				cur.execute("insert into Persona(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
+				mysql.connection.commit()
+				cur.execute("insert into party_rol values(%s,%s,%s,current_date(),null)",(v_id_party,"ROL-000006","ERO-000001"))
+				mysql.connection.commit()		
+			
+			print("toy por aca")
+			cur.execute("insert into mecanismo_contacto values (%s,%s,%s,%s, current_date(),null)",(v_id_party,v_id_mec_contacto,"CTC-000001",telefono))
+			mysql.connection.commit()			
+			cur.execute("UPDATE usuario_construccion \
+			set ID_PARTY = %s,\
+			FECHA_ACTIVIDAD = current_date(),\
+            COMENTARIO = %s  \
+			where ID_USUARIO = %s and ID_CONSTRUCCION = %s and FECHA_ACTIVIDAD is not null;",(v_id_party,comentario,id_usuario,id_const))
+			mysql.connection.commit()
+			cur.execute("UPDATE construccion SET ID_E_DISP = %s where ID_CONSTRUCCION = %s",('3',id_const))
+			mysql.connection.commit()	
+			response = {"status":True, "msj":"Error al Registrar"}
+		else:
+			response = {"status":False, "msj":"Comentario registrado correctamente!"}
 		return jsonify(response)
 		cur.connection.close();
 
