@@ -233,7 +233,7 @@ def buscar_construc_pub(id_construc):
 	return jsonify(data[0])
 	cur.connection.close();
 
-@app.route("/actividad_construc_pub/<id_construc>")
+@app.route("/actividad_construc_pub")
 def actividad_construc_pub():
 	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",)
 	return render_template("registrar_actividad_publica.html", datos = data)
