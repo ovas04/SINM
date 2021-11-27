@@ -28,7 +28,7 @@
           <div class="card card-warning card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle" src="static/images/{{session['userData'][9]}}"
+                <img class="profile-user-img img-fluid img-circle" src="{{url_for('static', filename='images/user1-128x128.jpg')}}"
                   alt="User profile picture">
               </div>
               <h3 class="profile-username text-center">{{session["userData"][1] + " " + session["userData"][2]}}</h3>
@@ -199,7 +199,7 @@
   <div class="float-right d-none d-sm-block">
     <b>Version</b> 2.0.1
   </div>
-  <strong>2021 &copy; <a href="https://www.madereranuevaera.com/" target="_blank">Maderere Nueva Era</a></strong>
+  <strong>2021 &copy; <a href="https://www.madereranuevaera.com/" target="_blank">Maderera Nueva Era</a></strong>
 </footer>
 
 <!-- Control Sidebar -->
