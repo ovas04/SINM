@@ -7,6 +7,8 @@ $(document).ready(function(){
 	ver_construc();
 	coment_construc();
 	eli_construc();
+	marcar_construccion();
+	link_comen();
 });
 
 function list_construc(){
@@ -76,6 +78,7 @@ function ver_construc(){
 			if(request.status == 200){
 				var objData = JSON.parse(request.responseText);
 				$("#id_construc_d").val(id_construc);
+				$("#id_construc_d").attr("rl",id_construc);
 				$("#nom_construc_d").val(objData[1]);
 				$("#cod_infobras_d").val(objData[2])
 				$("#ubi_construc_d").val(objData[3]);
@@ -84,6 +87,27 @@ function ver_construc(){
 				$("#modalidad_d").val(objData[6]);
 				$("#estado_o_d").val(objData[7]);
 				$("#estado_d").val(objData[8]);
+				if(objData[9] == 2){
+					$(".btn-marc-const-pub").text("Construccion Ocupada");
+					$(".btn-marc-const-pub").removeClass("btn-success");
+					$(".btn-marc-const-pub").removeClass("btn-warning");
+					$(".btn-marc-const-pub").addClass("btn-danger");
+					$(".btn-marc-const-pub").attr("disabled",true)
+				}
+				else if (objData[9] == 3) {
+					$(".btn-marc-const-pub").text("Construccion Visitada");
+					$(".btn-marc-const-pub").removeClass("btn-success");
+					$(".btn-marc-const-pub").removeClass("btn-danger");
+					$(".btn-marc-const-pub").addClass("btn-warning");
+					$(".btn-marc-const-pub").attr("disabled",false)
+				}
+				else{
+					$(".btn-marc-const-pub").text("Marcar Construccion");
+					$(".btn-marc-const-pub").removeClass("btn-danger");
+					$(".btn-marc-const-pub").removeClass("btn-warning");
+					$(".btn-marc-const-pub").addClass("btn-success");
+					$(".btn-marc-const-pub").attr("disabled",false)
+				}
 			}
 		}
 	});
@@ -151,21 +175,47 @@ function eli_construc(){
 }
 
 
-
 function marcar_construccion(){
-	$("#tab_constructoras").on("click",".btn-marc-const-pri",function(){
-		var id_construc = this.getAttribute("rl");
-		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-		var ajaxUrl = "/marc_const/"+id_construc;
-		request.open("GET",ajaxUrl,true);
-		request.send();
-		request.onload = function(){
-			if(request.status == 200){
-				var objData = JSON.parse(request.responseText);
-				$("#id_construc_d").val(id_construc);
-	
+	$("#modal-det-construc").on("click",".btn-marc-const-pub",function(){
+		var id_construc = $("#id_construc_d").attr("rl"); 
+		Swal.fire({
+			title: "Marcar Construccion",
+			text: "¿Desea Marcar esta construccion?",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "Si, Marcar!",
+			cancelButtonText: "No, cancelar!"
+		}).then((result)=>{
+			if(result.isConfirmed){
+				var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+				var ajaxUrl = "/marc_const/"+id_construc;
+				request.open("POST",ajaxUrl,true);
+				request.send();
+				request.onload = function(){
+					if(request.status == 200){
+						var objData = JSON.parse(request.responseText);
+						if(objData.flag == 0){
+							Swal.fire("CONSTRUCCION OCUPADA","warning");
+						}
+						else{
+							Swal.fire("MARCADO!",objData.msj,"success");
+							$("#modal-det-construc").DataTable().ajax.reload();		
+						}
+				}else{
+							Swal.fire("Construcciones","El Registro Construccion Ocupada","error");
+					}
+				}
+			}else{
+				Swal.fire("Cancelado","Tu registro está seguro :)","error");
 			}
-		}
+		});
+	});
+}
+
+function link_comen(){
+	$(".btn-reg-comen").on("click",function(){
+		var id_construc = $("#id_construc_d").attr("rl"); 
+		window.location.href = "actividad_construc_priv/"+id_construc;
 	});
 }
 

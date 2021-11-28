@@ -169,14 +169,11 @@ def buscar_construc_priv(id_construc):
 	else:
 		data[0][6] = "No existe"
 	#data[0][11]='2'
-
 	return jsonify(data[0])
 
 @app.route("/actividad_construc_priv/<id_construc>",)
 def actividad_construc_priv(id_construc):
 	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",id_construc)
-	print(id_construc)
-	print(data)
 	return render_template("registrar_actividad_privada.html", datos = data)
 
 #Construcciones publicas
@@ -233,9 +230,9 @@ def buscar_construc_pub(id_construc):
 	return jsonify(data[0])
 	cur.connection.close();
 
-@app.route("/actividad_construc_pub")
-def actividad_construc_pub():
-	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",)
+@app.route("/actividad_construc_pub/<id_construc>")
+def actividad_construc_pub(id_construc):
+	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",id_construc)
 	return render_template("registrar_actividad_publica.html", datos = data)
 
 
@@ -247,9 +244,7 @@ def marc_const(id_construc):
 	id_usuario =  session["id_user"]
 	cur.execute("SELECT ID_E_DISP from construccion Where ID_CONSTRUCCION = %s",[id_construc])
 	data = cur.fetchone()
-	print(data)
 	disponibilidad = data[0][0]
-	print(id_usuario," ",id_construc," ",disponibilidad)
 	#cur.execute("call sp_marcar_construccion(%s,%s,%s)",(id_usuario,id_construc,disponibilidad))
 	#mysql.connection.commit()
 	data = cur.fetchall()
@@ -278,10 +273,8 @@ def reg_comen(id_const):
 		#print(id_usuario,id_const,nombre,telefono,tipo)
 		#cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_const,nombre,telefono,tipo,comentario))
 		#mysql.connection.commit()
-		print(comentario)
 		cur.execute("select ID_USUARIO from usuario_construccion uc where ID_CONSTRUCCION = %s and fecha_actividad is null LIMIT 1",[id_const])
 		data = cur.fetchall()
-		print(id_const)
 		usuario_asociado = data[0][0]
 		cur.execute("select f_autogenerar_id_party()")
 		data = cur.fetchall()
@@ -289,10 +282,8 @@ def reg_comen(id_const):
 		cur.execute("select construcciones_db.f_generar_id_m_contc()")
 		data = cur.fetchall()
 		v_id_mec_contacto = data[0][0]
-		print(usuario_asociado," ",v_id_party," ",v_id_mec_contacto," ",id_usuario," ")
 
 		if(usuario_asociado == id_usuario):
-			print("toy aqui")
 			if(tipo == '0'):
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"ORGANIZACION",id_usuario))
 				mysql.connection.commit()
@@ -301,7 +292,6 @@ def reg_comen(id_const):
 				cur.execute("insert into party_rol values(%s,%s,%s,current_date(),null)",(v_id_party,"ROL-000007","ERO-000001"))
 				mysql.connection.commit()
 			else:
-				print("toy aca")
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"PERSONA",id_usuario))
 				mysql.connection.commit()
 				cur.execute("insert into construcciones_db.persona(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
@@ -309,7 +299,6 @@ def reg_comen(id_const):
 				cur.execute("insert into party_rol values(%s,%s,%s,current_date(),null)",(v_id_party,"ROL-000006","ERO-000001"))
 				mysql.connection.commit()		
 			
-			print("toy por aca")
 			cur.execute("insert into mecanismo_contacto values (%s,%s,%s,%s, current_date(),null)",(v_id_party,v_id_mec_contacto,"CTC-000001",telefono))
 			mysql.connection.commit()			
 			cur.execute("UPDATE usuario_construccion \
@@ -378,7 +367,6 @@ def regis_emple():
 			 data = cur.fetchall()
 			 id_mec_cont_generado = data[0][0]
 
-		print(party_id)
 		nombre = request.form["nom_emple"]
 		apellidos = request.form["ape_emple"]
 		dni = request.form["dni_emple"]
@@ -489,10 +477,8 @@ def elim_usuario():
 @app.route("/get_permiso/<id_usuario>",methods=["GET"])
 def get_permiso(id_usuario):
 	cur=mysql.connection.cursor()
-	print("Funca la funcion")
 	cur.execute("call sp_buscar_permiso(%s)",[id_usuario])
 	permiso=cur.fetchall()
-	print(permiso)
 	return jsonify(permiso)
 	cur.connection.close();
 
@@ -533,7 +519,6 @@ def regis_usuario():
 			id_party_validacion=""
 			cur.execute("select id_party from persona where dni = %s",[dni_usuario])
 			id_party_validacion=cur.fetchone()
-			print(id_party_validacion)
 			if (id_party_validacion != None):
 				cur.execute("call sp_registrar_usuario(%s,%s,%s,%s,%s,%s)",[dni_usuario,usuario,password,
 				rol_usuario,usuario_creacion,estado_usuario])
