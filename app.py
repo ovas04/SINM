@@ -10,9 +10,9 @@ from Service import *
 app = Flask(__name__)
 
 #Conexion a base de datos NYSQL
-app.config["MYSQL_HOST"] = "208.91.198.197"
-app.config["MYSQL_USER"] = "nueva_era"
-app.config["MYSQL_PASSWORD"] = "NuevaEra843*"
+app.config["MYSQL_HOST"] = "sinmsoftware.mysql.database.azure.com"
+app.config["MYSQL_USER"] = "SINM"
+app.config["MYSQL_PASSWORD"] = "maderera@2021"
 app.config["MYSQL_DB"] = "construcciones_db"
 mysql = MySQL(app)
 print("Conexión establecida exitosamente!")
@@ -290,7 +290,6 @@ def reg_comen(id_const):
 		data = cur.fetchall()
 		v_id_mec_contacto = data[0][0]
 		print(usuario_asociado," ",v_id_party," ",v_id_mec_contacto," ",id_usuario," ")
-
 
 		if(usuario_asociado == id_usuario):
 			print("toy aqui")
