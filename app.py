@@ -278,7 +278,7 @@ def reg_comen(id_const):
 		#print(id_usuario,id_const,nombre,telefono,tipo)
 		#cur.execute("call sp_registrar_comentario(%s,%s,%s,%s,%s,%s)",(id_usuario,id_const,nombre,telefono,tipo,comentario))
 		#mysql.connection.commit()
-
+		print(comentario)
 		cur.execute("select ID_USUARIO from usuario_construccion uc where ID_CONSTRUCCION = %s and fecha_actividad is null LIMIT 1",[id_const])
 		data = cur.fetchall()
 		print(id_const)
@@ -297,7 +297,7 @@ def reg_comen(id_const):
 			if(tipo == '0'):
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"ORGANIZACION",id_usuario))
 				mysql.connection.commit()
-				cur.execute("insert into organizacion(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
+				cur.execute("insert into construcciones_db.organizacion(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
 				mysql.connection.commit()
 				cur.execute("insert into party_rol values(%s,%s,%s,current_date(),null)",(v_id_party,"ROL-000007","ERO-000001"))
 				mysql.connection.commit()
@@ -305,7 +305,7 @@ def reg_comen(id_const):
 				print("toy aca")
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"PERSONA",id_usuario))
 				mysql.connection.commit()
-				cur.execute("insert into Persona(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
+				cur.execute("insert into construcciones_db.persona(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
 				mysql.connection.commit()
 				cur.execute("insert into party_rol values(%s,%s,%s,current_date(),null)",(v_id_party,"ROL-000006","ERO-000001"))
 				mysql.connection.commit()		
@@ -317,13 +317,13 @@ def reg_comen(id_const):
 			set ID_PARTY = %s,\
 			FECHA_ACTIVIDAD = current_date(),\
             COMENTARIO = %s  \
-			where ID_USUARIO = %s and ID_CONSTRUCCION = %s and FECHA_ACTIVIDAD is not null;",(v_id_party,comentario,id_usuario,id_const))
+			where ID_USUARIO = %s and ID_CONSTRUCCION = %s and FECHA_ACTIVIDAD is null;",(v_id_party,comentario,id_usuario,id_const))
 			mysql.connection.commit()
 			cur.execute("UPDATE construccion SET ID_E_DISP = %s where ID_CONSTRUCCION = %s",('3',id_const))
 			mysql.connection.commit()	
-			response = {"status":True, "msj":"Error al Registrar"}
+			response = {"status":True, "msj":"Comentario registrado correctamente!"}
 		else:
-			response = {"status":False, "msj":"Comentario registrado correctamente!"}
+			response = {"status":False, "msj":"Error al Registrar"}
 		return jsonify(response)
 		cur.connection.close();
 
