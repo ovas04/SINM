@@ -248,6 +248,7 @@ def marc_const(id_construc):
 	disponibilidad = data[0][0]
 	#cur.execute("call sp_marcar_construccion(%s,%s,%s)",(id_usuario,id_construc,disponibilidad))
 	#mysql.connection.commit()
+	print(id_usuario)
 	data = cur.fetchall()
 	
 	if disponibilidad == "2":
@@ -283,7 +284,7 @@ def reg_comen(id_const):
 		cur.execute("select construcciones_db.f_generar_id_m_contc()")
 		data = cur.fetchall()
 		v_id_mec_contacto = data[0][0]
-
+		print(usuario_asociado, " -- ",id_usuario)
 		if(usuario_asociado == id_usuario):
 			if(tipo == '0'):
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"ORGANIZACION",id_usuario))
@@ -295,7 +296,7 @@ def reg_comen(id_const):
 			else:
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"PERSONA",id_usuario))
 				mysql.connection.commit()
-				cur.execute("insert into construcciones_db.persona(ID_PARTY,NOMBRE) values(%s,%s)",(v_id_party,nombre))				
+				cur.execute("insert into construcciones_db.persona(ID_PARTY,NOMBRE,ESTADO) values(%s,%s,%s)",(v_id_party,nombre,'0'))				
 				mysql.connection.commit()
 				cur.execute("insert into party_rol values(%s,%s,%s,current_date(),null)",(v_id_party,"ROL-000006","ERO-000001"))
 				mysql.connection.commit()		
@@ -331,10 +332,11 @@ def empleados():
 @app.route("/list_emple")
 def list_emple():
 	cur = mysql.connection.cursor()
-	cur.execute("call sp_listar_empleados")
+	cur.execute("call sp_listar_empleados()")
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in range(len(data)):
+		print(data[i][4])
 		data[i][4] = datetime.strftime(data[i][4],"%d-%m-%Y")
 		if data[i][5] == "ACTIVO":
 			data[i][5] = '<span class="badge bg-info">Activo</span>'
