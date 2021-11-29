@@ -4,6 +4,7 @@ from WebScrapping.ObrasPublicas import infobrasUpdate
 from WebScrapping.ProperatiScrap import properatiUpdate
 from flask_mysqldb import MySQL
 from datetime import datetime
+from Service import *
 
 from pymysql import NULL
 from Service import *
