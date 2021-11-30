@@ -190,15 +190,16 @@ def list_construc_pub():
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in range(len(data)):
-		if(data[i][6] == "Activa"):
-			data[i][6] = '<span class="badge bg-info">Activa</span>'
+		if(data[i][6] == "No visitado"):
+			data[i][6] = '<span class="badge bg-success">No visitado</span>'
+		elif(data[i][6] == "Marcado"):
+			data[i][6] = '<span class="badge bg-info">Marcado</span>'
 		else:
-			data[i][6] = '<span class="badge bg-danger">Inactiva</span>'
+			data[i][6] = '<span class="badge bg-danger">Visitado</span>'
 
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
 				'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
-				'<button class="btn btn-danger btn-sm btn-eli-construc" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
 				'</div>')
 	return jsonify(data)
 	cur.connection.close();

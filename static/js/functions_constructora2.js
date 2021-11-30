@@ -6,7 +6,7 @@ $(document).ready(function(){
 	regis_construc();
 	ver_construc();
 	coment_construc();
-	eli_construc();
+	//eli_construc();
 	marcar_construccion();
 	link_comen();
 });
@@ -141,7 +141,7 @@ function coment_construc(){
 		}
 	});
 }
-
+/*
 function eli_construc(){
 	$("#tab_constructoras").on("click",".btn-eli-construc",function(){
 		var id_construc = this.getAttribute("rl");
@@ -173,7 +173,7 @@ function eli_construc(){
 		});
 	});
 }
-
+*/
 
 function marcar_construccion(){
 	$("#modal-det-construc").on("click",".btn-marc-const-pub",function(){
