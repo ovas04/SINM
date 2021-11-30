@@ -6,7 +6,7 @@ class Conexion:
 			cn = pymysql.connect(
 				host = "sinmsoftware.mysql.database.azure.com",
 				user = "SINM",
-				password = "maderera@2021",
+				password = "maderera$2021",
 				db = "construcciones_db"
 			)
 			print("Conexion establecida exitosamente!")
