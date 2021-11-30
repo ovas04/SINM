@@ -531,7 +531,10 @@ def regis_usuario():
 		if (dni_usuario == "") :
 			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
 			mysql.connection.commit()
-			response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
+			if (password != ""):
+				response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
+			else :
+				response = {"status":False, "msg":"Debe ingresar una contraseña válida"}
 		else:
 			id_party_validacion=""
 			cur.execute("select id_party from persona where dni = %s",[dni_usuario])
