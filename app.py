@@ -195,7 +195,7 @@ def buscar_construc_priv(id_construc):
 
 
 
-@app.route("/actividad_construc_priv/<id_construc>",)
+@app.route("/actividad_construc_priv/<id_construc>")
 def actividad_construc_priv(id_construc):
 	data = ("Registrar Actividad | Nueva Era","Registrar Actividad",id_construc)
 	return render_template("registrar_actividad_privada.html", datos = data)
@@ -540,9 +540,9 @@ def regis_usuario():
 		estado_usuario=request.form["estado_usu"]
 		if (dni_usuario == "") :
 			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
+			mysql.connection.commit()
 			if (password != ""):
 				response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
-				mysql.connection.commit()
 			else :
 				response = {"status":False, "msg":"Debe ingresar una contraseña válida"}
 		else:
