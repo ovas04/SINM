@@ -5,6 +5,9 @@ from WebScrapping.ProperatiScrap import properatiUpdate
 from flask_mysqldb import MySQL
 from datetime import datetime
 from Service import *
+import os
+from werkzeug.utils import secure_filename
+from pathlib import Path
 
 from pymysql import NULL
 from Service import *
@@ -21,6 +24,13 @@ print("Conexión establecida exitosamente!")
 #Configuracion
 app.secret_key = "mysecretkey"
 
+#Upload Files
+path_root = Path(__file__).parent
+UPLOAD_FOLDER = str(path_root)+'\\WebScrapping'
+ALLOWED_EXTENSIONS = {'xlsx'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+#Routes
 @app.route("/")
 def home():
 	if "id_user" in session:
@@ -648,23 +658,39 @@ def upt_priv():
 			cur.execute("call sp_registrar_actualización_priv")
 			mysql.connection.commit()
 			'''
-			response = {"status":True, "msg":"Construcciones privadas actualizadas correctamente"}
+			response = {"status":True, "msg":"Construcciones privadas actualizadas correctamente", "btn":"success"}
 		else:
-			response = {"status":False, "msg":"Error al actualizar las construcciones"}
+			response = {"status":False, "msg":"Error al actualizar las construcciones", "btn":"error"}
 		return jsonify(response)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/upt_pub", methods=["POST"])
 def upt_pub():
 	if request.method=="POST":
-		if (infobrasUpdate()):
-			'''
-			cur = mysql.connection.cursor()
-			cur.execute("call sp_registrar_actualización_pub")
-			mysql.connection.commit()
-			'''
-			response = {"status":True, "msg":"Construcciones públicas actualizadas correctamente"}
+		if request.files:
+			file = request.files["archivo"]
+			if file.filename == '':
+				response = {"status":False, "msg":"El archivo subido es nulo", "btn":"error"}
+				return jsonify(response)
+			if file and allowed_file(file.filename):
+				filename = secure_filename(file.filename)
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], "ObrasPublicas.xlsx"))
+				if (infobrasUpdate()):
+					'''
+					cur = mysql.connection.cursor()
+					cur.execute("call sp_registrar_actualización_pub")
+					mysql.connection.commit()
+					'''
+					response = {"status":True, "msg":"Construcciones públicas actualizadas correctamente", "btn":"success"}
+				else:
+					response = {"status":False, "msg":"Error al actualizar las construcciones", "btn":"error"}
+			else:
+				response = {"status":False, "msg":"Hubo un error con el archivo", "btn":"error"}
 		else:
-			response = {"status":False, "msg":"Error al actualizar las construcciones"}
+			response = {"status":False, "msg":"Hubo un error con el envio archivo", "btn":"error"}
 		return jsonify(response)
 
 if __name__ == "__main__":

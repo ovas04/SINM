@@ -1,22 +1,8 @@
 $(document).ready(function(){
 	$(".actualizar").addClass("active");
-	tipo_archivo();
 	actualizar_priv();
 	actualizar_pub();
 });
-
-function tipo_archivo(){
-	$("#form-actualizar").on("change","#tipo",function(){
-		var tipo = $("#tipo").val();
-		if(tipo == 1){
-			$(".archivo").css("display","block");
-			$(".link").css("display","none");
-		}else{
-			$(".archivo").css("display","none");
-			$(".link").css("display","block");
-		}
-	});
-}
 
 function actualizar_priv(){
 	$(".btn-actualizar-priv").click(function(){
@@ -34,9 +20,7 @@ function actualizar_priv(){
 					request.onload = function(){
 						if(request.status == 200){
 							var objData = JSON.parse(request.responseText);
-							Swal.fire("¡Construcciones privadas actualizadas!",objData.msg,"success");
-						}else{
-							Swal.fire("Construcciones","Error al actualizar las construcciones privadas","error");
+							Swal.fire("Construcciones",objData.msg,objData.btn);
 						}
 					}
 				}, 2000);
@@ -47,29 +31,26 @@ function actualizar_priv(){
 
 function actualizar_pub(){
 	$(".btn-actualizar-pub").click(function(){
+		var form = document.querySelector("#form-actualizar");
 		var file = $('#archivo');
-		var link = $('#link').val();
-		if(file[0].files.length != 0 || link.length != 0){
+		if(file[0].files.length != 0){
 			Swal.fire({
 				title: "Actualizando las construcciones públicas",
 				allowEscapeKey: false,
 				allowOutsideClick: false,
 				didOpen: () => {
 					Swal.showLoading()
-					setTimeout(function(){
-						var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-						var ajaxUrl = "/upt_pub";
-						request.open("POST",ajaxUrl,true);
-						request.send();
-						request.onload = function(){
-							if(request.status == 200){
-								var objData = JSON.parse(request.responseText);
-								Swal.fire("¡Construcciones públicas actualizadas!",objData.msg,"success");
-							}else{
-								Swal.fire("Construcciones","Error al actualizar las construcciones privadas","error");
-							}
+					var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+					var ajaxUrl = "/upt_pub";
+					var formData = new FormData(form);
+					request.open("POST",ajaxUrl,true);
+					request.send(formData);
+					request.onload = function(){
+						if(request.status == 200){
+							var objData = JSON.parse(request.responseText);
+							Swal.fire("Construcciones",objData.msg,objData.btn);
 						}
-					}, 2000);
+					}
 				}
 			});
 		}else{
@@ -87,7 +68,7 @@ function actualizar_pub(){
 			  
 			  Toast.fire({
 				icon: 'warning',
-				title: 'Introduzca un archivo o enlace'
+				title: 'Introduzca un archivo'
 			  })
 		}
 	});

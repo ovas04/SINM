@@ -61,8 +61,7 @@
 						<div class="card-header">
 							<h3 class="card-title mt-1">Actualizaciones públicas</h3>
 							<button class="btn btn-sm btn-danger ml-4" data-bs-toggle="modal"
-								data-bs-target="#modal-actualizar" onclick="open_modal()"><i
-									class="fas fa-plus-circle"></i> Actualizar</button>
+								data-bs-target="#modal-actualizar"><i class="fas fa-plus-circle"></i> Actualizar</button>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
@@ -101,29 +100,13 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form id="form-actualizar">
-								<div class="mb-3">
-									<label for="tipo" class="form-label">Tipo archivo:</label>
-									<div class="input-group">
-										<span class="input-group-text"><i class="fas fa-file"></i></span>
-										<select name="tipo" id="tipo" class="form-select">
-											<option value="1">Documento</option>
-											<option value="2">Link</option>
-										</select>
-									</div>
-								</div>
+							<form id="form-actualizar" enctype="multipart/form-data">
 								<div class="mb-3 archivo">
-									<label for="archivo" class="form-label">Archivo:</label>
+									<label for="archivo" class="form-label">Seleccione el archivo:</label>
+									<p>Formato soportado: .xlsx</p>
 									<div class="input-group">
 										<span class="input-group-text"><i class="fas fa-file-upload"></i></span>
 										<input type="file" id="archivo" class="form-control" name="archivo" required>
-									</div>
-								</div>
-								<div class="mb-3 link" style="display: none;">
-									<label for="link" class="form-label">Link:</label>
-									<div class="input-group">
-										<span class="input-group-text"><i class="fas fa-link"></i></span>
-										<textarea class="form-control" name="link" id="link" cols="3"></textarea>
 									</div>
 								</div>
 							</form>
