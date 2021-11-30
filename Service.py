@@ -6,7 +6,7 @@ import smtplib
 class Service:
 
 	def get_usuarios():
-		query = "call sp_listar_const_priv()"
+		query = "call sp_list_const_priv()"
 		request = Dao.select_all(query)
 		return request
 

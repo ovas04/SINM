@@ -118,23 +118,36 @@ def list_construc_priv():
 	if "id_user" in session:
 		data = Service.get_usuarios()
 		data = [list(i) for i in data]
+		codigo = list()
 		for i in range(len(data)):
-			if data[i][6] != None:
-				data[i][6] = datetime.strftime(data[i][6],"%d-%m-%Y")
+			codigo.append(data[i][9])
+		for i in range(len(data)):
+			data[i].pop(9)
+		for i in range(len(data)):
+			
+			if data[i][5] != None:
+				data[i][5] = datetime.strftime(data[i][5],"%d-%m-%Y")
 			else:
-				data[i][6] = "No existe"
+				data[i][5] = "No existe"
+			
+			if data[i][7] == "Activa":
+				data[i][7] = '<span class="badge bg-info">Activa</span>'
+			elif data[i][7] == "Vencida":
+				data[i][7] = '<span class="badge bg-danger">Vencida</span>'
+			else:
+				data[i][7] = '<span class="badge bg-secondary">Duda</span>'
+			
 
-			if data[i][8] == "Activa":
-				data[i][8] = '<span class="badge bg-info">Activa</span>'
-			elif data[i][8] == "Vencida":
-				data[i][8] = '<span class="badge bg-danger">Vencida</span>'
+			if data[i][8] == "No visitado":
+				data[i][8] = '<span class="badge bg-success">No Visitado</span>'
+			elif data[i][8] == "Visitado":
+				data[i][8] = '<span class="badge bg-warning">Visitado</span>'
 			else:
-				data[i][8] = '<span class="badge bg-secondary">Duda</span>'
+				data[i][8] = '<span class="badge bg-danger">Ocupado</span>'
 
 			data[i].append('<div class="text-center">'+
-					'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
-					'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
-					'<button class="btn btn-danger btn-sm btn-eli-construc" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
+					'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+codigo[i]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
+					'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+codigo[i]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
 					'</div>')
 		return jsonify(data)
 	else:
