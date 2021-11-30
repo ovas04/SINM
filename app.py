@@ -182,8 +182,18 @@ def buscar_construc_priv(id_construc):
 		data[0][6] = datetime.strftime(data[0][6],"%Y-%m-%d")
 	else:
 		data[0][6] = "No existe"
+	
+	cur.execute("call sp_listar_comentarios(%s)",[id_construc])
+	comens =  cur.fetchall()
+	comens = [list(i) for i in comens]
+	comentarios = list()
+	for i in range(len(comens)):
+		comentarios.append(Service.comentario(comens[i][0],comens[i][1],comens[i][2],comens[i][3],comens[i][4]))
+	
 	#data[0][11]='2'
 	return jsonify(data[0])
+
+
 
 @app.route("/actividad_construc_priv/<id_construc>",)
 def actividad_construc_priv(id_construc):

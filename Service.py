@@ -21,6 +21,7 @@ class Service:
 			return "Estas retrasado en tu objetivo mensual, esfuerzate!"
 		else:
 			return "Estas encaminado en tu objetivo mensual, sigue así!"
+	
 	def enviar_mensaje(self,tipo,destino):
 		try:
 			message = self.Tipo_Message(tipo)
@@ -33,7 +34,23 @@ class Service:
 		    print("Envio Fallido Errorr :",e)
 
 
-
+	def comentario(persona,comentario,fecha,nombre_contacto,telefono_contacto):
+		cometario = (" <div class=\"post clearfix\"> \
+                                  <div class=\"user-block\"> \
+                                    <img class=\"img-circle img-bordered-sm\" src=\"{{url_for('static', filename='images/user1-128x128.jpg')}}\" alt=\"User Image\"> \
+                                    <span class=\"username\"> \
+                                      <a href=\"#\">%s</a> \
+                                      <a href=\"#\" class=\"float-right btn-tool\"><i class=\"fas fa-times\"></i></a> \
+                                    </span> \
+                                    <span class=\"description\">Comentario registrado - %s</span> \
+                                  </div> \
+                                  <!-- /.user-block --> \
+                                  <p>%s</p> \
+                                  <p>Nombre: %s</p> \
+                                  <p>Contacto: %s</p> \
+                                  <hr> \
+                                </div>"),(persona,fecha,comentario,nombre_contacto,telefono_contacto)
+		return cometario
 
 '''
 #sinm.bi.si
