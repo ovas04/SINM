@@ -561,9 +561,9 @@ def regis_usuario():
 		estado_usuario=request.form["estado_usu"]
 		if (dni_usuario == "") :
 			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
-			mysql.connection.commit()
 			if (password != ""):
 				response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
+				mysql.connection.commit()
 			else :
 				response = {"status":False, "msg":"Debe ingresar una contraseña válida"}
 		else:
