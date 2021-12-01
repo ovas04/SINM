@@ -220,7 +220,7 @@ function marcar_construccion(){
 function link_comen(){
 	$(".btn-reg-comen").on("click",function(){
 		var id_construc = $("#id_construc_d").attr("rl"); 
-		window.location.href = "actividad_construc_priv/"+id_construc;
+		window.location.href = "actividad_construc_pub/"+id_construc;
 	});
 }
 
