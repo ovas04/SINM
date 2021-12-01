@@ -112,7 +112,10 @@ function ver_construc(){
 					$(".btn-marc-const-pri").addClass("btn-success");
 					$(".btn-marc-const-pri").attr("disabled",false)
 				}
-				
+				var comentarios = document.getElementById("comentarios");
+				for(i=0; i<objData[12].length ; i++){
+					comentarios.innerHTML += objData[12][i];
+				}
 			}
 		}
 	});
