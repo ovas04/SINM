@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$(".usuarios").addClass("active");
     $(".usuario").addClass("active");
 	list_usuarios();
-	get_permiso();
+	//get_permiso();
 	regis_usuario();
     edit_usuario();
 	elim_usuario_tempo();
@@ -90,6 +90,7 @@ function edit_usuario(){
 	});
 }
 
+/*
 function get_permiso(){
 	var id_usuario = $("#permiso").attr("rl");
 	var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -105,6 +106,7 @@ function get_permiso(){
 		}
 	}
 }
+*/
 
 function elim_usuario_tempo(){
 	$("#tab_elim_usuario").on("click",".btn-eli-usu-tempo",function(){

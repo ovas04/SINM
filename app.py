@@ -526,7 +526,7 @@ def elim_usuario():
 	d = request.args.get('d', None)
 	data = ("Eliminar Usuario | Nueva Era","Eliminar Usuario",a,b,c,d)
 	return render_template("usuario_delete.html", datos = data)
-
+"""
 @app.route("/get_permiso/<id_usuario>",methods=["GET"])
 def get_permiso(id_usuario):
 	cur=mysql.connection.cursor()
@@ -534,7 +534,7 @@ def get_permiso(id_usuario):
 	permiso=cur.fetchall()
 	return jsonify(permiso)
 	cur.connection.close();
-
+"""
 @app.route("/elim_usuario_perma/<id_usuario>", methods=["POST"])
 def elim_usuario_perma(id_usuario):
 	cur = mysql.connection.cursor()
