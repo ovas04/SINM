@@ -35,9 +35,8 @@ class Service:
 
 
 	def comentario(persona,comentario,fecha,nombre_contacto,telefono_contacto):
-		cometario = (" <div class=\"post clearfix\"> \
+		coment = (" <div class=\"post clearfix\"> \
                                   <div class=\"user-block\"> \
-                                    <img class=\"img-circle img-bordered-sm\" src=\"{{url_for('static', filename='images/user1-128x128.jpg')}}\" alt=\"User Image\"> \
                                     <span class=\"username\"> \
                                       <a href=\"#\">%s</a> \
                                       <a href=\"#\" class=\"float-right btn-tool\"><i class=\"fas fa-times\"></i></a> \
@@ -49,8 +48,10 @@ class Service:
                                   <p>Nombre: %s</p> \
                                   <p>Contacto: %s</p> \
                                   <hr> \
-                                </div>"),(persona,fecha,comentario,nombre_contacto,telefono_contacto)
-		return cometario
+                                </div>")%(persona,fecha,comentario,nombre_contacto,telefono_contacto)
+
+		#print(coment)
+		return coment
 
 '''
 #sinm.bi.si

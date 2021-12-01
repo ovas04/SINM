@@ -196,9 +196,12 @@ def buscar_construc_priv(id_construc):
 	cur.execute("call sp_listar_comentarios(%s)",[id_construc])
 	comens =  cur.fetchall()
 	comens = [list(i) for i in comens]
+	print(comens)
 	comentarios = list()
 	for i in range(len(comens)):
-		comentarios.append(Service.comentario(comens[i][0],comens[i][1],comens[i][2],comens[i][3],comens[i][4]))
+		#comens[i][5] = datetime.strftime(comens[i][5],"%d-%m-%Y")
+		comentarios.append(Service.comentario(comens[i][0],comens[i][1],comens[i][4],comens[i][2],comens[i][3]))
+
 	data[0].append(comentarios)
 	#data[0][11]='2'
 	return jsonify(data[0])
