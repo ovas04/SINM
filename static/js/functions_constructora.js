@@ -32,7 +32,7 @@ function list_construc(){
 			{"data":"6"},
 			{"data":"7"},
 			{"data":"8"},
-			{"data":"9"}
+			{"data":"10"}
 		],
 		"responsive": true,
 		"bDestroy": true,

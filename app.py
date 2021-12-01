@@ -128,11 +128,6 @@ def list_construc_priv():
 	if "id_user" in session:
 		data = Service.get_usuarios()
 		data = [list(i) for i in data]
-		codigo = list()
-		for i in range(len(data)):
-			codigo.append(data[i][9])
-		for i in range(len(data)):
-			data[i].pop(9)
 		for i in range(len(data)):
 			
 			if data[i][5] != None:
@@ -156,8 +151,8 @@ def list_construc_priv():
 				data[i][8] = '<span class="badge bg-danger">Ocupado</span>'
 
 			data[i].append('<div class="text-center">'+
-					'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+codigo[i]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
-					'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+codigo[i]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
+					'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][9]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
+					'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][9]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
 					'</div>')
 		return jsonify(data)
 	else:
