@@ -667,8 +667,9 @@ def reportes():
 
 @app.route("/upt_priv", methods=["POST"])
 def upt_priv():
+	id_usuario =  session["id_user"]
 	if request.method=="POST":
-		if (nexoUpdate() and properatiUpdate()):
+		if (nexoUpdate(id_usuario, mysql.connection) and properatiUpdate(id_usuario, mysql.connection)):
 			'''
 			cur = mysql.connection.cursor()
 			cur.execute("call sp_registrar_actualización_priv")
@@ -685,6 +686,8 @@ def allowed_file(filename):
 
 @app.route("/upt_pub", methods=["POST"])
 def upt_pub():
+	id_usuario =  session["id_user"]
+	
 	if request.method=="POST":
 		if request.files:
 			file = request.files["archivo"]
@@ -694,7 +697,7 @@ def upt_pub():
 			if file and allowed_file(file.filename):
 				filename = secure_filename(file.filename)
 				file.save(os.path.join(app.config['UPLOAD_FOLDER'], "ObrasPublicas.xlsx"))
-				if (infobrasUpdate()):
+				if (infobrasUpdate(id_usuario, UPLOAD_FOLDER, mysql.connection)):
 					'''
 					cur = mysql.connection.cursor()
 					cur.execute("call sp_registrar_actualización_pub")
