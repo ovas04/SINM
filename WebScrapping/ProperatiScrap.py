@@ -1,32 +1,19 @@
-#!https://stackoverflow.com/questions/36516183/what-should-i-use-to-open-a-url-instead-of-urlopen-in-urllib3
-
-from os import link
-from sys import flags
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
 from datetime import date
-from datetime import datetime
 import urllib3
-import pymysql
-from Conexion import Conexion
-from config import obtener_nombre_base_datos
-
 
 Meses = {'ENERO' : 1, 'FEBRERO' : 2,'MARZO' : 3,'ABRIL' : 4,'MAYO' : 5,'JUNIO' : 6,
           'JULIO' : 7,'AGOSTO' : 8,'SETIEMBRE' : 9,'OCTUBRE' : 10,'NOVIEMBRE' : 11,'DICIEMBRE' : 12  }
 
-def properatiUpdate():
-    return True
-
 class construccion:
-    def update(self):
+    def __init__(self):
         self.pagina=""
         self.url = ""
         self.nombre = ""
         self.direccion = ""
         self.etapa = ""
         self.ubicacion = ""
-        self.tipo_construccion = ""
         self.tipo_edificacion = "3"
         self.Area_Techada = ""
         self.Area_total = ""
@@ -36,18 +23,15 @@ class construccion:
         self.constructora = ""
         self.financiamiento = ""
         self.descripcion = ""
-        self.comentario = ""
 
-    def set_BaseInfo(self,p_pagina,p_url,p_nombre,p_direccion,p_ubicacion,p_tipo_construccion,p_constructora, p_descripcion):
+    def set_BaseInfo(self,p_pagina,p_url,p_nombre,p_direccion,p_ubicacion,p_constructora, p_descripcion):
         self.pagina = p_pagina
         self.url = p_url
         self.direccion = p_direccion
         self.nombre = p_nombre
         self.ubicacion = p_ubicacion
-        self.tipo_construccion = p_tipo_construccion
         self.constructora = p_constructora
         self.descripcion = p_descripcion
-        return
 
     def set_p_tipo_edificacion(self,p_tipo_edificacion):
         self.tipo_edificacion = p_tipo_edificacion    
@@ -108,63 +92,6 @@ class construccion:
     def set_financiamiento(self,p_financiamiento):
         self.financiamiento = p_financiamiento
 
-    def get_pagina(self):
-        return self.pagina
-    def get_url(self):
-        return self.url
-    def get_nombre(self):
-        return self.nombre
-    def get_direccion(self):
-        return self.direccion
-    def get_etapa(self):
-        return self.etapa
-    def get_ubicacion(self):
-        return self.ubicacion
-    def get_tipo_construccion(self):
-        return self.tipo_construccion
-    def get_tipo_edificacion(self):
-        return self.tipo_edificacion
-    def get_Area_Techada(self):
-        return self.Area_Techada
-    def get_Area_total(self):
-        return self.Area_total
-    def get_culminacion(self):
-        return self.culminacion
-    def get_fecha_culminacion(self):
-        return self.fecha_culminacion
-    def get_estado(self):
-        return self.estado
-    def get_constructora(self):
-        return self.constructora
-    def get_financiamiento(self):
-        return self.financiamiento
-    def get_descripcion(self):
-        return self.descripcion
-    def get_comentario(self):
-        return self.comentario
-
-
-
-    def mostrar(self):
-        print("Pagina : "+str(self.pagina))
-        print("Url : "+str(self.url))
-        print("Nombre : "+str(self.nombre))
-        print("direccion : "+str(self.direccion))
-        print("etapa : "+str(self.etapa))
-        print("ubicacion : "+str(self.ubicacion))
-        print("tipo_construccion : "+str(self.tipo_construccion))
-        print("tipo_edificacion : "+str(self.tipo_edificacion))
-        print("Area_Techada : "+str(self.Area_Techada))
-        print("Area_total : "+str(self.Area_total))
-        print("culminacion : "+str(self.culminacion))
-        print("fecha_culminacion : "+str(self.fecha_culminacion))
-        print("estado : "+str(self.estado))
-        print("constructora : "+str(self.constructora))
-        print("financiamiento : "+str(self.financiamiento))
-        print("descripcion : "+str(self.descripcion))
-
-
-
 #!https://stackoverflow.com/questions/36516183/what-should-i-use-to-open-a-url-instead-of-urlopen-in-urllib3
 def DataProperati(_link):
     http = urllib3.PoolManager()
@@ -197,7 +124,7 @@ def DataProperati(_link):
         v_descripcion = Encabezado.get_text().upper()
     
         ConstruccionProperati.set_BaseInfo("PROPERATI",_url,v_nombre,v_direccion,
-                                    v_ubicacion,"PRIVADA",v_constructora,
+                                    v_ubicacion,v_constructora,
                                      v_descripcion)
         ConstruccionProperati.set_etapa(v_etapa)
         #--------------------------------------------------------------
@@ -216,41 +143,41 @@ def DataProperati(_link):
         print("ERROR INTERNO")
     return ConstruccionProperati
 
+def properatiUpdate(id_usuario, conexion):
+    constPriv = construccion()
 
-
-ConstruccionProperati = []
-def asd():
-    url= 'https://www.properati.com.pe/proyectos-inmobiliarios/q/?page=1'
-    for i in range(1,7):
+    for i in range(1):
         _url = 'https://www.properati.com.pe/proyectos-inmobiliarios/q?page='+str(i)
         html = urlopen(_url)
         ObBs = BeautifulSoup(html,"lxml")
-        Obj = ObBs.findAll("div",{"class":"StyledCard-n9541a-1 czKiDg"})
+        Obj = ObBs.findAll("div",{"class":"StyledCard-sc-n9541a-1 fQVFON"})
         for j in Obj:
-            j=(j.select ('div > a ')[0])
-        ConstruccionProperati.append(DataProperati(str(j.attrs['href'])))
+            j = (j.select ('div > a ')[0])
+            constPriv = DataProperati(str(j.attrs['href']))
 
+            print(constPriv.url)
 
-def aaa():
-    conexion = Conexion.obtener_conexion()
-    with conexion.cursor() as cur:
-        for i in range(len(ConstruccionProperati)):
+            cur = conexion.cursor()
             cur.execute("call sp_autogenerar_id_const")
-            id_const = cur.fetchall()
+            id_const = cur.fetchone()
+            print(id_const[0])
+            
             cur.execute("call sp_registrar_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                (id_const,ConstruccionProperati[i].estado,'1',ConstruccionProperati[i].nombre,ConstruccionProperati[i].descripcion,
-                ConstruccionProperati[i].fecha_culminacion,"USU-100000",ConstruccionProperati[i].pagina,ConstruccionProperati[i].url,
-                ConstruccionProperati[i].tipo_edificacion,ConstruccionProperati[i].Area_total,ConstruccionProperati[i].Area_Techada,
-                ConstruccionProperati[i].constructora,ConstruccionProperati[i].financiamiento,ConstruccionProperati[i].ubicacion,
-                ConstruccionProperati[i].direccion,ConstruccionProperati[i].etapa))
+                    (id_const,constPriv.estado,'1',constPriv.nombre,constPriv.descripcion,
+                    constPriv.fecha_culminacion,id_usuario,constPriv.pagina,constPriv.url,
+                    constPriv.tipo_edificacion,constPriv.Area_total,constPriv.Area_Techada,
+                    constPriv.constructora,constPriv.financiamiento,constPriv.ubicacion,
+                    constPriv.direccion,constPriv.etapa))
+
+            data = cur.fetchall()
+            cur.close()
             conexion.commit()
-    conexion.close()
-    print("Construcciones privadas registradas correctamente!")
+            print(data[0][0])
 
-
-"""for i in range(0,len(ConstruccionProperati)):
-    print('='*50)
-    ConstruccionProperati[i].mostrar()"""
+            if data[0][0] != 1 and data[0][0] != 2:
+                return False
+            
+    return True
 
 if __name__ == '__main__': 
-	print("properati")
+	properatiUpdate()

@@ -1,8 +1,58 @@
 $(document).ready(function(){
 	$(".actualizar").addClass("active");
+	list_actualizaciones_priv();
+	list_actualizaciones_pub();
 	actualizar_priv();
 	actualizar_pub();
 });
+
+function list_actualizaciones_priv(){
+	$("#tab_actualizaciones_priv").DataTable({
+		"aprocessing": true,
+		"aServerSide": true,
+		"bPaginate":false,
+		"bFilter":false,
+		"bInfo":false,
+		"language": {
+			"url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+		},
+		"ajax": {
+			"url": "/list_act_priv",
+			"dataSrc": ""
+		},
+		"columns":[
+			{"data":"0"},
+			{"data":"1"},
+		],
+		"responsive": true,
+		"bDestroy": true,
+		"autoWidth": false
+	});
+}
+
+function list_actualizaciones_pub(){
+	$("#tab_actualizaciones_pub").DataTable({
+		"aprocessing": true,
+		"aServerSide": true,
+		"bPaginate":false,
+		"bFilter":false,
+		"bInfo":false,
+		"language": {
+			"url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+		},
+		"ajax": {
+			"url": "/list_act_pub",
+			"dataSrc": ""
+		},
+		"columns":[
+			{"data":"0"},
+			{"data":"1"},
+		],
+		"responsive": true,
+		"bDestroy": true,
+		"autoWidth": false
+	});
+}
 
 function actualizar_priv(){
 	$(".btn-actualizar-priv").click(function(){
@@ -21,6 +71,7 @@ function actualizar_priv(){
 						if(request.status == 200){
 							var objData = JSON.parse(request.responseText);
 							Swal.fire("Construcciones",objData.msg,objData.btn);
+							$("#tab_actualizaciones_priv").DataTable().ajax.reload();
 						}
 					}
 				}, 2000);
@@ -49,6 +100,7 @@ function actualizar_pub(){
 						if(request.status == 200){
 							var objData = JSON.parse(request.responseText);
 							Swal.fire("Construcciones",objData.msg,objData.btn);
+							$("#tab_actualizaciones_pub").DataTable().ajax.reload();
 						}
 					}
 				}

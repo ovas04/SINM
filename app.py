@@ -667,13 +667,14 @@ def reportes():
 
 @app.route("/upt_priv", methods=["POST"])
 def upt_priv():
+	id_usuario =  session["id_user"]
 	if request.method=="POST":
-		if (nexoUpdate() and properatiUpdate()):
-			'''
+		if (properatiUpdate(id_usuario, mysql.connection) and nexoUpdate(id_usuario, mysql.connection)):
+	
 			cur = mysql.connection.cursor()
-			cur.execute("call sp_registrar_actualización_priv")
+			cur.execute("call sp_registrar_actualización_priv(%s)", [id_usuario])
 			mysql.connection.commit()
-			'''
+			
 			response = {"status":True, "msg":"Construcciones privadas actualizadas correctamente", "btn":"success"}
 		else:
 			response = {"status":False, "msg":"Error al actualizar las construcciones", "btn":"error"}
@@ -685,6 +686,8 @@ def allowed_file(filename):
 
 @app.route("/upt_pub", methods=["POST"])
 def upt_pub():
+	id_usuario =  session["id_user"]
+	
 	if request.method=="POST":
 		if request.files:
 			file = request.files["archivo"]
@@ -694,12 +697,12 @@ def upt_pub():
 			if file and allowed_file(file.filename):
 				filename = secure_filename(file.filename)
 				file.save(os.path.join(app.config['UPLOAD_FOLDER'], "ObrasPublicas.xlsx"))
-				if (infobrasUpdate()):
-					'''
+				if (infobrasUpdate(id_usuario, UPLOAD_FOLDER, mysql.connection)):
+					
 					cur = mysql.connection.cursor()
-					cur.execute("call sp_registrar_actualización_pub")
+					cur.execute("call sp_registrar_actualización_pub(%s)", [id_usuario])
 					mysql.connection.commit()
-					'''
+					
 					response = {"status":True, "msg":"Construcciones públicas actualizadas correctamente", "btn":"success"}
 				else:
 					response = {"status":False, "msg":"Error al actualizar las construcciones", "btn":"error"}
@@ -708,6 +711,26 @@ def upt_pub():
 		else:
 			response = {"status":False, "msg":"Hubo un error con el envio archivo", "btn":"error"}
 		return jsonify(response)
+
+@app.route("/list_act_priv")
+def list_act_priv():
+	cur=mysql.connection.cursor()
+	cur.execute("call sp_listar_act_priv")
+	data = cur.fetchall()
+	data = [list(i) for i in data]
+	for i in data:
+		i[1] = datetime.strftime(i[1],"%Y-%m-%d")
+	return jsonify(data)
+
+@app.route("/list_act_pub")
+def list_act_pub():
+	cur=mysql.connection.cursor()
+	cur.execute("call sp_listar_act_pub")
+	data = cur.fetchall()
+	data = [list(i) for i in data]
+	for i in data:
+		i[1] = datetime.strftime(i[1],"%Y-%m-%d")
+	return jsonify(data)
 
 if __name__ == "__main__":
 	app.run(debug=True)
