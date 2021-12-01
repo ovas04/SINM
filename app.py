@@ -226,12 +226,12 @@ def list_construc_pub():
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in range(len(data)):
-		if(data[i][6] == "No visitado"):
-			data[i][6] = '<span class="badge bg-success">No visitado</span>'
-		elif(data[i][6] == "Marcado"):
-			data[i][6] = '<span class="badge bg-info">Marcado</span>'
+		if(data[i][7] == "No visitado"):
+			data[i][7] = '<span class="badge bg-success">No visitado</span>'
+		elif(data[i][7] == "Marcado"):
+			data[i][7] = '<span class="badge bg-info">Marcado</span>'
 		else:
-			data[i][6] = '<span class="badge bg-danger">Visitado</span>'
+			data[i][7] = '<span class="badge bg-danger">Visitado</span>'
 
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
