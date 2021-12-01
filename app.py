@@ -235,7 +235,7 @@ def list_construc_pub():
 
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
-				'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Comentar"><i class="fas fa-pencil-alt"></i></button> '+
+				'<button class="btn btn-primary btn-sm btn-edit-construc" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button> '+
 				'</div>')
 	return jsonify(data)
 	cur.connection.close();

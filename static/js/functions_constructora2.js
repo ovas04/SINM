@@ -129,15 +129,15 @@ function coment_construc(){
 			if(request.status == 200){
 				var objData = JSON.parse(request.responseText);
 				$("#id_construc").val(id_construc);
-				$("#nom_construc").val(objData[2]);
-				$("#cod_infobras").val(objData[1])
-				$("#ubi_construc").val(objData[5]);
+				$("#nom_construc").val(objData[1]);
+				$("#cod_infobras").val(objData[2]);
+				$("#ubi_construc").val(objData[3]);
 				$("#tipo").val(objData[7]);
-				$("#constructora").val(objData[11]);
-				$("#modalidad").val(objData[4]);
-				$("#descri").val(objData[6]);
-				$("#financ").val(objData[9]);
-				$("#estado").val(objData[11]);
+				//$("#constructora").val(objData[11]);
+				$("#modalidad").val(objData[6]);
+				$("#descri").val(objData[4]);
+				$("#financ").val(objData[5]);
+				$("#estado").val(objData[8]);
 			}
 		}
 	});
