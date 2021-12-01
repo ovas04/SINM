@@ -669,7 +669,7 @@ def reportes():
 def upt_priv():
 	id_usuario =  session["id_user"]
 	if request.method=="POST":
-		if (nexoUpdate(id_usuario, mysql.connection) and properatiUpdate(id_usuario, mysql.connection)):
+		if (properatiUpdate(id_usuario, mysql.connection) and nexoUpdate(id_usuario, mysql.connection)):
 			'''
 			cur = mysql.connection.cursor()
 			cur.execute("call sp_registrar_actualización_priv")

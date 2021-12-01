@@ -36,7 +36,6 @@ class ObraPublica:
         self.Presupuesto = ""
         self.Fecha_Recuperacion =""
         self.estado = ""
-        self.comentario = ""
     
     def Base_Info(self,codigo_InfoObras,entidad,descripcion,Modalidad,Estado_Obra,Presupuesto):
         fecha = date.today()
