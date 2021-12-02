@@ -187,7 +187,7 @@
                         </div>
                         <div class="modal-body">
                             <form id="form-construc">
-                                <input type="hidden" id="id_construc" name="id_construc">
+                                <input type="hidden" id="id_construc" name="id_construc" readonly>
                                 <div class="mb-3">
                                     <label for="nom_construc" class="form-label">Entidad:</label>
                                     <input type="text" id="nom_construc" class="form-control" name="nom_construc"
@@ -197,12 +197,40 @@
                                     <div class="form-group col-md-5">
                                         <label for="cod_infobras" class="form-label">Código Info Obras:</label>
                                         <input type="text" id="cod_infobras" class="form-control" name="cod_infobras"
-                                            required>
+                                            required readonly>
                                     </div>
                                     <div class="form-group col-md-7">
                                         <label for="ubi_construc" class="form-label">Ubicación:</label>
-                                        <input type="text" id="ubi_construc" class="form-control" name="ubi_construc"
-                                            required>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-pub-tie"></i></span>
+                                            <select name="ubi_construc" id="ubi_construc" class="form-select">
+                                                <option value="Lima">Lima</option>
+                                                <option value="Huanuco">Huánuco</option>
+												<option value="Ica">Ica</option>
+												<option value="Junin">Junín</option>
+                                                <option value="La Libertad">La Libertad</option>
+                                                <option value="Lambayeque">Lambayeque</option>
+                                                <option value="Loreto">Loreto</option>
+                                                <option value="Madre de Dios">Madre de Dios</option>
+                                                <option value="Moquegua">Moquegua</option>
+                                                <option value="Pasco">Pasco</option>
+                                                <option value="Piura">Piura</option>
+                                                <option value="Amazonas">Amazonas</option>
+                                                <option value="Puno">Puno</option>
+                                                <option value="San Martin">San Martín</option>
+                                                <option value="Tacna">Tacna</option>
+                                                <option value="Tumbes">Tumbes</option>
+                                                <option value="Ucayali">Ucayali</option>
+                                                <option value="Ancash">Ancash</option>
+                                                <option value="Apurímac">Apurímac</option>
+                                                <option value="Arequipa">Arequipa</option>
+                                                <option value="Ayacucho">Ayacucho</option>
+                                                <option value="Cajamarca">Cajamarca</option>
+                                                <option value="Cusco">Cusco</option>
+                                                <option value="Huancavelica">Huancavelica</option>
+                                            </select>
+                                        </div>
+                                        <!--<input type="text" id="ubi_construc" class="form-control" name="ubi_construc" required>-->
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -227,7 +255,16 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="estado" class="form-label">Estado:</label>
-                                        <input type="test" id="estado" class="form-control" name="estado" required>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-pub-tie"></i></span>
+                                            <select name="estado" id="estado" class="form-select">
+                                                <option value="Activa">Activa</option>
+                                                <option value="Inactiva">Inactiva</option>
+												<option value="Vencida">Vencida</option>
+												<option value="Duda">Duda</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
