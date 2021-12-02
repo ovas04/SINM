@@ -176,8 +176,8 @@ def regis_construc_priv():
 		descripcion = request.form["descri"]
 		estado = request.form["estado"]
 
-		if(id_construccion == ""):
-			cur.execute("call sp_crear_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_usuario,tipo,Constructora,ubicacion,direccion,etapa,estado,nombre,descripcion,fecha_entrega))
+		if(id_construccion == "0"):
+			cur.execute("call sp_crear_construc_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_usuario,tipo,Constructora,ubicacion,direccion,etapa,estado,nombre,descripcion,fecha_entrega))
 			mysql.connection.commit()
 			response = {"status":"True", "msj": "Construcción registrada correctamente!"}
 		else:
