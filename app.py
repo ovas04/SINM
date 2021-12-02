@@ -240,6 +240,7 @@ def regis_construc_pub():
 	if request.method == "POST":
 		cur = mysql.connection.cursor()
 		id_usuario =  session["id_user"]
+		id_construccion = request.form["id_construc"]
 		entidad = request.form["nom_construc"]
 		cod_info = request.form["cod_infobras"]
 		ubicacion = request.form["ubi_construc"]
@@ -248,12 +249,11 @@ def regis_construc_pub():
 		presupuesto = request.form["financ"]
 		modalidad = request.form["modalidad"]
 		estado = request.form["estado"]
-		if(request.form["id_construc"]==""):
+		if(id_construccion==""):
 			cur.execute("call sp_crear_const_pub(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_usuario,entidad,cod_info,ubicacion,descripcion,tipo,presupuesto,modalidad,estado))
 			mysql.connection.commit()
 			response = {"status":"True", "msj": "Construcción registrada correctamente!"}
 		else:
-			id_construccion = request.form["id_construc"]
 			cur.execute("call sp_editar_const_pub(%s,%s,%s,%s,%s,%s,%s,%s)",(id_construccion,entidad,ubicacion,descripcion,tipo,presupuesto,modalidad,estado))
 			mysql.connection.commit()
 			response = {"status":"True", "msj": "Construcción actualizada correctamente!"}

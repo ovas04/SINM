@@ -124,6 +124,7 @@ function coment_construc(){
 		$("#modal-construc .modal-title").text("Actualizar Construcción")
 		$("#modal-construc .btn-text").text("Actualizar");
 		$("#modal-construc").modal("show");
+		$("#cod_infobras").prop("readonly",true);
 		var id_construc = this.getAttribute("rl");
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 		var ajaxUrl = "/buscar_construc_pub/"+id_construc;
@@ -229,6 +230,7 @@ function open_modal(){
 	$("#modal-construc .btn-form").removeClass("btn-primary").addClass("btn-success");
 	$("#modal-construc .modal-title").text("Registrar Construcción")
 	$("#modal-construc .btn-text").text("Registrar");
+	$("#cod_infobras").prop("readonly",false);
 	$("#modal-construc").modal("show");
 	$("#id_construc").val("0");
 	$("#form-construc")[0].reset();
