@@ -36,7 +36,7 @@ class Service:
 
 	def comentario(persona,comentario,fecha,nombre_contacto,telefono_contacto):
 		coment = (" <div class=\"post clearfix\"> \
-                                  <div class=\"user-block\"> \
+                                  <div class=\"user-block\" style=\"text-align: center;\"> \
                                     <span class=\"username\"> \
                                       <a href=\"#\">%s</a> \
                                       <a href=\"#\" class=\"float-right btn-tool\"><i class=\"fas fa-times\"></i></a> \
