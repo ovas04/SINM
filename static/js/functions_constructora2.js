@@ -110,6 +110,7 @@ function ver_construc(){
 					$(".btn-marc-const-pub").attr("disabled",false)
 				}
 				var comentarios = document.getElementById("comentarios");
+				comentarios.innerHTML = "";
 				for(i=0; i<objData[10].length ; i++){
 					comentarios.innerHTML += objData[10][i];
 				}
