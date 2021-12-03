@@ -228,7 +228,7 @@ def construc_pub():
 @app.route("/list_construc_pub")
 def list_construc_pub():
 	cur = mysql.connection.cursor()
-	cur.execute("call sp_listar_const_pub")
+	cur.execute("call sp_list_const_pub")
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in range(len(data)):
