@@ -4,7 +4,7 @@ class Conexion:
 	def obtener_conexion():
 		try:
 			cn = pymysql.connect(
-				host = "sinmsoftware.mysql.database.azure.com",
+				host = "dbsinm.mysql.database.azure.com",
 				user = "SINM",
 				password = "maderera@04",
 				db = "construcciones_db"
