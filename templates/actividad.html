@@ -40,26 +40,26 @@
                                 <div class="col-sm-12">
                                     <table id="tab_info-empleado" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
                                         <tbody>
-	                                        <input type="hidden" id="id_emple" name="id_emple" value="<?php echo $data['alumno']['id_persona'] ?>">
+	                                        <input type="hidden" id="id_emple" name="id_emple" value="{{datos[3]}}">
 	                                        <tr>
 	                                            <th><span class="fas fa-user-cog"></span> Empleado</th>
-	                                            <td></td>
+	                                            <td id="nombre_emple"></td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th><span class="fas fa-bookmark"></span> Rol</th>
-	                                            <td></td>
+	                                            <td  id="rol_emple"></td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th><span class="fas fa-id-card"></span> DNI</th>
-	                                            <td></td>
+	                                            <td id="dni_emple"></td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th><span class="fas fa-envelope"></span> Correo Electrónico</th>
-	                                            <td></td>
+	                                            <td id="mail_emple"></td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th><span class="fas fa-mobile-alt"></span> Celular</th>
-	                                            <td></td>
+	                                            <td id="telef_emple"></td>
 	                                        </tr>
                                     	</tbody>
                                     </table>
@@ -165,150 +165,6 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
-
-                <div class="modal fade" id="modal-empleado-d" data-bs-backdrop="static" aria-modal="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Información de Empleado</h4>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="form-empleado">
-                                    <input type="hidden" id="id_emple-d" name="id_emple-d">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8 mb-0">
-                                            <div class="mb-3">
-                                                <label for="nom_emple-d" class="form-label">Nombres:</label>
-                                                <input type="text" id="nom_emple-d" class="form-control form-control-sm" name="nom_emple-d" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="ape_emple-d" class="form-label">Apellidos:</label>
-                                                <input type="text" id="ape_emple-d" class="form-control form-control-sm" name="ape_emple-d" readonly>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="dni_emple-d" class="form-label">DNI:</label>
-                                                    <input type="text" id="dni_emple-d" class="form-control form-control-sm" name="dni_emple-d" readonly>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="fech_emple-d" class="form-label">Fecha de nacimiento:</label>
-                                                    <input type="date" id="fech_emple-d" class="form-control form-control-sm" name="fech_emple-d" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4 mb-0">
-                                            <div class="img">
-                                                <img class="img-thumbnail rounded mx-auto d-block mb-2" id="img_empleado_d" src="#" alt="" style="width: 70%;">
-                                                <div class="text-center">
-                                                     <a id="actividad" class="btn btn-outline-warning" href="#">Ver Actividad</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="rol-d" class="form-label">Rol:</label>
-                                            <input type="text" id="rol-d" class="form-control form-control-sm" name="rol-d" readonly>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="f-inicio-d" class="form-label">Fech. inicio:</label>
-                                            <input type="date" id="f-inicio-d" class="form-control form-control-sm" name="f-inicio-d" readonly>
-                                        </div>
-                                        <div class="form-group col-md-5">
-                                            <label for="mail_emple-d" class="form-label">Correo Electrónico:</label>
-                                            <input type="email" id="mail_emple-d" class="form-control form-control-sm" name="mail_emple-d" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="telef_emple-d" class="form-label">Teléfono:</label>
-                                            <input type="phone" id="telef_emple-d" class="form-control form-control-sm" name="telef_emple-d" readonly>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="distr_emple-d" class="form-label">Distrito:</label>
-                                            <input type="text" id="distr_emple-d" class="form-control form-control-sm" name="distr_emple-d" readonly>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="estado-d" class="form-label">Estado:</label>
-                                            <input type="text" id="estado-d" class="form-control form-control-sm" name="estado-d" readonly>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-
-                <div class="modal fade" id="modal-empleado" data-bs-backdrop="static" aria-modal="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Registrar Empleado</h4>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="form-empleado">
-                                    <input type="hidden" id="id_emple" name="id_emple">
-                                    <div class="mb-3">
-                                        <label for="nom_emple" class="form-label">Nombres:</label>
-                                        <input type="text" id="nom_emple" class="form-control" name="nom_emple" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="ape_emple" class="form-label">Apellidos:</label>
-                                        <input type="text" id="ape_emple" class="form-control" name="ape_emple" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="dni_emple" class="form-label">DNI:</label>
-                                            <input type="text" id="dni_emple" class="form-control" name="dni_emple" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="fech_emple" class="form-label">Fecha de nacimiento:</label>
-                                            <input type="date" id="fech_emple" class="form-control" name="fech_emple" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="mail_emple" class="form-label">Correo Electrónico:</label>
-                                        <input type="email" id="mail_emple" class="form-control" name="mail_emple" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="telef_emple" class="form-label">Teléfono:</label>
-                                            <input type="phone" id="telef_emple" class="form-control" name="telef_emple" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="distr_emple" class="form-label">Distrito:</label>
-                                            <input type="text" id="distr_emple" class="form-control" name="distr_emple" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="estado" class="form-label">Estado:</label>
-                                        <select name="estado" id="estado" class="form-select">
-                                            <option value="1">Activado</option>
-                                            <option value="2">Desactivado</option>
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-success btn-form"><span class="btn-text">Registrar</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
             </div>
         </section>
         <!-- /.content -->
