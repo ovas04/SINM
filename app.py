@@ -16,7 +16,7 @@ app = Flask(__name__)
 #Conexion a base de datos NYSQL
 app.config["MYSQL_HOST"] = "sinmsoftware.mysql.database.azure.com"
 app.config["MYSQL_USER"] = "SINM"
-app.config["MYSQL_PASSWORD"] = "maderera$2021"
+app.config["MYSQL_PASSWORD"] = "maderera@04"
 app.config["MYSQL_DB"] = "construcciones_db"
 mysql = MySQL(app)
 print("Conexión establecida exitosamente!")
@@ -126,10 +126,11 @@ def construc_priv():
 @app.route("/list_construc_priv")
 def list_construc_priv():
 	if "id_user" in session:
-		data = Service.get_usuarios()
+		cur = mysql.connection.cursor()
+		cur.execute("call sp_listar_const_priv")
+		data = cur.fetchall()
 		data = [list(i) for i in data]
 		for i in range(len(data)):
-			
 			if data[i][5] != None:
 				data[i][5] = datetime.strftime(data[i][5],"%d-%m-%Y")
 			else:
@@ -140,7 +141,7 @@ def list_construc_priv():
 			elif data[i][7] == "Vencida":
 				data[i][7] = '<span class="badge bg-danger">Vencida</span>'
 			elif data[i][7] == "Inactiva":
-				data[i][7] = '<span class="badge bg-warning">Vencida</span>'
+				data[i][7] = '<span class="badge bg-warning">Inactiva</span>'
 			else :
 				data[i][7] = '<span class="badge bg-secondary">Duda</span>'
 			
@@ -232,6 +233,15 @@ def list_construc_pub():
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in range(len(data)):
+		if data[i][6] == "Activa":
+			data[i][6] = '<span class="badge bg-info">Activa</span>'
+		elif data[i][6] == "Vencida":
+			data[i][6] = '<span class="badge bg-danger">Vencida</span>'
+		elif data[i][6] == "Inactiva":
+			data[i][6] = '<span class="badge bg-warning">Inactiva</span>'
+		else :
+			data[i][7] = '<span class="badge bg-secondary">Duda</span>'
+
 		if(data[i][7] == "No visitado"):
 			data[i][7] = '<span class="badge bg-success">No visitado</span>'
 		elif(data[i][7] == "Marcado"):

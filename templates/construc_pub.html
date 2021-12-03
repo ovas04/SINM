@@ -180,7 +180,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Prueba 2 Detalles de la construcción</h4>
+                            <h4 class="modal-title">Registrar construcción</h4>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -190,19 +190,25 @@
                                 <input type="hidden" id="id_construc" name="id_construc" readonly>
                                 <div class="mb-3">
                                     <label for="nom_construc" class="form-label">Entidad:</label>
-                                    <input type="text" id="nom_construc" class="form-control" name="nom_construc"
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                                        <input type="text" id="nom_construc" class="form-control" name="nom_construc"
                                         required>
+                                    </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
                                         <label for="cod_infobras" class="form-label">Código Info Obras:</label>
-                                        <input type="text" id="cod_infobras" class="form-control" name="cod_infobras"
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-file"></i></span>
+                                            <input type="text" id="cod_infobras" class="form-control" name="cod_infobras"
                                             required>
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-7">
                                         <label for="ubi_construc" class="form-label">Ubicación:</label>
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-pub-tie"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                             <select name="ubi_construc" id="ubi_construc" class="form-select">
                                                 <option value="Lima">Lima</option>
                                                 <option value="Huanuco">Huánuco</option>
@@ -235,28 +241,41 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="descri" class="form-label">Descripción:</label>
-                                    <textarea id="descri" class="form-control" name="descri" rows=4 required></textarea>
-                                </div>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                                        <textarea id="descri" class="form-control" name="descri" rows=4 required></textarea>
+                                    </div>
+                                    </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="tipo" class="form-label">Tipo:</label>
-                                        <input type="text" id="tipo" class="form-control" name="tipo" required>
+                                        <label for="tipo" class="form-label">Disponibilidad:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-chart-line"></i></span>
+                                            <input type="text" id="tipo" class="form-control" name="tipo" required>
+                                            
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="financ" class="form-label">Presupuesto:</label>
-                                        <input type="text" id="financ" class="form-control" name="financ" required>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                            <input type="text" id="financ" class="form-control" name="financ" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="modalidad" class="form-label">Modalidad:</label>
-                                        <input type="text" id="modalidad" class="form-control" name="modalidad"
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-bookmark"></i></span>
+                                            <input type="text" id="modalidad" class="form-control" name="modalidad"
                                             required>
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="estado" class="form-label">Estado:</label>
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-pub-tie"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-chart-bar"></i></span>
                                             <select name="estado" id="estado" class="form-select">
                                                 <option value="Activa">Activa</option>
                                                 <option value="Inactiva">Inactiva</option>
