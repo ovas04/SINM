@@ -212,7 +212,6 @@ def buscar_construc_priv(id_construc):
 	cur.execute("call sp_listar_comentarios(%s)",[id_construc])
 	comens =  cur.fetchall()
 	comens = [list(i) for i in comens]
-	print(comens)
 	comentarios = list()
 	for i in range(len(comens)):
 		#comens[i][5] = datetime.strftime(comens[i][5],"%d-%m-%Y")
@@ -280,6 +279,7 @@ def regis_construc_pub():
 		modalidad = request.form["modalidad"]
 		estado = request.form["estado"]
 		if(id_construccion==""):
+			print("TOY AQUI")
 			cur.execute("call sp_crear_const_pub(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_usuario,entidad,cod_info,ubicacion,descripcion,tipo,presupuesto,modalidad,estado))
 			mysql.connection.commit()
 			response = {"status":"True", "msj": "Construcción registrada correctamente!"}
@@ -299,7 +299,6 @@ def buscar_construc_pub(id_construc):
 	cur.execute("call sp_listar_comentarios(%s)",[id_construc])
 	comens =  cur.fetchall()
 	comens = [list(i) for i in comens]
-	print(comens)
 	comentarios = list()
 	for i in range(len(comens)):
 		#comens[i][5] = datetime.strftime(comens[i][5],"%d-%m-%Y")
@@ -328,7 +327,6 @@ def marc_const(id_construc):
 	disponibilidad = data[0][0]
 	#cur.execute("call sp_marcar_construccion(%s,%s,%s)",(id_usuario,id_construc,disponibilidad))
 	#mysql.connection.commit()
-	print(id_usuario)
 	data = cur.fetchall()
 	
 	if disponibilidad == "2":
@@ -364,7 +362,6 @@ def reg_comen(id_const):
 		cur.execute("select construcciones_db.f_generar_id_m_contc()")
 		data = cur.fetchall()
 		v_id_mec_contacto = data[0][0]
-		print(usuario_asociado, " -- ",id_usuario)
 		if(usuario_asociado == id_usuario):
 			if(tipo == '0'):
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"ORGANIZACION",id_usuario))
@@ -416,7 +413,6 @@ def list_emple():
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in range(len(data)):
-		print(data[i][4])
 		data[i][4] = datetime.strftime(data[i][4],"%d-%m-%Y")
 		if data[i][5] == "ACTIVO":
 			data[i][5] = '<span class="badge bg-info">Activo</span>'
@@ -429,7 +425,6 @@ def list_emple():
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-warning btn-sm btn-ver-emple" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
 				'<button class="btn btn-primary btn-sm btn-edit-emple" rl="'+data[i][0]+'" title="Editar"><i class="fas fa-pencil-alt"></i></button> '+
-				'<button class="btn btn-danger btn-sm btn-eli-emple" rl="'+data[i][0]+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button> '+
 				'</div>')
 	return jsonify(data)
 	cur.connection.close();
