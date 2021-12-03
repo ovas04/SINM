@@ -233,6 +233,15 @@ def list_construc_pub():
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in range(len(data)):
+		if data[i][6] == "Activa":
+			data[i][6] = '<span class="badge bg-info">Activa</span>'
+		elif data[i][6] == "Vencida":
+			data[i][6] = '<span class="badge bg-danger">Vencida</span>'
+		elif data[i][6] == "Inactiva":
+			data[i][6] = '<span class="badge bg-warning">Inactiva</span>'
+		else :
+			data[i][7] = '<span class="badge bg-secondary">Duda</span>'
+
 		if(data[i][7] == "No visitado"):
 			data[i][7] = '<span class="badge bg-success">No visitado</span>'
 		elif(data[i][7] == "Marcado"):
