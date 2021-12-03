@@ -704,7 +704,7 @@ def upt_priv():
 		if (properatiUpdate(id_usuario, mysql.connection) and nexoUpdate(id_usuario, mysql.connection)):
 	
 			cur = mysql.connection.cursor()
-			cur.execute("call sp_registrar_actualización_priv(%s)", [id_usuario])
+			cur.execute("call sp_registrar_actualización_priv2(%s)", [id_usuario])
 			mysql.connection.commit()
 			
 			response = {"status":True, "msg":"Construcciones privadas actualizadas correctamente", "btn":"success"}
@@ -732,7 +732,7 @@ def upt_pub():
 				if (infobrasUpdate(id_usuario, UPLOAD_FOLDER, mysql.connection)):
 					
 					cur = mysql.connection.cursor()
-					cur.execute("call sp_registrar_actualización_pub(%s)", [id_usuario])
+					cur.execute("call sp_registrar_actualización_pub2(%s)", [id_usuario])
 					mysql.connection.commit()
 					
 					response = {"status":True, "msg":"Construcciones públicas actualizadas correctamente", "btn":"success"}
@@ -747,7 +747,7 @@ def upt_pub():
 @app.route("/list_act_priv")
 def list_act_priv():
 	cur=mysql.connection.cursor()
-	cur.execute("call sp_listar_act_priv")
+	cur.execute("SELECT id_actualizacion, fecha_creacion from actualizaciones where id_tipo_act='ACT-000002'")
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in data:
@@ -757,7 +757,7 @@ def list_act_priv():
 @app.route("/list_act_pub")
 def list_act_pub():
 	cur=mysql.connection.cursor()
-	cur.execute("call sp_listar_act_pub")
+	cur.execute("SELECT id_actualizacion, fecha_creacion from actualizaciones where id_tipo_act='ACT-000001'")
 	data = cur.fetchall()
 	data = [list(i) for i in data]
 	for i in data:
