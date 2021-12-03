@@ -80,6 +80,7 @@ function ver_construc(){
 			if(request.status == 200){
 				var objData = JSON.parse(request.responseText);
 				$("#id_construc_d").val(id_construc);
+				$("#id_construc_d").attr("rl",id_construc);
 				$("#nom_construc_d").val(objData[1]);
 				$("#ubi_construc_d").val(objData[2]);
 				$("#dir_construc_d").val(objData[3]);
@@ -210,7 +211,10 @@ function marcar_construccion(){
 						}
 						else{
 							Swal.fire("MARCADO!",objData.msj,"success");
-							$("#modal-det-construc").DataTable().ajax.reload();		
+							/*$("#tab_constructoras").DataTable().ajax.reload();*/		
+							setTimeout(function(){
+								window.location.href = "/construcciones_privadas";
+							}, 2000);	  
 						}
 				}else{
 							Swal.fire("Construcciones","El Registro Construccion Ocupada","error");

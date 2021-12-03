@@ -206,7 +206,9 @@ function marcar_construccion(){
 						}
 						else{
 							Swal.fire("MARCADO!",objData.msj,"success");
-							$("#modal-det-construc").DataTable().ajax.reload();		
+							setTimeout(function(){
+								window.location.href = "/construcciones_privadas";
+							}, 2000);		
 						}
 				}else{
 							Swal.fire("Construcciones","El Registro Construccion Ocupada","error");

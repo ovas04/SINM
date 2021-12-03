@@ -592,6 +592,11 @@ def regis_usuario():
 		usuario_creacion=session["id_user"]
 		estado_usuario=request.form["estado_usu"]
 		if (dni_usuario == "") :
+			if (password == ""):
+				cur.execute("select PASSWORD from  usuario u Where ID_USUARIO = %s",[id_usu])
+				data = cur.fetchall()
+				password = data[0][0] 
+
 			cur.execute("call sp_editar_usuario(%s,%s,%s,%s)",[id_usu,password,rol_usuario,estado_usuario])
 			if (password != ""):
 				response = {"status":True, "msg":"Usuario Actualizado correctamente!"}
