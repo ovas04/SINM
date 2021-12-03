@@ -126,10 +126,11 @@ def construc_priv():
 @app.route("/list_construc_priv")
 def list_construc_priv():
 	if "id_user" in session:
-		data = Service.get_usuarios()
+		cur = mysql.connection.cursor()
+		cur.execute("call sp_listar_const_priv")
+		data = cur.fetchall()
 		data = [list(i) for i in data]
 		for i in range(len(data)):
-			
 			if data[i][5] != None:
 				data[i][5] = datetime.strftime(data[i][5],"%d-%m-%Y")
 			else:
@@ -140,7 +141,7 @@ def list_construc_priv():
 			elif data[i][7] == "Vencida":
 				data[i][7] = '<span class="badge bg-danger">Vencida</span>'
 			elif data[i][7] == "Inactiva":
-				data[i][7] = '<span class="badge bg-warning">Vencida</span>'
+				data[i][7] = '<span class="badge bg-warning">Inactiva</span>'
 			else :
 				data[i][7] = '<span class="badge bg-secondary">Duda</span>'
 			
