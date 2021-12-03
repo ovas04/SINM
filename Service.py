@@ -49,7 +49,6 @@ class Service:
                                   <p>Contacto: %s</p> \
                                   <hr> \
                                 </div>")%(persona,fecha,comentario,nombre_contacto,telefono_contacto)
-
 		#print(coment)
 		return coment
 

@@ -244,9 +244,9 @@ def list_construc_pub():
 		if(data[i][7] == "No visitado"):
 			data[i][7] = '<span class="badge bg-success">No visitado</span>'
 		elif(data[i][7] == "Marcado"):
-			data[i][7] = '<span class="badge bg-info">Marcado</span>'
+			data[i][7] = '<span class="badge bg-danger">Marcado</span>'
 		else:
-			data[i][7] = '<span class="badge bg-danger">Visitado</span>'
+			data[i][7] = '<span class="badge bg-warning">Visitado</span>'
 
 		data[i].append('<div class="text-center">'+
 				'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
