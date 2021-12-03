@@ -71,6 +71,16 @@ def dashboard():
 	else:
 		 return redirect(url_for("home"))
 
+@app.route("/info_dashboard")
+def info_dashboard():
+	if "id_user" in session:
+		cur = mysql.connection.cursor()
+		cur.execute("call sp_info_dashboard")
+		data = cur.fetchone()
+		return jsonify(data)
+	else:
+		return redirect(url_for("home"))
+
 @app.route("/perfil")
 def perfil():
 	if "id_user" in session:
@@ -529,6 +539,8 @@ def list_usuarios():
 				data[i][4] = '<span class="badge bg-success">'+data[i][4]+'</span>'
 			elif data[i][4] == "Asistente Ventas":
 				data[i][4] = '<span class="badge bg-warning">'+data[i][4]+'</span>'
+			elif data[i][4] == "Asistente Gerencia":
+				data[i][4] = '<span class="badge bg-primary">'+data[i][4]+'</span>'
 			else:
 				data[i][4] = '<span class="badge bg-dark">'+data[i][4]+'</span>'
 				
