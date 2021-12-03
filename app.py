@@ -172,30 +172,30 @@ def list_construc_priv():
 
 @app.route("/regis_construc_priv", methods=["POST"])
 def regis_construc_priv():
-	if request.method == "POST":
-		cur = mysql.connection.cursor()
-		id_usuario =  session["id_user"]
-		id_construccion = request.form["id_construc"]
-		nombre = request.form["nom_construc"]
-		ubicacion = request.form["ubi_construc"]
-		direccion = request.form["dir_construc"]
-		tipo = request.form["tipo"]
-		fecha_entrega = request.form["fech_entrega"]
-		Constructora = request.form["constructora"]
-		etapa = request.form["etapa"]
-		descripcion = request.form["descri"]
-		estado = request.form["estado"]
+    if request.method == "POST":
+        cur = mysql.connection.cursor()
+        id_usuario =  session["id_user"]
+        id_construccion = request.form["id_construc"]
+        nombre = request.form["nom_construc"]
+        ubicacion = request.form["ubi_construc"]
+        direccion = request.form["dir_construc"]
+        tipo = request.form["tipo"]
+        fecha_entrega = request.form["fech_entrega"]
+        Constructora = request.form["constructora"]
+        etapa = request.form["etapa"]
+        descripcion = request.form["descri"]
+        estado = request.form["estado"]
 
-		if(id_construccion == "0"):
-			cur.execute("call sp_crear_construc_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_usuario,tipo,Constructora,ubicacion,direccion,etapa,estado,nombre,descripcion,fecha_entrega))
-			mysql.connection.commit()
-			response = {"status":"True", "msj": "Construcción registrada correctamente!"}
-		else:
-			cur.execute("call sp_edit_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_construccion,nombre,ubicacion,direccion,tipo,fecha_entrega,Constructora,etapa,descripcion,estado))
-			mysql.connection.commit()
-			response = {"status":"True", "msj": "Construcción actualizada correctamente!"}
-		return jsonify(response)
-		cur.connection.close();
+        if(id_construccion == "0"):
+            cur.execute("call sp_crear_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_usuario,tipo,Constructora,ubicacion,direccion,etapa,estado,nombre,descripcion,fecha_entrega))
+            mysql.connection.commit()
+            response = {"status":"True", "msj": "Construcción registrada correctamente!"}
+        else:
+            cur.execute("call sp_editar_const_priv(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(id_construccion,nombre,ubicacion,direccion,tipo,fecha_entrega,Constructora,etapa,descripcion,estado))
+            mysql.connection.commit()
+            response = {"status":"True", "msj": "Construcción actualizada correctamente!"}
+        return jsonify(response)
+        cur.connection.close();
 
 
 @app.route("/buscar_construc_priv/<id_construc>", methods=["GET"])
