@@ -14,12 +14,11 @@ from Service import *
 app = Flask(__name__)
 
 #Conexion a base de datos NYSQL
-app.config["MYSQL_HOST"] = "sinmsoftware.mysql.database.azure.com"
+app.config["MYSQL_HOST"] = "dbsinm.mysql.database.azure.com"
 app.config["MYSQL_USER"] = "SINM"
 app.config["MYSQL_PASSWORD"] = "maderera@04"
 app.config["MYSQL_DB"] = "construcciones_db"
 mysql = MySQL(app)
-print("Conexión establecida exitosamente!")
 
 #Configuracion
 app.secret_key = "mysecretkey"
