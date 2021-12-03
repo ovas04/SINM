@@ -662,7 +662,7 @@ def list_roles():
 @app.route("/actividad/<id_emple>", methods=["GET"])
 def actividad(id_emple):
 	if "id_user" in session:
-		data = ("Actividad | Nueva Era","Actividad de vendedor","functions_empleado.js")
+		data = ("Actividad | Nueva Era","Actividad de vendedor","functions_empleado.js",id_emple)
 		return render_template("actividad.html", datos = data)
 	else:
 		return redirect(url_for("home"))
