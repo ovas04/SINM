@@ -17,6 +17,7 @@ function datos_empleado(){
 			$("#rol_emple").text("Vendedor");
 			$("#dni_emple").text(objData[3]);
 			$("#mail_emple").text(objData[7]);
+			$("#mail_emple_m").text(objData[7]);
 			$("#telef_emple").text(objData[8]);
 		}
 	}
