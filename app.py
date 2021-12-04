@@ -715,7 +715,7 @@ def list_actividad(id_emple):
 def enviar_mensaje(id_emple):
 	if "id_user" in session:
 		
-		return jsonify(data)
+		return jsonify()
 		cur.connection.close()
 	else:
 		return redirect(url_for("home"))
