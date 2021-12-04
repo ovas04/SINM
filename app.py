@@ -691,12 +691,17 @@ def list_actividad(id_emple):
 				data[i][1] = '<span class="badge bg-success">Privada</span>'
 			else:
 				data[i][1] = '<span class="badge bg-warning">Pública</span>'
-			if data[i][4] == "Activo":
+			
+			if data[i][4] == "1":
 				data[i][4] = '<span class="badge bg-info">Activo</span>'
-			elif data[i][4] == "Eliminado temporalmente":
-				data[i][4] = '<span class="badge bg-danger">Eliminado temporalmente</span>'
+			elif data[i][4] == "2":
+				data[i][4] = '<span class="badge bg-danger">Inactiva</span>'
+			elif data[i][4] == "3":
+				data[i][4] = '<span class="badge bg-warning">Vencida</span>'
+			elif data[i][4] == "4":
+				data[i][4] = '<span class="badge bg-secondary">Duda</span>'
 			else:
-				data[i][4] = '<span class="badge bg-danger">Inactivo</span>'
+				data[i][4] = '<span class="badge bg-black">NA</span>'
 
 			data[i].append('<div class="text-center">'+
 					'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
