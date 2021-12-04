@@ -711,6 +711,16 @@ def list_actividad(id_emple):
 	else:
 		return redirect(url_for("home"))
 
+@app.route("/enviar_mensaje/<id_emple>", methods=["POST"])
+def enviar_mensaje(id_emple):
+	if "id_user" in session:
+		
+		return jsonify(data)
+		cur.connection.close()
+	else:
+		return redirect(url_for("home"))
+
+
 #Vista PB
 @app.route("/vista_pbi")
 def vista_pbi():
