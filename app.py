@@ -679,6 +679,33 @@ def actividad(id_emple):
 	else:
 		return redirect(url_for("home"))
 
+@app.route("/list_actividad/<id_emple>", methods=["GET"])
+def list_actividad(id_emple):
+	if "id_user" in session:
+		cur = mysql.connection.cursor()
+		cur.execute("call sp_listar_actividad_vendedor(%s)",[id_emple])
+		data = cur.fetchall()
+		data = [list(i) for i in data]
+		for i in range(len(data)):
+			if data[i][1] == "1":
+				data[i][1] = '<span class="badge bg-success">Privada</span>'
+			else:
+				data[i][1] = '<span class="badge bg-warning">Pública</span>'
+			if data[i][4] == "Activo":
+				data[i][4] = '<span class="badge bg-info">Activo</span>'
+			elif data[i][4] == "Eliminado temporalmente":
+				data[i][4] = '<span class="badge bg-danger">Eliminado temporalmente</span>'
+			else:
+				data[i][4] = '<span class="badge bg-danger">Inactivo</span>'
+
+			data[i].append('<div class="text-center">'+
+					'<button class="btn btn-warning btn-sm btn-ver-construc" rl="'+data[i][0]+'" title="Ver"><i class="fas fa-eye"></i></button> '+
+					'</div>')
+		return jsonify(data)
+		cur.connection.close()
+	else:
+		return redirect(url_for("home"))
+
 #Vista PB
 @app.route("/vista_pbi")
 def vista_pbi():
