@@ -711,10 +711,10 @@ def list_actividad(id_emple):
 	else:
 		return redirect(url_for("home"))
 
-@app.route("/enviar_mensaje/<id_emple>", methods=["POST"])
-def enviar_mensaje(id_emple):
+@app.route("/enviar_mensaje", methods=["POST"])
+def enviar_mensaje():
 	if "id_user" in session:
-		
+		mail = request.form["mail_emple"]
 		return jsonify()
 		cur.connection.close()
 	else:
