@@ -362,7 +362,9 @@ def reg_comen(id_const):
 		cur.execute("select construcciones_db.f_generar_id_m_contc()")
 		data = cur.fetchall()
 		v_id_mec_contacto = data[0][0]
+		print(usuario_asociado, "   ", id_usuario)
 		if(usuario_asociado == id_usuario):
+			print("ENTRE")
 			if(tipo == '0'):
 				cur.execute("insert into party values(%s,%s,current_date(),%s)",(v_id_party,"ORGANIZACION",id_usuario))
 				mysql.connection.commit()
@@ -436,14 +438,14 @@ def regis_emple():
 		party_id = request.form["id_emple"]
 		id_party_generado = ""
 		id_mec_cont_generado = ""
-		if party_id == "0":
-			 party_id = "flag"
-			 cur.execute("select f_autogenerar_id_party()")
-			 data = cur.fetchall()
-			 id_party_generado  = data[0][0]
-			 cur.execute("select f_generar_id_m_contc()")
-			 data = cur.fetchall()
-			 id_mec_cont_generado = data[0][0]
+		if (party_id == "0"):
+			party_id = "flag"
+			cur.execute("select f_autogenerar_id_party()")
+			data = cur.fetchall()
+			id_party_generado  = data[0][0]
+			cur.execute("select f_generar_id_m_contc()")
+			data = cur.fetchall()
+			id_mec_cont_generado = data[0][0]
 
 		nombre = request.form["nom_emple"]
 		apellidos = request.form["ape_emple"]

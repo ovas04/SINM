@@ -27,40 +27,41 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <form id="form-reg_actividad">
-                                        <div class="mb-3">
-                                            <label for="comentario" class="form-label">Comentario:</label>
-                                            <textarea id="comentario" class="form-control" name="comentario" rows=5 required></textarea>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="name_c" class="form-label">Nombre de Contacto:</label>
-                                                <input type="text" id="name_c" class="form-control" name="name_c" required>
+                                    <form id="form-reg_comen">
+                                    <input type="hidden" id="id_construc" name="id_construc" rl={{datos.2}}>  
+                                    <div class="mb-3">
+                                          <label for="comentario" class="form-label">Comentario:</label>
+                                          <textarea id="comentario" class="form-control" name="comentario" rows=5 required></textarea>
+                                      </div>
+                                      <div class="form-row">
+                                          <div class="form-group col-md-6">
+                                              <label for="name_contac" class="form-label">Nombre de Contacto:</label>
+                                              <input type="text" id="name_contac" class="form-control" name="name_contac" required>
+                                          </div>
+                                          <div class="form-group col-md-6">
+                                              <label for="num_contac" class="form-label">Número de Contacto:</label>
+                                              <input type="text" id="num_contac" class="form-control" name="num_contac" required>
+                                          </div>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="form-label">Tipo de Contacto:</label>
+                                          <div class="form-check">
+                                              <input class="form-check-input" type="radio" name="tipo_contac" id="tipo_contac_emp" rl="tipo_contac_emp" >
+                                              <label class="form-check-label" for="flexRadioDefault1" >
+                                                Empresa
+                                              </label>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="num_c" class="form-label">Número de Contacto:</label>
-                                                <input type="text" id="num_c" class="form-control" name="num_c" required>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Tipo de Contacto:</label>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="tipo_contac" id="tipo_contac_emp" rl="tipo_contac_emp" >
-                                                <label class="form-check-label" for="flexRadioDefault1" >
-                                                  Empresa
-                                                </label>
-                                              </div>
-                                              <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="tipo_contac" id="tipo_contac_per" rl ="tipo_contac_per">
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                  Persona
-                                                </label>  
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                          <button class="btn btn-warning">Registrar</button>
-                                        </div>
-                                      </form>
+                                              <input class="form-check-input" type="radio" name="tipo_contac" id="tipo_contac_per" rl ="tipo_contac_per">
+                                              <label class="form-check-label" for="flexRadioDefault2">
+                                                Persona
+                                              </label>  
+                                          </div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <button class="btn btn-warning btn-form btn-regis-comen">Registrar</button>
+                                      </div>
+                                    </form>
                 </div>
             </section>
 </div>

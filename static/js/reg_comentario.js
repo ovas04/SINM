@@ -39,9 +39,7 @@ function regis_comen(){
 				var objData = JSON.parse(request.responseText);
 				if(objData.status){
 					Swal.fire("¡Registrado!",objData.msg,"success");
-					setTimeout(function(){
-						window.location.href = "/construcciones_privadas";
-					}, 2000);
+
 				}else{
 					Swal.fire("¡Error!",objData.msg,"error");
 				}
