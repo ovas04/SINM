@@ -1,7 +1,9 @@
 $(document).ready(function(){
 	$(".empleados").addClass("active");
+	enviar_mensaje();
 	datos_empleado();
 	list_actividad();
+
 });
 
 function datos_empleado(){
@@ -47,5 +49,44 @@ function list_actividad(){
 		"bDestroy": true,
 		"iDisplayLength": 10,
 		"autoWidth": false
+	});
+}
+
+
+function enviar_mensaje(){
+	var form = document.querySelector("#form-llamada_atencion");
+	$(".btn-enviar").click(function(e){
+		e.preventDefault();
+		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+		var id_emple = $("#id_emple_m").val(); 
+		var tipo =  $("#tipo").val();
+		var ajaxUrl = "/enviar_mensaje/"+id_emple+"/"+tipo;
+		var formData = new FormData(form);
+		console.log($("#tipo_contac_emp").attr("checked"))
+		/*	
+		$("#form-reg_comen").find(':radio:checked').each(function () {
+			if(this.id == 'tipo_contac_emp' ){
+				formData.append('tipo','0');
+			}
+			else if (this.id == 'tipo_contac_per' ){
+				formData.append('tipo','1');
+			}
+		});*/
+
+		request.open("POST",ajaxUrl,true);
+		request.send(formData);
+		request.onload = function(){
+			if(request.status == 200){
+				var objData = JSON.parse(request.responseText);
+				if(objData.flag == 0){
+					Swal.fire("ERROR CON EL ENVIO","warning");
+				}
+				else{
+					Swal.fire("ENVIADO!",objData.msj,"success");
+				}
+			}else{
+				console.log("No se enviaron los datos");
+			}
+		}
 	});
 }

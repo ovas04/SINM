@@ -111,23 +111,24 @@
                                     </div>
 	                    		</div>
 	                    		<div class="col-md-6 mb-2">
-	                    			<div class="row">
-	                    				<div class="col-md-4">
-		                    				<span>Llamar atención:</span>
-		                    			</div>
-                                        <input type="hidden" id="id_emple_m" name="id_emple_m" value="{{datos[3]}}">
-                                        <input type="hidden" id="mail_emple_m" name="mail_emple_m" value="">
-		                    			<div class="col-md-4">
-		                    				<select class="form-select form-control-sm" name="tipo" id="tipo">
-		                    					<option selected>Seleccione</option>
-		                    					<option value="0">Postiva</option>
-		                    					<option value="1">Negativa</option>
-		                    				</select>
-		                    			</div>
-		                    			<div class="col-md-4">
-		                    				<button class="btn btn-sm btn-outline-success"><span class="fas fa-envelope"></span> Enviar</button>
-		                    			</div>
-	                    			</div>
+                                    <form id="form-llamada_atencion">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <span>Llamar atención:</span>
+                                            </div>
+                                            <input type="hidden" id="id_emple_m" name="id_emple_m" value="{{datos[3]}}">
+                                            <input type="hidden" id="mail_emple_m" name="mail_emple_m" value="">
+                                            <div class="col-md-4">
+                                                <select class="form-select form-control-sm" name="tipo" id="tipo">
+                                                    <option value="0">Postiva</option>
+                                                    <option value="1">Negativa</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button class ="btn btn-enviar btn-outline-success"><span class="fas fa-envelope"> Enviar</span></button>
+                                            </div>
+                                        </div>
+                                    </form>
 	                    		</div>
 	                    	</div>
 	                    	<div class="row">

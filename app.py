@@ -713,10 +713,13 @@ def list_actividad(id_emple):
 	else:
 		return redirect(url_for("home"))
 
-@app.route("/enviar_mensaje", methods=["POST"])
-def enviar_mensaje():
+@app.route("/enviar_mensaje/<id_empleado>/<tipo>", methods=["POST"])
+def enviar_mensaje(id_empleado,tipo):
 	if "id_user" in session:
-		mail = request.form["mail_emple"]
+		cur = mysql.connection.cursor()
+		cur.execute("select descripcion from mecanismo_contacto mc where id_tipo_contacto = %s and id_party = %s ",('CTC-000002',id_empleado))
+		correo = cur.fetchall()[0][0]
+		Service.enviar_mensaje(tipo,correo)
 		return jsonify()
 		cur.connection.close()
 	else:
