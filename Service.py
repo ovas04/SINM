@@ -40,7 +40,7 @@ class Service:
 		try:
 			message = ""
 			if(tipo=='1'):
-				message = "Estas reheroku logstrasado en tu objetivo mensual, esfuerzate!"
+				message = "Estas restrasado en tu objetivo mensual, esfuerzate!"
 			else:
 				message = "Estas encaminado en tu objetivo mensual, sigue asi!"
 			server = smtplib.SMTP("smtp.gmail.com",587)
